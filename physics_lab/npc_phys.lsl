@@ -1,7 +1,7 @@
 // change history:
-//   September 2017: created by Raymond Naglieri in October 2017 
+//   October 2017: created by Raymond Naglieri in October 2017 
 //   December 2017:  Wait2Speak and Wait2SpeakList functionality done. 
-//   January 2017:   added A5-10 and R3-7;
+//   January 2018:   added A5-10 and R3-7;
 //                   ask_question() added to timer event in: State Ask 
 //                   added random animation to idle state;
 
@@ -9,7 +9,8 @@
 // Notes:
 //  1. Please use the currentanimation variable when playing an animation.
 
-//master keyword :"$%&"
+//master keyword :"$%&", add override. 
+
 
 // NPC Variables
 integer tc = 0; 
