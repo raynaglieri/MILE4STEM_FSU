@@ -100,7 +100,7 @@ list animation_LL = ["avatar_angry_tantrum", "avatar_fist_pump", "avatar_stretch
                       "avatar_laugh_short"];
 list animation_LLL = ["avatar_sleep"];  
 
-list lab_animations = ["writing_at_desk", "Well"];
+list lab_animations = ["writing_at_desk", "Well", "exp_anim"];
 
 string string_ani; 
 

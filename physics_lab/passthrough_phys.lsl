@@ -4,6 +4,7 @@ integer num_npc = 8;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
+integer board_control_channel = 36000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
 integer physics_dialogue_state_control_channel = 10001; 
@@ -222,21 +223,25 @@ default
         } 
         else if(message == "-a_npcmeasurecurrent")
         {
-             llSay(base_npc_control_channel+1, "-npcask3");
-             llSay(base_npc_control_channel+3, "-npcresp1");
+            llSay(base_npc_control_channel+1, "-npcask3");
+            llSay(base_npc_control_channel+3, "-npcresp1");
+            llSay(board_control_channel, "0");
         } 
         else if(message == "-a_npcmeasurevoltage")
         {
              llSay(base_npc_control_channel+4, "-npcask4");
              llSay(base_npc_control_channel+6, "-npcresp2");
+             llSay(board_control_channel, "3");
         } 
         else if(message == "-a_npccorrectresvoltage")
         {
              llSay(base_npc_control_channel+2, "-npcask5");
+             llSay(board_control_channel, "1");
         } 
         else if(message == "-a_npccorrectcurrent")
         {
              llSay(base_npc_control_channel+7, "-npcask6");
+             llSay(board_control_channel, "4");
         } 
         else if(message == "-a_npcdifferentcurrent")
         {
