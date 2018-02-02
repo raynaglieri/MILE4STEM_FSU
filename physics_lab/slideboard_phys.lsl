@@ -1,4 +1,6 @@
-
+// Created on 1/29/2017 By Raymond Naglieri.
+// Description: Takes commands from board_control_channel and updates textures on attatched prim.
+//
 string slide_texture;
 integer MAX_SLIDE_COUNT = 5; 
 integer board_control_channel = 36000;
