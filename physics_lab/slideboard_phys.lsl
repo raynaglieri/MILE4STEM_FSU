@@ -9,7 +9,7 @@ display_slide(integer slide_number)
 {
 	if(slide_number >= 0 && slide_number <= MAX_SLIDE_COUNT)
 	{
-		llGetInventoryName(INVENTORY_TEXTURE, slide_number);
+		slide_texture = llGetInventoryName(INVENTORY_TEXTURE, slide_number);
 		llSetTexture(slide_texture, ALL_SIDES);		
 		return;
 	}		
