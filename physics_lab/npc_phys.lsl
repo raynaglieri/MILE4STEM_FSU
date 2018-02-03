@@ -132,12 +132,14 @@ integer signal_response_num = 0;
 integer exit_on_incorrect = 0;
 key ignore_this_npc = NULL_KEY;
 list pending_actions; 
+integer signal_action_complete = 0;
 
 
 
 //DO NOT MODIFY
-// these are the constants used for all scripts for the lecture
+// these are the constants used for all scripts
 integer facil_state_control_channel = 10101;
+integer auto_facil_control_channel = 10102;
 
 integer npc_state_control_base_channel = 31000;
 integer npc_para_control_base_channel = 32000;
@@ -240,6 +242,17 @@ provide_metaphor() //rewrite
             osNpcSay(npc, llList2String(group_two_metaphors, index));
         }       
     }      
+}
+
+set_ask_settings(integer swq, integer snr, list so, integer srn, integer kma, integer eoi, integer sac)
+{
+    speak_with_question = swq;
+    signal_npc_reponse = snr;
+    signal_offsets = so;
+    signal_response_num = srn;
+    keyword_match_amount = kma;
+    exit_on_incorrect = eoi;
+    signal_action_complete = sac;
 }
 
 random_mood()
@@ -430,13 +443,9 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_multimeter;
             correct_response = "Yes, I misconnected the wires.";
             gen_response = "I've tried that!";
-            speak_with_question = 0;
-            signal_npc_reponse = 0;
-            keyword_match_amount = 2;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         } 
         else if (directive == "2" && myid == 5)
         {
@@ -444,14 +453,10 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_multimeter;
             correct_response = "Yes, I probably messed up the wires";
             gen_response = "I've done that!";
-            speak_with_question = 0;
-            signal_npc_reponse = 0;
-            keyword_match_amount = 2;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
 
-            state Ask;
         } 
         else if(directive == "3" && myid == 1) 
         {
@@ -459,15 +464,9 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_series;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
-            speak_with_question = 0;
-            signal_npc_reponse = 1;
-            signal_offsets = [3];
-            signal_response_num = 1;
-            keyword_match_amount = 2;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 1, [3], 1, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         }
         else if(directive == "4" && myid == 4) 
         {
@@ -475,15 +474,9 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_resistors;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
-            speak_with_question = 0;
-            signal_npc_reponse = 1;
-            signal_offsets = [6];
-            signal_response_num = 1;
-            keyword_match_amount = 2;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 1, [6], 1, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         }
         else if (directive == "5" && myid == 2)
         {
@@ -495,9 +488,10 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             signal_npc_reponse = 0;
             keyword_match_amount = 0;
             exit_on_incorrect = 0;
+            signal_action_complete = 0;
+            set_ask_settings(0, 1, [3], 1, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         } 
         else if (directive == "6" && myid == 7)
         {
@@ -505,13 +499,9 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = [];
             correct_response = "Thanks.";
             gen_response = "";
-            speak_with_question = 0;
-            signal_npc_reponse = 0;
-            keyword_match_amount = 0;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 0, [], 0, 0, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         } 
         else if(directive == "7" && myid == 0) 
         {
@@ -519,15 +509,9 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_kirchoff;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
-            speak_with_question = 0;
-            signal_npc_reponse = 1;
-            signal_offsets = [1,2];
-            signal_response_num = 1;
-            keyword_match_amount = 2;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 1, [1,2], 1, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         } 
         else if(directive == "8" && myid == 6) 
         {
@@ -535,15 +519,9 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_kirchoff;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
-            speak_with_question = 0;
-            signal_npc_reponse = 1;
-            signal_offsets = [3];
-            signal_response_num = 1;
-            keyword_match_amount = 2;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 1, [3], 1, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         }  
         else if(directive == "9" && myid == 4) 
         {
@@ -551,15 +529,9 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_polarity;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
-            speak_with_question = 0;
-            signal_npc_reponse = 1;
-            signal_offsets = [2];
-            signal_response_num = 1;
-            keyword_match_amount = 2;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 1, [2], 1, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         }   
         else if(directive == "10" && myid == 7) 
         {
@@ -567,15 +539,9 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_polarity;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
-            speak_with_question = 0;
-            signal_npc_reponse = 1;
-            signal_offsets = [1];
-            signal_response_num = 1;
-            keyword_match_amount = 0;
-            exit_on_incorrect = 0;
+            set_ask_settings(0, 1, [1], 1, 0, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
         } 
         else if(directive == "11" && myid == 2) 
         {
@@ -583,16 +549,12 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_extratime;
             correct_response = "Great Thank you so much!";
             gen_response = "Alright, we'll finish as much as we can.";
-            speak_with_question = 0;
-            signal_npc_reponse = 0;
-            signal_offsets = [];
-            signal_response_num = 3;
-            keyword_match_amount = 1;
-            exit_on_incorrect = 1;
+            set_ask_settings(0, 0, [], 3, 1, 1, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-            state Ask;
-        }      
+        }  
+
+         state Ask;    
 
     }
     else if(activescenario == "R")
@@ -1252,6 +1214,10 @@ state Respond
                 if(keyword_match_multi(msg, keywords_current, keyword_match_amount) && ID != npc) 
                 {
                     osNpcSay(npc, correct_response);
+                    if(signal_action_complete)
+                    {
+                        llSay(auto_facil_control_channel, "-ac");
+                    }
                     state Idle;  
                 }
                 else 
@@ -1261,6 +1227,10 @@ state Respond
                         osNpcSay(npc, gen_response);
                         if(exit_on_incorrect)
                         {
+                            if(signal_action_complete)
+                            {
+                                llSay(auto_facil_control_channel, "-ac");
+                            }
                             state Idle;
                         }
                     }
@@ -1269,6 +1239,10 @@ state Respond
                         osNpcSay(npc, gen_response);
                         if(exit_on_incorrect)
                         {
+                            if(signal_action_complete)
+                            {
+                                llSay(auto_facil_control_channel, "-ac");
+                            }
                             state Idle;
                         }
                     }
@@ -1276,6 +1250,12 @@ state Respond
             }
         }  else process_common_listen_port_msg(c, n, ID, msg);   
     }
+
+    // state_exit()
+    // {
+    //     llSay(0, "test");
+    //     llSay(auto_facil_control_channel, "-ac");
+    // }
 }
 
 state WaitSignal

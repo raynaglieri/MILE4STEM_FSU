@@ -7,6 +7,7 @@ integer npc_action_control_base_channel = 33000;
 integer board_control_channel = 36000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
+integer auto_facil_control_channel = 10102;
 integer physics_dialogue_state_control_channel = 10001; 
 
 
@@ -22,6 +23,7 @@ reset_to_start()
        llSay(base_npc_control_channel+i, "-reset");
     llSay(facil_control_channel, "-reset");
     llSay(physics_dialogue_state_control_channel, "-reset");   
+    llSay(auto_facil_control_channel, "-reset");
 } 
 
 npc_group_speak() 
