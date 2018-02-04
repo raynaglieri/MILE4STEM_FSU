@@ -435,7 +435,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             state Wait2Speak; 
         }  
     }
-    else if(activescenario == "A")
+    else if(activescenario == "A") // settings (integer swq, integer snr, list so, integer srn, integer kma, integer eoi, integer sac)
     {
         if(directive == "1" && myid == 0)
         {
@@ -484,12 +484,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = [];
             correct_response = "Thanks.";
             gen_response = "";
-            speak_with_question = 0;
-            signal_npc_reponse = 0;
-            keyword_match_amount = 0;
-            exit_on_incorrect = 0;
-            signal_action_complete = 0;
-            set_ask_settings(0, 1, [3], 1, 1, 0, 1);
+            set_ask_settings(0, 0, [], 0, 0, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         } 
