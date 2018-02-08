@@ -1005,7 +1005,6 @@ default
         npc_para_control_channel = npc_para_control_base_channel + myid;
         npc_action_control_channel = npc_action_control_base_channel + myid;
         npc_to_npc_signal = npc_to_npc_signal_base_channel + myid;
-        llSitTarget(<0.0, 0.0, 1>, ZERO_ROTATION);
         llListen(green_button_channel, "", NULL_KEY, "");
     }
     
