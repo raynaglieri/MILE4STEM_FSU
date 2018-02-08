@@ -1,9 +1,10 @@
 // change history:
-//   October 2017: created by Raymond Naglieri in October 2017 
+//   October 2017:   created by Raymond Naglieri in October 2017 
 //   December 2017:  Wait2Speak and Wait2SpeakList functionality done. 
 //   January 2018:   added A5-10 and R3-7;
 //                   ask_question() added to timer event in: State Ask 
 //                   added random animation to idle state;
+//        2/1/18:    added auto_facil support.  
 
 
 // Notes:
@@ -100,7 +101,7 @@ list animation_LL = ["avatar_angry_tantrum", "avatar_fist_pump", "avatar_stretch
                       "avatar_laugh_short"];
 list animation_LLL = ["avatar_sleep"];  
 
-list lab_animations = ["writing_at_desk", "Well", "exp_anim"];
+list lab_animations = ["writing_at_desk", "Well"];
 
 string string_ani; 
 
@@ -993,6 +994,7 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
     }
 }  
 
+
 default 
 {
     state_entry() 
@@ -1003,6 +1005,7 @@ default
         npc_para_control_channel = npc_para_control_base_channel + myid;
         npc_action_control_channel = npc_action_control_base_channel + myid;
         npc_to_npc_signal = npc_to_npc_signal_base_channel + myid;
+        llSitTarget(<0.0, 0.0, 1>, ZERO_ROTATION);
         llListen(green_button_channel, "", NULL_KEY, "");
     }
     
