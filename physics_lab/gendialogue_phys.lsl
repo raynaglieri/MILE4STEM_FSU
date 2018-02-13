@@ -5,6 +5,9 @@
 // Some variable that you might want to modify: dialog_box_interact_interval,
 //    state_control_channel, and local_dialog_channle
 
+//modified by Raymond Naglieri to work within physics lab. 
+
+
 key dialog_target = NULL_KEY; // key of the person to talk to
 string state_name;            // name of the current state 
 integer timer_count;          // counter of timer
@@ -56,13 +59,13 @@ string s11_msg = "What about common mistakes? Did you mention any?";
 list s11_button = ["Yes", "No"];
 
 string s12_msg = "Awesome! Pointing out these mistakes would also raise students attention and keep them away from these issues.";
-list s12_button = ["Okay"];
+list s12_button = ["Continue"];
 
 string s13_msg = "Do you know what they are? Where to get such information?";
 list s13_button = ["Yes", "No"];
 
 string s14_msg = "Great! What would you do to find it out?";
-list s14_button = ["Continue"];
+list s14_button = [];
 
 string s15_msg = "Okay, is this your first time teaching this lab?";
 list s15_button = ["Yes", "No"];
@@ -82,7 +85,7 @@ list s19_button = ["Yes", "No"];
 string s20_msg = "Great! What would the instructions be?";
 list s20_button = [];
 
-string s21_msg = "What about lab safety rules?";
+string s21_msg = "What about lab rules?";
 list s21_button = [];
 
 string s22_msg = "Ok, you are done with lab guide, proceed to the next stage.";
@@ -126,11 +129,7 @@ dialog_with_timer(string msg, list button, integer t)
 dialog_with_timer_count(string msg, list button, integer t)
 {
   timer_count ++;
-  if (timer_count >= 3) {
-    llSetTimerEvent(0); 
-    if(debug_level)
-      llSay(0, "timeout too many times, back to initial (idle) state"); state default;
-  }
+  if (timer_count >= 3) {llSetTimerEvent(0); llSay(0, "timeout too many times, back to initial (idle) state"); state default;}
   llSetTimerEvent(t);
   if (button == [])
     llTextBox(dialog_target, msg, local_dialog_channel);
@@ -219,8 +218,7 @@ process_state_control_msg(integer c, string n, key ID, string msg) {
       llSetTimerEvent(0);
       state s22;
     } else {
-        if(debug_level)
-          llSay(0, "unknown command "+ msg + ", ignored");
+      llSay(0, "unknown command "+ msg + ", ignored");
     }
   }
 }
@@ -228,10 +226,9 @@ process_state_control_msg(integer c, string n, key ID, string msg) {
 default {
 
   state_entry() {
-    
+
     llListen(button_to_lab_dialogue_channel, "", NULL_KEY, "");
     register_common_channel_timer(0);
-    
 
   }
 
@@ -241,7 +238,7 @@ default {
   }
 
   listen(integer c, string n, key ID, string msg) {
-
+    
       if (c == button_to_lab_dialogue_channel)
       {
           dialog_target = msg;
@@ -459,7 +456,7 @@ state s12 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
-      if (msg == "Okay") { llSetTimerEvent(0); state default;}
+      if (msg == "Continue") { llSetTimerEvent(0); state s18;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }
 }
@@ -492,7 +489,7 @@ state s14 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
-      if (msg == "Continue") { llSetTimerEvent(0); state s18;}
+      llSetTimerEvent(0); state s18;
     } else {process_state_control_msg(c, n, ID, msg);}
 }
 }
