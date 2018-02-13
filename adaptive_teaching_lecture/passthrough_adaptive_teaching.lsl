@@ -209,7 +209,7 @@ default
         } else if (message == "-facildisap"){
             llSay(0, "Now its time to talk about quiz results");
             llSay(facil_control_channel, "-d12");
-            llSay(room_control_base_channel, "-showfloattext");
+            //llSay(room_control_base_channel, "-showfloattext");
             llSay(npc_action_control_base_channel+7, "@Perform-avatar_express_sad");
             npc_wait_animation(); 
         } else if (message == "-facildisap!"){
