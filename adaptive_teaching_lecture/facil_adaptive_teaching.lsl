@@ -30,42 +30,42 @@ integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
 
 // Message for the dialog and textboxes in the conversation
-string d1_msg1 = "It is always important to follow learners’ affective states during the lecture and try to engage them when they fail to focus on the lecture content. One of the reasons why learners are not focusing, however, is a low situational interest. You might want to check for this using a quick quiz";
+string d1_msg1 = "Are students engaged during your lecture? You may want to check their situational interest by asking how interested they are in the details of the topic or the task.";
 list   d1_button1 = ["Okay"];
 string d1_msg2 = "Check for your learners situational interest!";
 list   d1_button2 = ["Okay"];
 
-string d2_msg1 = "If you were to see low situational interest results one of the good intervention methods is to offer students choice of the learning activities";
+string d2_msg1 = "Students are not engaged when they are in low situational interest state. What other learning activities can catch their interest? Try them!";
 list   d2_button1 = ["Okay"];
 string d2_msg2 = "Empty";
 list   d2_button2 = ["Okay"];
 
-string d3_msg1 = "The other important thing to track is learners’ cognitive states and understanding. You might want to ask learners whether they understand what was said or to give a brisk group quiz.";
+string d3_msg1 = "It is also important to track learners’ cognitive states. Do they understand everything? You can find it out by asking some questions or give a quiz";
 list   d3_button1 = ["Okay"];
 string d3_msg2 = "You might want to ask students whether they understand the topic or not.";
 list   d3_button2 = ["Okay"];
 
-string d4_msg1 = "While some students prefer to listen to your lecture, the others would rather read it, visualize it or even rhyme it to better understand the concepts. Understanding different learning styles helps instructor deliver the most effective lecture possible";
+string d4_msg1 = "Keep in mind that students learn differently. You may use different forms of learning materials and activities to accommodate their learning styles.";
 list   d4_button1 = ["Okay"];
 string d4_msg2 = "You might want to give the student a handout.";
 list   d4_button2 = ["Okay"];
 
-string d5_msg1 = "while some students want to understand the subject matter, the others are just looking to get a good grade. This difference in approaches is known as mastery and performance goals. Typical class present a mixture of the learners of both types.";
+string d5_msg1 = "Students come to class with different goals: some focus on learning while some may concern more about grades.";
 list   d5_button1 = ["Okay"];
 string d5_msg2 = "Empty";
 list   d5_button2 = ["Okay"];
 
-string d6_msg1 = "If students are not paying attention it might be caused by the lack of understanding or negative academic emotions, such as non-productive confusion or boredom. It is important to identify these moments as they are an adaptive teaching opportunity. You might want to ask your students how they are going with your lecture.";
+string d6_msg1 = "Did you notice that some students are not paying attention? They might be confused or not motivated by some part of your lecture. Can you ask students how they are going with your lecture?";
 list   d6_button1 = ["Okay"];
-string d6_msg2 = "You might want to try telling a joke or making some intentionally funny movement and asking if students noticed it to attract everybody’s attention.";
+string d6_msg2 = "Empty";
 list   d6_button2 = ["Okay"];
 
-string d7_msg1 = "Although you have correctly identified the moments when intervention is needed you might want to reflect on which cues are cognitive, which are emotional and respond by trying to engage students in case of emotional cue and by making instructional adjustments in case of cognitive cues. Try to handle emotional cues now.";
+string d7_msg1 = "You may also want to reflect whether the cues your students gave are emotional or cognitive. Now try to handle emotional cues by better engaging your students.";
 list   d7_button1 = ["Okay"];
 string d7_msg2 = "You might want to try telling a joke or making some intentionally funny movement and asking if students noticed it to attract everybody’s attention";
 list   d7_button2 = ["Okay"];
 
-string d8_msg1 = "Sometimes academic standards or “cultures” are different between disciplines. As a graduate student, you get used to the standards of your discipline, but it’s always important to let your students know why you are doing things a particular way: in this discipline* we…";
+string d8_msg1 = "Academic standards or “cultures” can be different between disciplines. It is important to let students understand the culture of your discipline, such as why something is done in a certain way.";
 list   d8_button1 = ["Okay"];
 string d8_msg2 = "You might want to say how things are done in your discipline.";
 list   d8_button2 = ["Okay"];
@@ -532,7 +532,6 @@ state D1
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                llGiveInventory(trainee, "situational_interest");
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
