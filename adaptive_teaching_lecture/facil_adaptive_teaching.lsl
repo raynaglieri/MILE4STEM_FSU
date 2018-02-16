@@ -5,7 +5,7 @@ integer auto_facil = TRUE;  // TRUE: automatic mode, FALSE: manual mode
 integer base_NPCID = -200;   // No use in this file
 
 // some utility variables
-integer debug_level = 10;  // debug_level to control messages
+integer debug_level = 0;  // debug_level to control messages
 string state_name;         // name of the current state
 integer state_id;          // id of the state   
                            // 0 - default;
@@ -429,7 +429,7 @@ default
             }  
             else 
             {
-                if (debug_level > 0) 
+                if (debug_level) 
                     llSay(0, "default state: received unknown feedback from dialog box, ignore");
             }             
         } 
@@ -471,7 +471,8 @@ state Idle {
     
     state_entry(){
         state_name = "idle";
-        llSay(0, "In manual facilitator guided mode.");
+        if (debug_level) 
+            llSay(0, "In manual facilitator guided mode.");
         register_common_channel_timer(reminder_interval*3);
     } 
     
@@ -490,7 +491,8 @@ state Idle {
     }  
     
     timer() {
-        llSay(0, "in idle state");
+        if (debug_level) 
+            llSay(0, "in idle state");
         llSetTimerEvent(reminder_interval*3);
     }
         

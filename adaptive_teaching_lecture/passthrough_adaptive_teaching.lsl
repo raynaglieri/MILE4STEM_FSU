@@ -6,6 +6,8 @@
 //      --message to whiteboard added to trigger hovering text.
 //      --npc_bored_animation now provides random animations. 
 //      --facildiscip command play animations forever until until facildiscip! command is called
+//    2/15/18: various changes to match design docs
+//    2/16/18: standard wait time between dialogue and actions implemented
 integer num_npc = 8;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;
@@ -13,6 +15,7 @@ integer npc_action_control_base_channel = 33000;
 integer room_control_base_channel = 35000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
+integer wait = 10;
 
 integer random_integer(integer min, integer max)
 {
@@ -92,7 +95,7 @@ npc_ask_animation()
 npc_bored_animation()
 {
     integer i;
-    list bored_amims = ["avatar_impatient","avatar_express_bored", "avatar_express_sad", "avatar_express_shrug", "Defensive"];
+    list bored_amims = ["avatar_impatient","avatar_express_bored", "avatar_express_sad", "avatar_express_shrug","avatar_express_shrug","Defensive"];
     list random_anim = llListRandomize(bored_amims, 1);
     integer random_index = 0;
     for (i=0; i<num_npc; i++)
@@ -123,7 +126,7 @@ default
         } else if (message == "-facilengage"){
             llSay(0,"Lecture in progress");
             llSay(facil_control_channel, "-d1");
-            llSleep(2.0);
+            llSleep(wait);
             llSay(npc_action_control_base_channel+3, "@Perform-avatar_express_wink");
             llSay(npc_action_control_base_channel+4, "@Perform-avatar_express_sad");
             llSay(npc_action_control_base_channel+7, "@Perform-Defensive");
@@ -137,7 +140,7 @@ default
             llSay(facil_control_channel, "-d2!");
         } else if (message == "-facilcog"){
             llSay(facil_control_channel, "-d3");
-            llSleep(2.0);
+            llSleep(wait);
             llSay(npc_action_control_base_channel+3, "@Perform-avatar_no_unhappy");
             llSay(npc_action_control_base_channel+7, "@Perform-avatar_no_unhappy");
             npc_wait_animation();
@@ -145,7 +148,7 @@ default
             llSay(facil_control_channel, "-d3!");
         } else if (message == "-facilprefer"){ // say
             llSay(facil_control_channel, "-d4");
-            llSleep(2.0);
+            llSleep(wait);
             llSay(npc_action_control_base_channel+2, "@SpeakList-Did we get the handouts#1::I understand better when I read the handouts#5");
             llSay(npc_para_control_base_channel+3, "@Setwait_talk 2");
             llSay(npc_action_control_base_channel+3, "@Speak-Why do you need them?");
@@ -153,9 +156,9 @@ default
             llSay(facil_control_channel, "-d4!");
         } else if (message == "-facilgrade"){
             llSay(facil_control_channel, "-d5");
-            llSleep(4.0);
+            llSleep(wait);
             llSay(0, "Instructional break");
-            llSleep(2.0);
+            llSleep(wait);
             llSay(npc_action_control_base_channel+4, "@Speak-Do we get additional points for the questions we have answered in previous lecture?");
             llSay(npc_para_control_base_channel, "@Setwait_talk 2");
             llSay(npc_action_control_base_channel, "@Speak-They were not about our subject matter – chill out!");
@@ -165,14 +168,14 @@ default
         } else if (message == "-facilident"){
             llSay(0, "Lecture continues");
             llSay(facil_control_channel, "-d6");
-            llSleep(2.0);
+            llSleep(wait);
             npc_bored_animation();
             npc_wait_animation();
         } else if (message == "-facilident!"){
             llSay(facil_control_channel, "-d6!");
         } else if (message == "-facilemot"){
             llSay(facil_control_channel, "-d7");
-            llSleep(2.0);
+            llSleep(wait);
             llSay(npc_action_control_base_channel+5, "@Speak-It’s quite boring.");
             llSay(npc_para_control_base_channel+6, "@Setwait_talk 2");
             llSay(npc_action_control_base_channel+6, "@Speak-and not well structured.");
@@ -180,7 +183,7 @@ default
             llSay(facil_control_channel, "-d7!");
         } else if (message == "-facildiscip"){
             llSay(facil_control_channel, "-d8");
-            llSleep(2.0);
+            llSleep(wait);
             llSay(npc_action_control_base_channel+6, "@Speak-we do it differently in mathematics");
             npc_bored_animation();
         } else if (message == "-facildiscip!"){
@@ -188,7 +191,7 @@ default
             npc_stop_animation();
         } else if (message == "-facilcovered"){
             llSay(facil_control_channel, "-d9");
-            llSleep(2.0);
+            llSleep(wait);
             llSay(npc_action_control_base_channel, "@Speak-we have already had the point TA is covering now two weeks ago");
         } else if (message == "-facilcovered!"){
             llSay(facil_control_channel, "-d9!");
@@ -198,8 +201,9 @@ default
         } else if (message == "-facilhand!"){ // 
             llSay(facil_control_channel, "-d10!");
         } else if (message == "-facilvisual"){
+            llSay(0, "Lecture continues");
             llSay(facil_control_channel, "-d11");
-            llSleep(2.0);
+            llSleep(wait);
             llSay(npc_action_control_base_channel, "@Speak-we don’t understand anything");
             llSay(npc_para_control_base_channel, "@Setwait_talk 2");
             llSay(npc_action_control_base_channel+6, "@Speak-we are visual learners!");
@@ -231,7 +235,7 @@ default
         } else if (message == "-npclost"){
             llSay(0, "Lecture continues");
             llSay(npc_action_control_base_channel+3, "@Speak-I thought I got lost for a second, ok now");
-            llSay(npc_action_control_base_channel+7, "@Perfrom-Okay_nodding");
+            llSay(npc_action_control_base_channel+7, "@Perform-Okay_nodding");
             npc_wait_animation();
         } else if (message == "-npcunderstand"){ 
             llSay(base_npc_control_channel+4, "-npcask2");
@@ -258,6 +262,7 @@ default
             // llSay(npc_action_control_base_channel+4, "@Perform-avatar_express_bored");
             npc_wait_animation();  
         } else if (message == "-npcatten!"){
+            llSay(0, "Lecture continues");
             llSay(facil_control_channel, "-dw5");  
         } else if (message == "-npcquestions"){
             //npc_hand_animation();
@@ -269,6 +274,7 @@ default
             llSay(0,"It's a time to present your students with a prepared example");
         } else if (message == "-announce1!"){
             llSay(facil_control_channel, "-a1!");
+            llSay(0, "It's time to presemt your students with a prepared example.");
         } else if (message == "-announce2"){
             llSay(facil_control_channel, "-a2"); 
         } else if (message == "-announce3"){
