@@ -185,7 +185,7 @@ default
             llSay(facil_control_channel, "-d8");
             llSleep(wait);
             llSay(npc_action_control_base_channel+6, "@Speak-we do it differently in mathematics");
-            npc_bored_animation();
+            //npc_bored_animation();
         } else if (message == "-facildiscip!"){
             llSay(facil_control_channel, "-d8!");
             npc_stop_animation();
