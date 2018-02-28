@@ -409,7 +409,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         {
             state WaitIteration;
         }
-        else if(directive == "3")
+        else if(directive == "4")
         {
             state WaitIndef;
         }

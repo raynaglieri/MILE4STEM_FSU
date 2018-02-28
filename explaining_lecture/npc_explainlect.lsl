@@ -448,7 +448,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
     }
     else if(activescenario == "A") // settings (integer swq, integer snr, list so, integer srn, integer kma, integer eoi, integer sac)
     {
-        if(directive == "1" && (myid == 2 || myid == 0))
+        if(directive == "1" && myid == 2)
         {
             currentquestion = "Excuse me. What would be an example of a metaphor?";
             keywords_current = [];
@@ -457,7 +457,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             say_this = "";
             set_ask_settings(0, 0, [], 0, 0, 0, 1);
         }  
-        else if(directive == "2" && (myid == 5 || myid == 1 || myid == 0))
+        else if(directive == "2" && myid == 1)
         {
             currentquestion = "Why did they win? Explain why their metaphor is better!";
             keywords_current = [];
@@ -465,7 +465,17 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             gen_response = "I still don't get it.";
             say_this = "";
             set_ask_settings(0, 0, [], 0, 0, 0, 1);
-        }  
+        } 
+
+        else if(directive == "3" && myid == 5)
+        {
+            currentquestion = "Why did they win? Explain why their metaphor is better!";
+            keywords_current = [];
+            correct_response = "Thanks.";
+            gen_response = "I still don't get it.";
+            say_this = "";
+            set_ask_settings(0, 0, [], 0, 0, 0, 1);
+        }   
         state Ask;    
     }
     else if(activescenario == "R")
@@ -640,6 +650,10 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         else if(msg == "-npcask2")
         {
             npc_state_handler("A:2", c, n, ID, msg);
+        }
+        else if(msg == "-npcask3")
+        {
+            npc_state_handler("A:3", c, n, ID, msg);
         }
         else
         {

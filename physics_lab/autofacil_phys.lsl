@@ -2,15 +2,16 @@
 // Decription: Auto executes a series of commands when given a specific command. 
 // Log:
 // 2/4/2018 - Template completed, added all npc actions. Fixed msg to parse_msg. 
+// 2/22/2018 - Updated actions to match design
 
 integer auto_facil_control_channel = 10102;
 integer backdoor_channel=20001;
 list active_series; 
 integer  index = 0;
 list series_a = ["-a_npcmeterbroken" , "-a_npclookatmeter"];
-list series_b = ["-a_npcmeasurecurrent" , "-a_npcmeasurevoltage", "-a_npccorrectresvoltage"];
-list series_c = ["-a_npccorrectcurrent"];
-list series_d = ["-a_npcdifferentcurrent" , "-a_npcdifferentcurrentt2", "-a_npcnegativevoltage", "-a_npcrighthandside"];
+list series_b = ["-a_connect4voltage", "-a_connect4current"];
+list series_c = ["-a_npcmeasurecurrent" , "-a_npcmeasurevoltage", "-a_npccorrectresvoltage"];
+list series_d = ["-a_npccorrectcurrent"];
 list series_e = ["-a_npcoutoftime"];
 
 

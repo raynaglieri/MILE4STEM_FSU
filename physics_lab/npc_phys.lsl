@@ -6,6 +6,7 @@
 //                   added random animation to idle state;
 //        2/1/18:    added auto_facil support.  
 //        2/8/18:    added initial audio respose feature.
+//        2/22/18:   updated actions to match design 
 
 
 // Notes:
@@ -466,7 +467,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             correct_response = "Yes, I misconnected the wires.";
             gen_response = "I've tried that!";
             say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(1, 0, [], 0, 1, 0, 1);
+            set_ask_settings(0, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         } 
@@ -484,7 +485,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         } 
         else if(directive == "3" && myid == 1) 
         {
-            currentquestion = "I have measured the current between the first and the second resistor and after the third resistor and it's always the same. What's wrong?";
+            currentquestion = "I have measured the current between the first and the second resistor and between the seocnd and the third resistor and it's always the same. Are the current readings supposed to be the same?";
             keywords_current = keywords_series;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
@@ -495,7 +496,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         }
         else if(directive == "4" && myid == 4) 
         {
-            currentquestion = "I have measured the voltage on two resistors with the same resistance and the voltage is different - different values. Am I doing something wrong?";
+            currentquestion = "Why am I getting the same voltage reading across each of the resistors?";
             keywords_current = keywords_resistors;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
@@ -506,67 +507,45 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         }
         else if (directive == "5" && myid == 2)
         {
-            currentquestion = "I have measured the voltage on the first resistor and it's 5.45 V. Is it correct?";
-            keywords_current = [];
+            currentquestion = "I have measured the voltage on the second resistor and it's 1.67 V. How do I know this is correct?";
+            keywords_current = ["yes", "no"];
             correct_response = "Thanks.";
             gen_response = "";
             say_this = llList2String(npc3_lab_sounds, 0);
-            set_ask_settings(0, 0, [], 0, 0, 0, 1);
+            set_ask_settings(0, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         } 
         else if (directive == "6" && myid == 7)
         {
-            currentquestion = "I have measured the total current and it's 17.33 A. Is it correct?";
-            keywords_current = [];
+            currentquestion = "I have measured current on the first resistor and it's 0.05 A.  Is it correct?";
+            keywords_current = ["yes" , "no"];
             correct_response = "Thanks.";
             gen_response = "";
             say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 0, [], 0, 0, 0, 1);
-            // speak_with_question = 1;
-            // currentsound = "You_are_talking_too_fast";
-        } 
-        else if(directive == "7" && myid == 0) 
-        {
-            currentquestion = "I have measured the current for two resistors with the same resistance and the current is different - different values. Am I doing everything correctly?";
-            keywords_current = keywords_kirchoff;
-            correct_response = "Thanks.";
-            gen_response = "I've tried that!";
-            say_this = llList2String(npc1_lab_sounds, 1);
-            set_ask_settings(1, 1, [1,2], 1, 1, 0, 1);
-            // speak_with_question = 1;
-            // currentsound = "You_are_talking_too_fast";
-        } 
-        else if(directive == "8" && myid == 6) 
-        {
-            currentquestion = "I have measured the voltage on two resistors with the same resistance and the voltage is different - different values. Am I doing something wrong?";
-            keywords_current = keywords_kirchoff;
-            correct_response = "Thanks.";
-            gen_response = "I've tried that!";
-            say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 1, [3], 1, 1, 0, 1);
+            set_ask_settings(0, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         }  
-        else if(directive == "9" && myid == 4) 
+        else if (directive == "7" && myid == 2)
         {
-            currentquestion = "I have measured the voltage for resistors on the right hand side loop and I got a negative voltage value for one of the resistors. Is it normal?";
-            keywords_current = keywords_polarity;
+            currentquestion = "How do I connect the multimeter to measure the voltage across each resistor?";
+            keywords_current = keywords_multimeter; 
             correct_response = "Thanks.";
-            gen_response = "I've tried that!";
-            say_this = llList2String(npc5_lab_sounds, 1);
-            set_ask_settings(0, 1, [2], 1, 1, 0, 1);
+            gen_response = "";
+            say_this = llList2String(npc1_lab_sounds, 0);
+            set_ask_settings(0, 0, [], 0, 2, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
-        }   
-        else if(directive == "10" && myid == 7) 
+        }  
+        else if (directive == "8" && myid == 7)
         {
-            currentquestion = "I have measured the voltage for resistors on the right hand side loop and I got the following values 11.55; 10.00; -1.53. Are they correct?";
-            keywords_current = keywords_polarity;
+            currentquestion = "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?";
+            keywords_current = ["break the current"]; 
             correct_response = "Thanks.";
-            gen_response = "I've tried that!";
+            gen_response = "";
             say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 1, [1], 1, 0, 0, 1);
+            set_ask_settings(0, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         } 
@@ -589,61 +568,15 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
     {
         if(directive == "1" && myid == 3) 
         {
-            correct_response = "Yes, it's the same but the resistors have different resistance.";
+            correct_response = "Yes, it's the same but the resistors have different resistances.";
             gen_response = ""; 
-            set_response_settings(1, 5 , 1, llList2String(npc4_lab_sounds, 0));
+            set_response_settings(0, 5 , 1, llList2String(npc4_lab_sounds, 0));
         }
         else if(directive == "2" && myid == 6) 
         {
-            correct_response = "Yes, it's the same but the resistors have different resistance.";
+            correct_response = "Yes, it's the same but the resistors have different resistances.";
             gen_response = ""; 
-            set_response_settings(1, 5 , 4, llList2String(npc4_lab_sounds, 0));
-        }
-        else if(directive == "3" && myid == 1) 
-        {
-            correct_response = "Me too? Both are 3 ohms and the values are different";
-            gen_response = ""; 
-            speak_with_response = 0;
-            speech_delay = 0;
-            resp_signal_offset = 0;
-            say_this = llList2String(npc1_lab_sounds, 3);
-        }
-        else if(directive == "4" && myid == 2) 
-        {
-            correct_response = "No, mine are 5 ohms each.";
-            gen_response = ""; 
-            speak_with_response = 0;
-            speech_delay = 0;
-            resp_signal_offset = 0;
-            say_this = llList2String(npc1_lab_sounds, 2);
-            //set_response_settings(1, 5 , 4, llList2String(npc4_lab_sounds, 0));
-        }
-        else if(directive == "5" && myid == 3) 
-        {
-            correct_response = "Me too? The values for two similar resistors are different.";
-            gen_response = ""; 
-            speak_with_response = 0;
-            speech_delay = 0;
-            resp_signal_offset = 6;
-            say_this = llList2String(npc4_lab_sounds, 1);
-        }
-        else if(directive == "6" && myid == 2) 
-        {
-            correct_response = "You probably did something wrong. I didn't get any negative current values on the right hand side loop";
-            gen_response = ""; 
-            speak_with_response = 0;
-            speech_delay = 0;
-            resp_signal_offset = 4;
-            say_this = llList2String(npc3_lab_sounds, 1);
-        }
-        else if(directive == "7" && myid == 1) 
-        {
-            correct_response = "Yes, the left hand side loop also has some negative voltage values, and they all add up to zero.";
-            gen_response = ""; 
-            speak_with_response = 0;
-            speech_delay = 0;
-            resp_signal_offset = 7;
-            say_this = llList2String(npc2_lab_sounds, 1);
+            set_response_settings(0, 5 , 4, llList2String(npc4_lab_sounds, 0));
         }
 
         state Respond2NpcQuestion;

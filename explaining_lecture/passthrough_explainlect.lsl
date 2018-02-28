@@ -48,7 +48,7 @@ default
         } 
         else if (message == "-a_askmetaphor")
         {
-            llSay(base_npc_control_channel+0, "-npcask");
+            llSay(base_npc_control_channel+2, "-npcask");
         } 
         else if (message == "-a_groupact")
         {
@@ -56,11 +56,11 @@ default
         } 
         else if (message == "-a_g1explainloss")
         {
-            llSay(base_npc_control_channel+0, "-npcask2");
+            llSay(base_npc_control_channel+1, "-npcask2");
         }
         else if (message == "-a_g2explainloss")
         {
-            llSay(base_npc_control_channel+0, "-npcask2");
+            llSay(base_npc_control_channel+5, "-npcask3");
         }
         else if (message == "-npcreturn")
         {
@@ -68,17 +68,21 @@ default
         } 
         else if(message == "-anc_groupup")
         {
-            llSay(0, "The NPCs have to break on two groups and compete in giving a good metaphor for **your choice**."); 
+            llSay(0, "The NPCs have to break on two groups and compete in giving a good metaphor for **your choice**, **whatever you will be covering in the lecture**."); 
             llSay(0, "Assign neighboring NPCs to the same group."); 
             llSay(0, "NPCs can use physical objects at the side table as needed.");
         }
-        else if(message == "-anc_seats")
+        else if(message == "-anc_cont")
         {
-            llSay(0,"Suggest to students to return to their places.");
+            llSay(0,"Lecture continues.");
         }
         else if(message == "-d_groupup")
         {
             llSay(facil_control_channel, "-d0");
+        }
+        else if(message == "-d_groupup!")
+        {
+            llSay(facil_control_channel, "-d0w");
         }
         else if(message == "-d_giveexample")
         {
@@ -87,22 +91,34 @@ default
         else if(message == "-d_choosewinner")
         {
             llSay(facil_control_channel, "-d2");
-        }
+        }       
         else if(message == "-d_explainloss")
         {
             llSay(facil_control_channel, "-d3");
-        }
+        }        
         else if(message == "-d_promoteunder")
         {
             llSay(facil_control_channel, "-d4");
         }
+        else if(message == "-d_promoteunder!")
+        {
+            llSay(facil_control_channel, "-d4!");
+        }        
         else if(message == "-d_analyze")
         {
             llSay(facil_control_channel, "-d5");
         }
+        else if(message == "-d_analyze!")
+        {
+            llSay(facil_control_channel, "-d5!");
+        }
         else if(message == "-d_anotherway")
         {
             llSay(facil_control_channel, "-d6");
+        }
+        else if(message == "-d_anotherway!")
+        {
+            llSay(facil_control_channel, "-d6!");
         }
         else if(message == "-d_final")
         {

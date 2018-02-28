@@ -50,24 +50,39 @@ string d2_msg2 = "Empty";
 list   d2_button2 = ["Okay"];
 
 string d3_msg1 = "You might want to explain why the winning group's metaphor is good";
-list   d3_button1 = [];
+list   d3_button1 = ["Okay"];
 string d3_msg2 = "Empty";
 list   d3_button2 = ["Okay"];
 
 string d4_msg1 = "There are a few ways to promote deep conceptual understanding of the learning material: explaining with metaphor is one of them, the other method is explaining using cases or case studies. Please, describe your case now.";
-list   d4_button1 = [];
-string d4_msg2 = "Explaining using cases or case studies is another way to promote deep conceptual understanding of the learning material. Please describe your case now.";
-list   d4_button2 = [];
+list   d4_button1 = ["Okay"];
+string d4_msg2 = "";
+list   d4_button2 = ["Okay"];
+
+string d4w_msg1 = "Explaining using cases or case studies is another way to promote deep conceptual understanding of the learning material. Please describe your case now.";
+list   d4w_button1 = ["Okay"];
+string d4w_msg2 = "";
+list   d4w_button2 = ["Okay"];
 
 string d5_msg1 = "Do not forget to analyze and compare similarities and differences using the case as an example. Link the case to lecture content.";
-list   d5_button1 = [];
-string d5_msg2 = "It's important you link the case to the lecture content";
+list   d5_button1 = ["Okay"];
+string d5_msg2 = "";
 list   d5_button2 = ["Okay"];
 
+string d5w_msg1 = "It's important you link the case to the lecture content";
+list   d5w_button1 = ["Okay"];
+string d5w_msg2 = "";
+list   d5w_button2 = ["Okay"];
+
 string d6_msg1 = "Yet another way to promote deep conceptual understanding is to use media boards, physical objects and simulations. Please, proceed with the explanation of the concept using prepared material. Don’t forget to point out key processes and concepts in the simulation.";
-list   d6_button1 = [];
-string d6_msg2 = "Use physical object or simulation";
+list   d6_button1 = ["Okay"];
+string d6_msg2 = "";
 list   d6_button2 = ["Okay"];
+
+string d6w_msg1 = "Use physical object or simulation";
+list   d6w_button1 = ["Okay"];
+string d6w_msg2 = "";
+list   d6w_button2 = ["Okay"];
 
 string d7_msg1 = "Finally, all that you have done in this scenario could be considered an explanation using an alternative representation of the same information.";
 list   d7_button1 = ["Okay"];
@@ -179,6 +194,9 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         } else if (msg == "-d4"){     
             llSetTimerEvent(0);    
             state D4;    
+        } else if (msg == "-d4!"){     
+            llSetTimerEvent(0);    
+            state D4W;    
         } else if (msg == "-d5"){     
             llSetTimerEvent(0);    
             state D5;    
@@ -188,6 +206,9 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         } else if (msg == "-d6"){     
             llSetTimerEvent(0); 
             state D6;    
+        } else if (msg == "-d6!"){     
+            llSetTimerEvent(0); 
+            state D6W;    
         } else if (msg == "-d7"){     
             llSetTimerEvent(0);    
             state D7;    
@@ -465,20 +486,50 @@ state D4
     touch_start(integer num_detected) 
     {
         dialog_dialog_with_timer(d4_msg1, d4_button1,
-                                 d4_msg2, d4_button2, dialog_box_interact_interval);
+                                d4_msg2, d4_button2, dialog_box_interact_interval);
     }
-  
+
     timer()
     {
-        internal_state = 1;
         dialog_dialog_with_timer(d4_msg1, d4_button1,
-                                 d4_msg2, d4_button2, dialog_box_interact_interval);
+                                d4_msg2, d4_button2, dialog_box_interact_interval);
     }
     
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
-            if(msg)
+            if(msg == "Okay")
+            {
+                state Idle;
+            } else state Idle;      
+
+        }  else process_common_listen_port_msg(c, n, ID, msg);
+    } 
+}
+
+state D4W
+{
+    state_entry()
+    {
+        common_state_entry("d4w",d4w_msg1, d4w_button1, dialog_box_interact_interval);
+    }  
+    
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d4w_msg1, d4w_button1,
+                                 d4w_msg2, d4w_button2, dialog_box_interact_interval);
+    }
+
+    timer()
+    {
+        dialog_dialog_with_timer(d4w_msg1, d4w_button1,
+                                 d4w_msg2, d4w_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg){
+        llSetTimerEvent(dialog_box_interact_interval);        
+        if (c == local_dialog_channel){
+            if(msg == "Okay")
             {
                 state Idle;
             } else state Idle;      
@@ -499,10 +550,9 @@ state D5
         dialog_dialog_with_timer(d5_msg1, d5_button1,
                                  d5_msg2, d5_button2, dialog_box_interact_interval);
     }
-  
+
     timer()
     {
-        internal_state = 1;
         dialog_dialog_with_timer(d5_msg1, d5_button1,
                                  d5_msg2, d5_button2, dialog_box_interact_interval);
     }
@@ -510,7 +560,38 @@ state D5
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
-            if(msg)
+            if(msg == "Okay")
+            {
+                state Idle;
+            } else state Idle;      
+
+        }  else process_common_listen_port_msg(c, n, ID, msg);
+    } 
+}
+
+state D5W
+{
+    state_entry()
+    {
+        common_state_entry("d5w",d5w_msg1, d5w_button1, dialog_box_interact_interval);
+    }  
+    
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d5w_msg1, d5w_button1,
+                                 d5w_msg2, d5w_button2, dialog_box_interact_interval);
+    }
+
+    timer()
+    {
+        dialog_dialog_with_timer(d5w_msg1, d5w_button1,
+                                 d5w_msg2, d5w_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg){
+        llSetTimerEvent(dialog_box_interact_interval);        
+        if (c == local_dialog_channel){
+            if(msg == "Okay")
             {
                 state Idle;
             } else state Idle;      
@@ -534,7 +615,6 @@ state D6
   
     timer()
     {
-        internal_state = 1;
         dialog_dialog_with_timer(d6_msg1, d6_button1,
                                  d6_msg2, d6_button2, dialog_box_interact_interval);
     }
@@ -542,7 +622,38 @@ state D6
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
-            if(msg)
+            if(msg == "Okay")
+            {
+                state Idle;
+            } else state Idle;      
+
+        }  else process_common_listen_port_msg(c, n, ID, msg);
+    } 
+}
+
+state D6W
+{
+    state_entry()
+    {
+        common_state_entry("d6w",d6w_msg1, d6w_button1, dialog_box_interact_interval);
+    }  
+    
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d6w_msg1, d6w_button1,
+                                 d6w_msg2, d6w_button2, dialog_box_interact_interval);
+    }
+  
+    timer()
+    {
+        dialog_dialog_with_timer(d6w_msg1, d6w_button1,
+                                 d6w_msg2, d6w_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg){
+        llSetTimerEvent(dialog_box_interact_interval);        
+        if (c == local_dialog_channel){
+            if(msg == "Okay")
             {
                 state Idle;
             } else state Idle;      
