@@ -64,7 +64,7 @@ list moods = ["bored" , "engaged"];
 
 list lab_key_words = ["follow", "understand the purpose", "observe", "results"];   
 list spill_key_words = ["absorb"];
-list spill_spec_key_words = ["vinegar", "baking soda", "cold water", "neutralize"];
+list spill_spec_key_words = ["safety", "baking soda", "sodium bicarbonate", "neutralize"];
 
                             
 // NPC Animations                  
