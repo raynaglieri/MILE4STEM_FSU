@@ -92,7 +92,7 @@ npc_ask_animation()
     }
 }
 
-npc_bored_animation()
+npc_bored_animation() ///////////////////////////////////////////////////////////
 {
     integer i;
     list bored_amims = ["avatar_impatient","avatar_express_bored", "avatar_express_sad", "avatar_express_shrug","avatar_express_shrug","Defensive"];
@@ -127,10 +127,13 @@ default
             llSay(0,"Lecture in progress");
             llSay(facil_control_channel, "-d1");
             llSleep(wait);
-            llSay(npc_action_control_base_channel+3, "@Perform-avatar_express_wink");
-            llSay(npc_action_control_base_channel+4, "@Perform-avatar_express_sad");
-            llSay(npc_action_control_base_channel+7, "@Perform-Defensive");
-            npc_wait_animation();
+            // llSay(npc_action_control_base_channel+3, "@Perform-avatar_express_wink"); 
+            // llSay(npc_action_control_base_channel+4, "@Perform-avatar_express_sad");
+            // llSay(npc_action_control_base_channel+7, "@Perform-Defensive");
+            llSay(base_npc_control_channel+3, "-npcmove1"); 
+            llSay(base_npc_control_channel+4, "-npcmove2");
+            llSay(base_npc_control_channel+7, "-npcmove3");
+            //npc_wait_animation();
         } else if (message == "-facilengage!"){
             llSay(facil_control_channel, "-d1!"); 
         } else if (message == "-facilsit"){
@@ -138,12 +141,14 @@ default
             llSay(facil_control_channel, "-d2");
         } else if (message == "-facilsit!"){
             llSay(facil_control_channel, "-d2!");
-        } else if (message == "-facilcog"){
+        } else if (message == "-facilcog"){ ///////////////////////////////////////////////////////////
             llSay(facil_control_channel, "-d3");
             llSleep(wait);
-            llSay(npc_action_control_base_channel+3, "@Perform-avatar_no_unhappy");
-            llSay(npc_action_control_base_channel+7, "@Perform-avatar_no_unhappy");
-            npc_wait_animation();
+            // llSay(npc_action_control_base_channel+3, "@Perform-avatar_no_unhappy");
+            // llSay(npc_action_control_base_channel+7, "@Perform-avatar_no_unhappy");
+            llSay(base_npc_control_channel+3, "-npcmove4");
+            llSay(base_npc_control_channel+7, "-npcmove5");
+            // npc_wait_animation();
         } else if (message == "-facilcog!"){
             llSay(facil_control_channel, "-d3!");
         } else if (message == "-facilprefer"){ // say
@@ -181,16 +186,19 @@ default
             llSay(npc_action_control_base_channel+6, "@Speak-and not well structured.");
         } else if (message == "-facilemot!"){
             llSay(facil_control_channel, "-d7!");
-        } else if (message == "-facildiscip"){
+        } else if (message == "-facildiscip"){ //*****************************************************************************
             llSay(facil_control_channel, "-d8");
             llSleep(wait);
             llSay(npc_action_control_base_channel+6, "@Speak-we do it differently in mathematics");
-            llSay(npc_action_control_base_channel+6, "@Perform-avatar_express_wink");
-            llSay(npc_action_control_base_channel+5, "@Perform-avatar_express_sad");
+            // llSay(npc_action_control_base_channel+6, "@Perform-avatar_express_wink");
+            // llSay(npc_action_control_base_channel+5, "@Perform-avatar_express_sad");
+            llSay(base_npc_control_channel+6, "-npcmove6");
+            llSay(base_npc_control_channel+5, "-npcmove7");
             //npc_bored_animation();
         } else if (message == "-facildiscip!"){
             llSay(facil_control_channel, "-d8!");
-            npc_stop_animation();
+            llSay(npc_action_control_base_channel+6, "@Stop_ani");
+            llSay(npc_action_control_base_channel+5, "@Stop_ani");
         } else if (message == "-facilcovered"){
             llSay(facil_control_channel, "-d9");
             llSleep(wait);
@@ -212,12 +220,13 @@ default
         } else if (message == "-facilvisual!"){
             llSay(0, "Lecture continues");
             llSay(facil_control_channel, "-d11!");
-        } else if (message == "-facildisap"){
+        } else if (message == "-facildisap"){///////////////////////////////////////////////////////////
             llSay(0, "Now its time to talk about quiz results");
             llSay(facil_control_channel, "-d12");
             //llSay(room_control_base_channel, "-showfloattext");
-            llSay(npc_action_control_base_channel+7, "@Perform-avatar_express_sad");
-            npc_wait_animation(); 
+            //llSay(npc_action_control_base_channel+7, "@Perform-avatar_express_sad");
+            llSay(base_npc_control_channel+7, "-npcmove8");
+            //npc_wait_animation(); 
         } else if (message == "-facildisap!"){
             llSay(facil_control_channel, "-d12!");
         } else if (message == "-facilnohands"){ 
@@ -234,7 +243,7 @@ default
         } else if (message == "-npcquiz"){
             llSay(0, "Lecture continues");
             //////////////////////////////////////////////////
-        } else if (message == "-npclost"){
+        } else if (message == "-npclost"){//************************************************************
             llSay(0, "Lecture continues");
             llSay(npc_action_control_base_channel+3, "@Speak-I thought I got lost for a second, ok now");
             llSay(npc_action_control_base_channel+7, "@Perform-Okay_nodding");
@@ -247,7 +256,7 @@ default
             llSay(base_npc_control_channel+7, "-npcask");
         } else if (message == "-npctoofast!"){ 
             llSay(facil_control_channel, "-dw1");
-        } else if (message == "-npcargue"){
+        } else if (message == "-npcargue"){ //*********************************************************************
             llSay(0, "Lecture continues");
             llSay(npc_action_control_base_channel+2, "@SpeakAnim-TA said this goes after that::avatar_point_me::15::3");
             llSay(npc_action_control_base_channel+3, "@SpeakAnim-no, that goes after that::avatar_express_shrug::15::3");
@@ -257,13 +266,13 @@ default
             llSay(npc_action_control_base_channel+2, "@Speak-We got lost about what you have said in a previous part");
         } else if (message == "-npclostprev!"){
             llSay(facil_control_channel, "-dw4"); 
-        } else if (message == "-npcatten"){
+        } else if (message == "-npcatten"){ //*********************************************************************
             llSay(0, "Lecture continues");
             llSay(npc_action_control_base_channel+4, "@SpeakAnim-why are we doing this::avatar_express_bored::15::1");
             // llSay(npc_action_control_base_channel+4, "@Speak-why are we doing this");
             // llSay(npc_action_control_base_channel+4, "@Perform-avatar_express_bored");
             npc_wait_animation();  
-        } else if (message == "-npcatten!"){
+        } else if (message == "-npcatten!"){ 
             llSay(0, "Lecture continues");
             llSay(facil_control_channel, "-dw5");  
         } else if (message == "-npcquestions"){

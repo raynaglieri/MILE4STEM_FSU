@@ -157,6 +157,9 @@ reset_all()
     prev_msg = ""; 
     attention_span = 30; 
     string currentquestion = "no_question";
+    perform_for_time = 0;
+    perform_for_iter = 0;
+    perform_iter_remaining = 0;
 }
 
 string enviro_fact() 
@@ -441,6 +444,84 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             state Ask;
         }
     } 
+    else if (activescenario == "M")
+    {
+        if(directive == "1")
+        {
+            currentanimation = "avatar_express_wink";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        } 
+        else if (directive == "2")
+        {
+            currentanimation = "avatar_express_sad";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        } 
+        else if(directive == "3") 
+        {
+            currentanimation = "Defensive";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
+        else if(directive == "4") 
+        {
+            currentanimation = "avatar_no_unhappy";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
+        else if(directive == "5") 
+        {
+            currentanimation = "avatar_no_unhappy";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
+        else if(directive == "6") 
+        {
+            currentanimation = "avatar_express_wink";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 200;
+        }
+        else if(directive == "7") 
+        {
+            currentanimation = "avatar_express_sad";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 200;
+        }
+        else if(directive == "8") 
+        {
+            currentanimation = "avatar_express_sad";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
+        else if(directive == "9") 
+        {
+            currentanimation = "adding_acid";
+            wait_time = 25;
+            perform_for_time = 1;
+            perform_for_iter = 0;
+            perform_iter_remaining = 0;
+        }
+
+        osNpcPlayAnimation(npc, currentanimation);
+        state AnimationHandle;
+    }
     else if (activescenario == "T")
     {
         if(directive == "1")
@@ -655,6 +736,42 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         {
             npc_state_handler("A:3", c, n, ID, msg);
         }
+        else if(msg == "-npcmove1")
+        {
+            npc_state_handler("M:1", c, n, ID, msg);
+        }
+        else if(msg == "-npcmove2")
+        {
+            npc_state_handler("M:2", c, n, ID, msg);
+        }
+        else if(msg == "-npcmove3")
+        {
+            npc_state_handler("M:3", c, n, ID, msg);
+        }
+        else if(msg == "-npcmove4")
+        {
+            npc_state_handler("M:4", c, n, ID, msg);
+        }    
+        else if(msg == "-npcmove5")
+        {
+            npc_state_handler("M:5", c, n, ID, msg);
+        }  
+        else if(msg == "-npcmove6")
+        {
+            npc_state_handler("M:6", c, n, ID, msg);
+        } 
+        else if(msg == "-npcmove7")
+        {
+            npc_state_handler("M:7", c, n, ID, msg);
+        } 
+        else if(msg == "-npcmove8")
+        {
+            npc_state_handler("M:8", c, n, ID, msg);
+        }
+        else if(msg == "-npcmove9")
+        {
+            npc_state_handler("M:9", c, n, ID, msg);
+        }
         else if(msg == "-testcmdanim1")
         {
             npc_state_handler("T:1", c, n, ID, msg);
@@ -662,6 +779,11 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         else if(msg == "-testcmdanim2")
         {
             npc_state_handler("T:2", c, n, ID, msg);
+        }
+        else if(msg == "-stopanim_idle")
+        {
+            osNpcStopAnimation(npc, currentanimation);
+            state Idle;
         }
         else
         {
@@ -1070,6 +1192,7 @@ state AnimationHandle
         {
             if(perform_iter_remaining > 0)
             {
+                llSay(0, (string)perform_iter_remaining);
                 osNpcStopAnimation(npc, currentanimation);
                 osNpcPlayAnimation(npc, currentanimation);
                 perform_iter_remaining--;
