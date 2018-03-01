@@ -285,7 +285,12 @@ default
             //llSay(facil_control_channel, "-a3"); 
         } else if (message == "-announce3!"){
             llSay(facil_control_channel, "-a3!"); 
+        } else if (message == "-cmdanim1"){
+            llSay(base_npc_control_channel+0, "-testcmdanim1");
+        } else if (message == "-cmdanim2"){
+            llSay(base_npc_control_channel+0, "-testcmdanim2");
         }
+
 
     }
 } 

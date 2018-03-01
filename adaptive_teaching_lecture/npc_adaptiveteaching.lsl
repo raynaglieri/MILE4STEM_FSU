@@ -2,6 +2,7 @@
 //   September 2017: created by Raymond Naglieri in October 2017 
 //   December 2017: Wait2Speak and Wait2SpeakList functionality done. 
 //         2/15/17: added debug level
+//         2/28/18: completed AnimationHandle
 
 // Notes:
 //  1. Please use the currentanimation variable when playing an animation.
@@ -107,6 +108,12 @@ list sentence_and_time;
 integer speak_with_question = 0;
 
 list pending_actions; 
+
+integer perform_for_time = 0;
+integer perform_for_iter = 0;
+integer perform_iter_remaining = 0;
+
+
 
 integer perform_amount = 0;
 integer DEFAULT_AMOUNT = 100;
@@ -433,7 +440,38 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             currentquestion = "Thank you for the lecture!";
             state Ask;
         }
+    } 
+    else if (activescenario == "T")
+    {
+        if(directive == "1")
+        {
+            currentanimation = "adding_acid";
+            wait_time = 25;
+            perform_for_time = 1;
+            perform_for_iter = 0;
+            perform_iter_remaining = 0;
+        }
+        else if(directive == "2")
+        {
+            currentanimation = "Okay_nodding";
+            wait_time = 5;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 5;
+        }
+        else if(directive == "3")
+        {
+            currentanimation = "Okay_nodding";
+        }
+        else if(directive == "4")
+        {
+            currentanimation = "Okay_nodding";
+        }
+
+        osNpcPlayAnimation(npc, currentanimation);
+        state AnimationHandle;
     }
+
 }
 auto_leave(list path, integer longest_wait) // add "dynamic" wait times
 {   
@@ -616,6 +654,14 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         else if(msg == "-npcask3")
         {
             npc_state_handler("A:3", c, n, ID, msg);
+        }
+        else if(msg == "-testcmdanim1")
+        {
+            npc_state_handler("T:1", c, n, ID, msg);
+        }
+        else if(msg == "-testcmdanim2")
+        {
+            npc_state_handler("T:2", c, n, ID, msg);
         }
         else
         {
@@ -1001,97 +1047,143 @@ state Wait
     
 }
 
-state Wait
+state AnimationHandle
 {
     state_entry()
     {
         if(debug_level)
             llSay(0,(string)wait_time);
-        register_common_channel_timer(wait_time);
+        if(perform_for_time)
+            register_common_channel_timer(wait_time);
+        else
+            register_common_channel();
     }
 
     touch_start(integer num_detected)
-    { 
+    {
         backdoor_reset();
     }
 
-    timer() 
+    timer()
     {
-        osNpcStopAnimation(npc, currentanimation);
-        state Idle;
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        process_common_listen_port_msg(c, n, ID, msg);   
-    }
-    
-}
-
-state WaitIteration
-{
-    state_entry()
-    {
-        perform_amount = DEFAULT_AMOUNT;
-        if(debug_level)
-            llSay(0,(string)wait_time);
-        register_common_channel_timer(wait_time);
-    }
-
-    touch_start(integer num_detected)
-    { 
-        backdoor_reset();
-    }
-
-    timer() 
-    {
-        if(perform_amount > 0)
+        if(perform_for_iter)
         {
-            osNpcStopAnimation(npc, currentanimation);
-            osNpcPlayAnimation(npc, currentanimation);
-        }
+            if(perform_iter_remaining > 0)
+            {
+                osNpcStopAnimation(npc, currentanimation);
+                osNpcPlayAnimation(npc, currentanimation);
+                perform_iter_remaining--;
+            }
+            else
+            {
+                osNpcStopAnimation(npc, currentanimation);
+                state Idle;
+            }
+        }    
         else
         {
             osNpcStopAnimation(npc, currentanimation);
-            state Idle;   
+            state Idle;        
         }
-        perform_amount--;
     }
 
     listen(integer c, string n, key ID, string msg)
     {
         process_common_listen_port_msg(c, n, ID, msg);   
     }
-    
 }
 
-state WaitIndef
-{
-    state_entry()
-    {
-        if(debug_level)
-            llSay(0,(string)wait_time);
-        register_common_channel_timer(wait_time);
-    }
+// state Wait
+// {
+//     state_entry()
+//     {
+//         if(debug_level)
+//             llSay(0,(string)wait_time);
+//         register_common_channel_timer(wait_time);
+//     }
 
-    touch_start(integer num_detected)
-    { 
-        backdoor_reset();
-    }
+//     touch_start(integer num_detected)
+//     { 
+//         backdoor_reset();
+//     }
 
-    timer() 
-    {
-        osNpcStopAnimation(npc, currentanimation);
-        osNpcPlayAnimation(npc,currentanimation);
-        llSetTimerEvent(wait_time);
-    }
+//     timer() 
+//     {
+//         osNpcStopAnimation(npc, currentanimation);
+//         state Idle;
+//     }
 
-    listen(integer c, string n, key ID, string msg)
-    {
-        process_common_listen_port_msg(c, n, ID, msg);   
-    }
+//     listen(integer c, string n, key ID, string msg)
+//     {
+//         process_common_listen_port_msg(c, n, ID, msg);   
+//     }
     
-}
+// }
+
+// state WaitIteration
+// {
+//     state_entry()
+//     {
+//         perform_amount = DEFAULT_AMOUNT;
+//         if(debug_level)
+//             llSay(0,(string)wait_time);
+//         register_common_channel_timer(wait_time);
+//     }
+
+//     touch_start(integer num_detected)
+//     { 
+//         backdoor_reset();
+//     }
+
+//     timer() 
+//     {
+//         if(perform_amount > 0)
+//         {
+//             osNpcStopAnimation(npc, currentanimation);
+//             osNpcPlayAnimation(npc, currentanimation);
+//         }
+//         else
+//         {
+//             osNpcStopAnimation(npc, currentanimation);
+//             state Idle;   
+//         }
+//         perform_amount--;
+//     }
+
+//     listen(integer c, string n, key ID, string msg)
+//     {
+//         process_common_listen_port_msg(c, n, ID, msg);   
+//     }
+    
+// }
+
+// state WaitIndef
+// {
+//     state_entry()
+//     {
+//         if(debug_level)
+//             llSay(0,(string)wait_time);
+//         register_common_channel_timer(wait_time);
+//     }
+
+//     touch_start(integer num_detected)
+//     { 
+//         backdoor_reset();
+//     }
+
+//     timer() 
+//     {
+//         osNpcStopAnimation(npc, currentanimation);
+//         osNpcPlayAnimation(npc,currentanimation);
+//         llSetTimerEvent(wait_time);
+//     }
+
+//     listen(integer c, string n, key ID, string msg)
+//     {
+//         process_common_listen_port_msg(c, n, ID, msg);   
+//     }
+    
+// }
 
 
 state DelayAction
