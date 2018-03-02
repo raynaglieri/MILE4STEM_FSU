@@ -274,7 +274,7 @@ default
         else if(message == "-a_connect4current") 
         {
              llSay(base_npc_control_channel+7, "-npcask8");
-             llSay(board_control_channel, "3");
+             llSay(board_control_channel, "2");
         } 
         else if(message == "-ad_labending") 
         {

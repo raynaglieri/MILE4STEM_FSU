@@ -3,6 +3,7 @@
 //   December 2017: Wait2Speak and Wait2SpeakList functionality done. 
 //         2/15/17: added debug level
 //         2/28/18: completed AnimationHandle
+//         3/01/18: added 'M'(move) commands to work with animation handle
 
 // Notes:
 //  1. Please use the currentanimation variable when playing an animation.
@@ -25,7 +26,7 @@ integer attentionspan;
 integer wait_time = 5;
 integer wait_talk = 1;
 string to_say = "NULL";
-string currentquestion = "no_question";
+string currentphrase = "no_question";
 string currentanimation = "no_animation";
 string currentsound = "no_sound";
 string currentdirective = "_:_";
@@ -113,6 +114,8 @@ integer perform_for_time = 0;
 integer perform_for_iter = 0;
 integer perform_iter_remaining = 0;
 
+integer speak_during_anim = 0;
+
 
 
 integer perform_amount = 0;
@@ -156,7 +159,8 @@ reset_all()
     NPC_ACTION_TAKEN = FALSE;
     prev_msg = ""; 
     attention_span = 30; 
-    string currentquestion = "no_question";
+    currentphrase = "no_question";
+    speak_during_anim = 0;
     perform_for_time = 0;
     perform_for_iter = 0;
     perform_iter_remaining = 0;
@@ -200,6 +204,17 @@ ask_question()
     osNpcSay(npc, "Excuse me.");
     return;   
 } 
+
+npc_rand_bored_animation()
+{
+    integer i;
+    list bored_amims = ["avatar_impatient","avatar_express_bored", "avatar_express_sad", "avatar_express_shrug","avatar_express_shrug","Defensive"];
+    list random_anim = llListRandomize(bored_amims, 1);
+    integer random_index = 0;
+    random_index =  random_integer(0,5);
+    currentanimation = llList2String(random_anim,random_index);
+    osNpcPlayAnimation(npc, currentanimation);          
+}
 
 provide_metaphor() //rewrite
 {
@@ -428,19 +443,19 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
     {
         if(directive == "1")
         {
-            currentquestion = "You are speaking too fast.";
+            currentphrase = "You are speaking too fast.";
             speak_with_question = 1;
             currentsound = "You_are_talking_too_fast";
             state Ask;
         } 
         else if (directive == "2")
         {
-            currentquestion = "I don't understand your example.";
+            currentphrase = "I don't understand your example.";
             state Ask;
         } 
         else if(directive == "3") 
         {
-            currentquestion = "Thank you for the lecture!";
+            currentphrase = "Thank you for the lecture!";
             state Ask;
         }
     } 
@@ -448,6 +463,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
     {
         if(directive == "1")
         {
+            speak_with_question = 0;
+            currentphrase = "You are speaking too fast.";
             currentanimation = "avatar_express_wink";
             wait_time = 5;
             perform_for_time = 1;
@@ -456,6 +473,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         } 
         else if (directive == "2")
         {
+            speak_with_question = 0;
+            currentphrase = "You are speaking too fast.";
             currentanimation = "avatar_express_sad";
             wait_time = 5;
             perform_for_time = 1;
@@ -464,6 +483,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         } 
         else if(directive == "3") 
         {
+            speak_with_question = 0;
+            currentphrase = "You are speaking too fast.";
             currentanimation = "Defensive";
             wait_time = 5;
             perform_for_time = 1;
@@ -472,6 +493,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         }
         else if(directive == "4") 
         {
+            speak_with_question = 0;
+            currentphrase = "You are speaking too fast.";
             currentanimation = "avatar_no_unhappy";
             wait_time = 5;
             perform_for_time = 1;
@@ -480,6 +503,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         }
         else if(directive == "5") 
         {
+            speak_with_question = 0;
+            currentphrase = "You are speaking too fast.";
             currentanimation = "avatar_no_unhappy";
             wait_time = 5;
             perform_for_time = 1;
@@ -488,6 +513,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         }
         else if(directive == "6") 
         {
+            speak_with_question = 1;
+            currentphrase = "We do it differently in mathematics";
             currentanimation = "avatar_express_wink";
             wait_time = 5;
             perform_for_time = 1;
@@ -496,6 +523,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         }
         else if(directive == "7") 
         {
+            speak_with_question = 0;
+            currentphrase = "You are speaking too fast.";
             currentanimation = "avatar_express_sad";
             wait_time = 5;
             perform_for_time = 1;
@@ -504,6 +533,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         }
         else if(directive == "8") 
         {
+            speak_with_question = 0;
+            currentphrase = "You are speaking too fast.";
             currentanimation = "avatar_express_sad";
             wait_time = 5;
             perform_for_time = 1;
@@ -512,11 +543,53 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         }
         else if(directive == "9") 
         {
-            currentanimation = "adding_acid";
-            wait_time = 25;
+            speak_with_question = 0;
+            currentphrase = "You are speaking too fast.";
+            currentanimation = "Okay_nodding";
+            wait_time = 3;
             perform_for_time = 1;
-            perform_for_iter = 0;
-            perform_iter_remaining = 0;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
+        else if(directive == "10") 
+        {
+            speak_with_question = 1;
+            currentphrase = "TA said this goes after that";
+            currentanimation = "avatar_point_me";
+            wait_time = 3;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
+        else if(directive == "11") 
+        {
+            speak_with_question = 1;
+            currentphrase = "no, that goes after that";
+            currentanimation = "avatar_express_shrug";
+            wait_time = 3;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
+        else if(directive == "12") 
+        {
+            speak_with_question = 1;
+            currentphrase = "Why are we doing this";
+            currentanimation = "avatar_express_bored";
+            wait_time = 3;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
+        else if(directive == "13") 
+        {
+            speak_with_question = 0;
+            currentphrase = "";
+            npc_rand_bored_animation();
+            wait_time = 3;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
         }
 
         osNpcPlayAnimation(npc, currentanimation);
@@ -772,6 +845,18 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         {
             npc_state_handler("M:9", c, n, ID, msg);
         }
+        else if(msg == "-npcmove10")
+        {
+            npc_state_handler("M:10", c, n, ID, msg);
+        }
+        else if(msg == "-npcmove11")
+        {
+            npc_state_handler("M:11", c, n, ID, msg);
+        }
+        else if(msg == "-npcmove12")
+        {
+            npc_state_handler("M:12", c, n, ID, msg);
+        }
         else if(msg == "-testcmdanim1")
         {
             npc_state_handler("T:1", c, n, ID, msg);
@@ -784,6 +869,17 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         {
             osNpcStopAnimation(npc, currentanimation);
             state Idle;
+        }
+        else if(msg == "-randanim_animhandle")
+        {
+            speak_with_question = 0;
+            currentphrase = "";
+            wait_time = 3;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 500;
+            npc_rand_bored_animation();
+            state AnimationHandle;
         }
         else
         {
@@ -845,7 +941,7 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         }
         else if(ss == "@SetAsk")
         {
-            currentquestion = ss;
+            currentphrase = ss;
         }
         else if (ss == "@Resetscript") 
         {
@@ -1128,7 +1224,7 @@ state Ask
             if(name_called(msg)) 
             {
                 osNpcStopAnimation(npc, currentanimation);
-                osNpcSay(npc, currentquestion);
+                osNpcSay(npc, currentphrase);
                 if(speak_with_question)
                 {
                     llPlaySound(currentsound, 3.0);
@@ -1179,6 +1275,9 @@ state AnimationHandle
             register_common_channel_timer(wait_time);
         else
             register_common_channel();
+        if(speak_with_question)
+            osNpcSay(npc, currentphrase);
+
     }
 
     touch_start(integer num_detected)
@@ -1192,7 +1291,8 @@ state AnimationHandle
         {
             if(perform_iter_remaining > 0)
             {
-                llSay(0, (string)perform_iter_remaining);
+                if(debug_level)
+                    llSay(0, (string)perform_iter_remaining);
                 osNpcStopAnimation(npc, currentanimation);
                 osNpcPlayAnimation(npc, currentanimation);
                 perform_iter_remaining--;
