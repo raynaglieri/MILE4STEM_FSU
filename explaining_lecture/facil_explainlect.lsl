@@ -74,7 +74,7 @@ list   d5w_button1 = ["Okay"];
 string d5w_msg2 = "";
 list   d5w_button2 = ["Okay"];
 
-string d6_msg1 = "Yet another way to promote deep conceptual understanding is to use media boards, physical objects and simulations. Please, proceed with the explanation of the concept using prepared material. Don’t forget to point out key processes and concepts in the simulation.";
+string d6_msg1 = "Yet another way to promote deep conceptual understanding is to use media boards and physical objects. Please, proceed with the explanation of the concept using prepared material. Don’t forget to point out key processes and concepts.";
 list   d6_button1 = ["Okay"];
 string d6_msg2 = "";
 list   d6_button2 = ["Okay"];
