@@ -9,6 +9,7 @@
 //    2/15/18: various changes to match design docs
 //    2/16/18: standard wait time between dialogue and actions implemented
 //    3/01/18: Updated to match New NPC "Move" structure.
+
 integer num_npc = 8;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;

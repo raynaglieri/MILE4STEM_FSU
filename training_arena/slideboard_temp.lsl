@@ -4,9 +4,10 @@
 //		  : Added delete_all_other_contents function provided by, http://wiki.secondlife.com/wiki/LlRemoveInventory . This will clear the prims given textures if the prim is clicked on.
 // 2/22/18: Added drag from inventory support for all useres. 
 //		  : Partially implemented displaying the most current provided texture. 
+// 3/02/18: Completed displaying most recent texture functionality. 
+//
 string slide_texture;
 integer MAX_SLIDE_COUNT = 5; 
-list cur_inventory = [];
 string last_updated = "NULL";
 string inventoryItemName;
 integer board_control_channel = 36000;
@@ -29,28 +30,6 @@ delete_all_other_contents()
     }
 }
 
-what_is_here()
-{
-	integer index = llGetInventoryNumber(INVENTORY_TEXTURE); 
-	if(index != 0)
- 		inventoryItemName = llGetInventoryName(INVENTORY_TEXTURE, index);
- 	else
- 		inventoryItemName = "NULL";	
-
- 	llSay(0, inventoryItemName);
-}
-
-what_was_added()
-{
-	if(inventoryItemName != "NULL")
-	{
-		llRemoveInventory(inventoryItemName);
-		what_is_here();   
-	}
-	else
-		what_is_here();   
-}
-
 display_slide(integer slide_number)
 {
 	if(llGetInventoryNumber(INVENTORY_ALL) > 1)
@@ -62,7 +41,7 @@ display_slide(integer slide_number)
 			{
 				last_updated = slide_texture;
 				llSetTexture(slide_texture, ALL_SIDES);		
-				llSay(0, "updated.");
+				llRemoveInventory(slide_texture);
 			}
 			
 		}	
@@ -74,7 +53,6 @@ default
 {
 	state_entry()
 	{
-		//what_is_here();
 		llAllowInventoryDrop(TRUE);
 		llListen(board_control_channel, "", NULL_KEY, "");
 	}
@@ -91,9 +69,7 @@ default
 	    	display_slide(0);
 	   
 	    else if(change & CHANGED_INVENTORY)  
-        	display_slide(0);  
-
-        //what_was_added();   
+        	display_slide(0);     
 	}
 
 	listen(integer c, string n, key ID, string msg)
