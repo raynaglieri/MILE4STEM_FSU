@@ -105,14 +105,10 @@ list animation_LL = ["avatar_angry_tantrum", "avatar_fist_pump", "avatar_stretch
 list animation_LLL = ["avatar_sleep"];  
 
 list lab_animations = ["writing_at_desk", "Well"];
-list npc1_lab_sounds = ["NPC1a", "NPC1b", "NPC1c"];
-list npc2_lab_sounds = ["NPC2a", "NPC2b"];
-list npc3_lab_sounds = ["NPC3a", "NPC3b", "NPC3c"];
-list npc4_lab_sounds = ["NPC4a", "NPC4b"];
-list npc5_lab_sounds = ["NPC5a", "NPC5b"];
-list npc6_lab_sounds = ["NPC6-1", "NPC6-2", "NPC6-3"];
-list npc7_lab_sounds = ["NPC7-1", "NPC7-2"];
-list npc8_lab_sounds = ["NPC8-1", "NPC8-2"];
+
+list npc_lab_sounds = ["you_did_something_wrong_male","talking_too_fast_female", "what's_wrong_male", 
+                        "what's_wrong_female", "is_it_correct_male", "extra_time_male", 
+                        "am_i_doing_wrong_female", "am_i_doing_everything_correctly_male"];
 
 string string_ani; 
 
@@ -466,8 +462,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_multimeter;
             correct_response = "Yes, I misconnected the wires.";
             gen_response = "I've tried that!";
-            say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 0, [], 0, 1, 0, 1);
+            say_this = llList2String(npc_lab_sounds, 7);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         } 
@@ -477,8 +473,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_multimeter;
             correct_response = "Yes, I probably messed up the wires";
             gen_response = "I've done that!";
-            say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 0, [], 0, 1, 0, 1);
+            say_this = llList2String(npc_lab_sounds, 2);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
 
@@ -489,8 +485,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_series;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
-            say_this = llList2String(npc2_lab_sounds, 0);
-            set_ask_settings(0, 1, [3], 1, 1, 0, 1);
+            say_this = llList2String(npc_lab_sounds,4);
+            set_ask_settings(1, 1, [3], 1, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         }
@@ -500,8 +496,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_resistors;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
-            say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 1, [6], 1, 1, 0, 1);
+            say_this = llList2String(npc_lab_sounds, 6);
+            set_ask_settings(1, 1, [6], 1, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         }
@@ -511,8 +507,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = ["yes", "no"];
             correct_response = "Thanks.";
             gen_response = "";
-            say_this = llList2String(npc3_lab_sounds, 0);
-            set_ask_settings(0, 0, [], 0, 1, 0, 1);
+            say_this = llList2String(npc_lab_sounds, 3);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         } 
@@ -522,8 +518,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = ["yes" , "no"];
             correct_response = "Thanks.";
             gen_response = "";
-            say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 0, [], 0, 1, 0, 1);
+            say_this = llList2String(npc_lab_sounds, 6);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         }  
@@ -533,8 +529,8 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = keywords_multimeter; 
             correct_response = "Thanks.";
             gen_response = "";
-            say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 0, [], 0, 2, 0, 1);
+            say_this = llList2String(npc_lab_sounds, 3);
+            set_ask_settings(1, 0, [], 0, 2, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         }  
@@ -544,19 +540,19 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             keywords_current = ["break the current"]; 
             correct_response = "Thanks.";
             gen_response = "";
-            say_this = llList2String(npc1_lab_sounds, 0);
-            set_ask_settings(0, 0, [], 0, 1, 0, 1);
+            say_this = llList2String(npc_lab_sounds, 6);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         } 
         else if(directive == "11" && myid == 2) 
         {
             currentquestion = "We are still working on our report. Could you give us some extra time?";
-            keywords_current = keywords_extratime;
+            keywords_current = ["yes"];
             correct_response = "Great Thank you so much!";
             gen_response = "Alright, we'll finish as much as we can.";
-            say_this = llList2String(npc3_lab_sounds, 2);
-            set_ask_settings(0, 0, [], 3, 1, 1, 1);
+            say_this = llList2String(npc_lab_sounds, 5);
+            set_ask_settings(1, 0, [], 3, 1, 1, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         }  
@@ -570,13 +566,13 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         {
             correct_response = "Yes, it's the same but the resistors have different resistances.";
             gen_response = ""; 
-            set_response_settings(0, 5 , 1, llList2String(npc4_lab_sounds, 0));
+            set_response_settings(1, 5 , 1, llList2String(npc_lab_sounds, 0));
         }
         else if(directive == "2" && myid == 6) 
         {
             correct_response = "Yes, it's the same but the resistors have different resistances.";
             gen_response = ""; 
-            set_response_settings(0, 5 , 4, llList2String(npc4_lab_sounds, 0));
+            set_response_settings(1, 5 , 4, llList2String(npc_lab_sounds, 0));
         }
 
         state Respond2NpcQuestion;

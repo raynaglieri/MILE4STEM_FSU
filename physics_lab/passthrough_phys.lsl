@@ -2,6 +2,7 @@
 //   November 2017: created by Raymond Naglieri
 //         2/27/18: added various commands to match design
 integer num_npc = 8;
+integer num_board = 3;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
@@ -99,6 +100,13 @@ npc_bored_animation()
     }
 }
 
+slide_board_update_all(string board_id)
+{
+    integer i;
+    for (i=0; i<num_board; i++)
+        llSay(board_control_channel + i, board_id);     
+}
+
 default
 {
     state_entry()
@@ -131,6 +139,9 @@ default
         else if(message == "-d_studentexperiments") 
         {
             llSay(facil_control_channel, "-d1");
+            llSay(board_control_channel+0, "1"); 
+            llSay(board_control_channel+1, "1");
+            llSay(board_control_channel+2, "4");              
         } 
         else if(message == "-d_lookatboard") 
         {
@@ -244,23 +255,23 @@ default
         {
             llSay(base_npc_control_channel+1, "-npcask3");
             llSay(base_npc_control_channel+3, "-npcresp1");
-            llSay(board_control_channel, "5");
+            slide_board_update_all("5");
         } 
         else if(message == "-a_npcmeasurevoltage")
         {
              llSay(base_npc_control_channel+4, "-npcask4");
              llSay(base_npc_control_channel+6, "-npcresp2");
-             llSay(board_control_channel, "0");
+             slide_board_update_all("0");
         } 
         else if(message == "-a_npccorrectresvoltage")
         {
              llSay(base_npc_control_channel+2, "-npcask5");
-             llSay(board_control_channel, "3");
+             slide_board_update_all("3");
         } 
         else if(message == "-a_npccorrectcurrent")
         {
              llSay(base_npc_control_channel+7, "-npcask6");
-             llSay(board_control_channel, "2");
+             slide_board_update_all("2");
         }  
         else if(message == "-a_npcoutoftime")
         {   
@@ -269,22 +280,21 @@ default
         else if(message == "-a_connect4voltage") 
         {
              llSay(base_npc_control_channel+2, "-npcask7");
-             llSay(board_control_channel, "3");
+             slide_board_update_all("3");
         }   
         else if(message == "-a_connect4current") 
         {
              llSay(base_npc_control_channel+7, "-npcask8");
-             llSay(board_control_channel, "2");
+             slide_board_update_all("2");
         } 
         else if(message == "-ad_labending") 
         {
              llSay(facil_control_channel, "-d11");
              llSay(base_npc_control_channel+2, "-npcask11");
-
         }  
         else if(message == "-sb_npcmeasurevoltage") 
         {
-            llSay(board_control_channel, "1");
+            slide_board_update_all("1");
         }   
 
     }
