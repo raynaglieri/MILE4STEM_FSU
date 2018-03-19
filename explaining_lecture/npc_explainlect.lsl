@@ -1,5 +1,6 @@
 // change history:
-// 2/19/18 Created by Raymond Naglieri
+// 2/19/18 - Created by Raymond Naglieri
+// 3/15/18 - modified reponse state to add delay. 
 
 
 // Notes:
@@ -127,6 +128,8 @@ integer keyword_match_amount = 0;
 integer speak_with_question = 0;
 integer speak_with_response = 0;
 integer speech_delay = 0;
+integer final_repsonse_delay = 0;
+integer response_choice = 0;
 integer signal_npc_reponse = 0;
 list signal_offsets = [];
 integer resp_signal_offset = 0;
@@ -246,7 +249,7 @@ provide_metaphor() //rewrite
     }      
 }
 
-set_ask_settings(integer swq, integer snr, list so, integer srn, integer kma, integer eoi, integer sac)
+set_ask_settings(integer swq, integer snr, list so, integer srn, integer kma, integer eoi, integer sac, integer frd)
 {
     speak_with_question = swq;
     signal_npc_reponse = snr;
@@ -255,6 +258,7 @@ set_ask_settings(integer swq, integer snr, list so, integer srn, integer kma, in
     keyword_match_amount = kma;
     exit_on_incorrect = eoi;
     signal_action_complete = sac;
+    final_repsonse_delay = frd;
 }
 
 set_response_settings(integer sqr, integer sd, integer rso, string st)
@@ -455,7 +459,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             correct_response = "Thanks.";
             gen_response = "I still don't get it.";
             say_this = "";
-            set_ask_settings(0, 0, [], 0, 0, 0, 1);
+            set_ask_settings(0, 0, [], 0, 0, 0, 1, 2);
         }  
         else if(directive == "2" && myid == 1)
         {
@@ -464,7 +468,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             correct_response = "Thanks.";
             gen_response = "I still don't get it.";
             say_this = "";
-            set_ask_settings(0, 0, [], 0, 0, 0, 1);
+            set_ask_settings(0, 0, [], 0, 0, 0, 1, 2);
         } 
 
         else if(directive == "3" && myid == 5)
@@ -474,7 +478,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             correct_response = "Thanks.";
             gen_response = "I still don't get it.";
             say_this = "";
-            set_ask_settings(0, 0, [], 0, 0, 0, 1);
+            set_ask_settings(0, 0, [], 0, 0, 0, 1, 2);
         }   
         state Ask;    
     }
@@ -959,6 +963,31 @@ state Respond
         backdoor_reset();
     }
 
+    timer()
+    {
+        if(response_choice == 1)
+        {
+            osNpcSay(npc, gen_response);
+            if(exit_on_incorrect)
+            {
+                if(signal_action_complete)
+                {
+                    llSay(auto_facil_control_channel, "-ac");
+                }
+                state Idle;
+            }
+        } 
+        else
+        {
+            osNpcSay(npc, correct_response);
+            if(signal_action_complete)
+            {
+                llSay(auto_facil_control_channel, "-ac");
+            }
+            state Idle;  
+        }
+    }
+
     listen(integer c, string n, key ID, string msg)
     {
         if(c == PUBLIC_CHANNEL)
@@ -967,38 +996,21 @@ state Respond
             {
                 if(keyword_match_multi(msg, keywords_current, keyword_match_amount) && ID != npc) 
                 {
-                    osNpcSay(npc, correct_response);
-                    if(signal_action_complete)
-                    {
-                        llSay(auto_facil_control_channel, "-ac");
-                    }
-                    state Idle;  
+                    response_choice = 0;
+                    llSetTimerEvent(final_repsonse_delay);
+                    
                 }
                 else 
                 {
                     if(signal_npc_reponse && ID != ignore_this_npc && ID != npc)
                     {
-                        osNpcSay(npc, gen_response);
-                        if(exit_on_incorrect)
-                        {
-                            if(signal_action_complete)
-                            {
-                                llSay(auto_facil_control_channel, "-ac");
-                            }
-                            state Idle;
-                        }
+                        response_choice = 1;
+                        llSetTimerEvent(final_repsonse_delay);
                     }
                     else if (ID != npc)
                     {
-                        osNpcSay(npc, gen_response);
-                        if(exit_on_incorrect)
-                        {
-                            if(signal_action_complete)
-                            {
-                                llSay(auto_facil_control_channel, "-ac");
-                            }
-                            state Idle;
-                        }
+                        response_choice = 1;
+                        llSetTimerEvent(final_repsonse_delay);
                     }
                 }    
             }

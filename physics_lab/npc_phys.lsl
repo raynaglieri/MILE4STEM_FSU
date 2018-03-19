@@ -65,7 +65,7 @@ list group_one_metaphors = ["metaphor1", "metaphor2", "metaphor3", "metaphor4"];
 list group_two_metaphors = ["metaphor1", "metaphor2", "metaphor3", "metaphor4"];
 
 list keywords_multimeter = ["$%&", "wire", "connect", "wires" , "connected"];
-list keywords_series = ["$%&", "series", "one after another", "repeat the formula"];
+list keywords_series = ["$%&", "series", "one after another"];
 list keywords_resistors = ["parallel", "simultaneous", "repeat the formula" ];
 list keywords_kirchoff = ["loop", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_polarity = ["polarity", "ampere", "current", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
@@ -481,7 +481,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         } 
         else if(directive == "3" && myid == 1) 
         {
-            currentquestion = "I have measured the current between the first and the second resistor and between the seocnd and the third resistor and it's always the same. Are the current readings supposed to be the same?";
+            currentquestion = "I have measured the current between the first and the second resistor and between the second and the third resistor and it's always the same. Are the current readings supposed to be the same?";
             keywords_current = keywords_series;
             correct_response = "Thanks.";
             gen_response = "I've tried that!";
@@ -526,7 +526,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         else if (directive == "7" && myid == 2)
         {
             currentquestion = "How do I connect the multimeter to measure the voltage across each resistor?";
-            keywords_current = keywords_multimeter; 
+            keywords_current = "connecting the voltmeter"; 
             correct_response = "Thanks.";
             gen_response = "";
             say_this = llList2String(npc_lab_sounds, 3);
@@ -537,7 +537,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         else if (directive == "8" && myid == 7)
         {
             currentquestion = "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?";
-            keywords_current = ["break the current"]; 
+            keywords_current = ["break the circuit"]; 
             correct_response = "Thanks.";
             gen_response = "";
             say_this = llList2String(npc_lab_sounds, 6);
