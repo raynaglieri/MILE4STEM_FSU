@@ -12,6 +12,10 @@
 // Notes:
 //  1. Please use the currentanimation variable when playing an animation.
 
+
+// move communcation off of npc, have script intercept 
+//
+
 //master keyword :"$%&", add override. 
 
 
@@ -75,11 +79,11 @@ list keywords_current = []; // active keywords
 
 //also add dynamic path wait times
 
-list firstname = ["John", "Michael", "Mary", "Robert", "Linda", "Thomas",
-                   "Susan", "Karen", 
+list firstname = ["John", "Michael", "Kevin", "Robert", "Linda", "Thomas",
+                   "Steven", "Karen", 
                    "Sarah", "David", 
                    "Joey", "Kimberly", "Mark", "Paul", "Jessica", "Cynthia", 
-                   "Angela", "Goerge", "Rebecca", "Amanda", "Steven", "Kevin", 
+                   "Angela", "Goerge", "Rebecca", "Amanda", "Susan", "Mary", 
                    "Christine"];
                    
 list lastname = ["Smith", "Johnson", "Williams", "Brown", "Jones", 
@@ -154,12 +158,15 @@ integer auto_facil_control_channel = 10102;
 integer npc_state_control_base_channel = 31000;
 integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
-integer npc_to_npc_signal_base_channel = 34000;
+integer scenario_send_base_channel = 41000;
+integer scenario_recieve_base_channel = 42000;
+
+
 
 integer npc_state_control_channel;  // chat channel for human control shared by all scripts
 integer npc_para_control_channel;   // para control
 integer npc_action_control_channel; // action control chaneel = base_channel + myid;
-integer npc_to_npc_signal;
+integer scenario_to_npc;
 
 integer alert_message_channel = 0;
 integer green_button_channel = 11500;   // chat channel from green button to npc, to start the lab
@@ -506,7 +513,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             currentquestion = "I have measured the voltage on the second resistor and it's 1.67 V. How do I know this is correct?";
             keywords_current = ["yes", "no"];
             correct_response = "Thanks.";
-            gen_response = "";
+            gen_response = "I've tried that!";
             say_this = llList2String(npc_lab_sounds, 3);
             set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
@@ -517,7 +524,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             currentquestion = "I have measured current on the first resistor and it's 0.05 A.  Is it correct?";
             keywords_current = ["yes" , "no"];
             correct_response = "Thanks.";
-            gen_response = "";
+            gen_response = "I've tried that!";
             say_this = llList2String(npc_lab_sounds, 6);
             set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
@@ -526,11 +533,11 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         else if (directive == "7" && myid == 2)
         {
             currentquestion = "How do I connect the multimeter to measure the voltage across each resistor?";
-            keywords_current = "connecting the voltmeter"; 
+            keywords_current = ["connecting the voltmeter"]; 
             correct_response = "Thanks.";
-            gen_response = "";
+            gen_response = "I've tried that!";
             say_this = llList2String(npc_lab_sounds, 3);
-            set_ask_settings(1, 0, [], 0, 2, 0, 1);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
             // currentsound = "You_are_talking_too_fast";
         }  
@@ -539,7 +546,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             currentquestion = "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?";
             keywords_current = ["break the circuit"]; 
             correct_response = "Thanks.";
-            gen_response = "";
+            gen_response = "I've tried that!";
             say_this = llList2String(npc_lab_sounds, 6);
             set_ask_settings(1, 0, [], 0, 1, 0, 1);
             // speak_with_question = 1;
@@ -686,7 +693,7 @@ register_common_channel()
     llListen(npc_state_control_channel, "", NULL_KEY, "");
     llListen(npc_para_control_channel, "", NULL_KEY, "");
     llListen(npc_action_control_channel, "", NULL_KEY, "");
-    llListen(npc_to_npc_signal, "", NULL_KEY, "");
+    llListen(scenario_to_npc, "", NULL_KEY, "");
 } 
 
 remove_common_channel()
@@ -701,7 +708,7 @@ register_common_channel_timer(integer t)
     llListen(npc_state_control_channel, "", NULL_KEY, "");
     llListen(npc_para_control_channel, "", NULL_KEY, "");
     llListen(npc_action_control_channel, "", NULL_KEY, "");
-    llListen(npc_to_npc_signal, "", NULL_KEY, "");
+    llListen(scenario_to_npc, "", NULL_KEY, "");
     llSetTimerEvent(t);
 }
 
@@ -976,7 +983,7 @@ default
         npc_state_control_channel = npc_state_control_base_channel + myid;
         npc_para_control_channel = npc_para_control_base_channel + myid;
         npc_action_control_channel = npc_action_control_base_channel + myid;
-        npc_to_npc_signal = npc_to_npc_signal_base_channel + myid;
+        scenario_to_npc = scenario_recieve_base_channel + myid;
         llListen(green_button_channel, "", NULL_KEY, "");
     }
     
@@ -1067,9 +1074,9 @@ state Ask
                     for(i = 0; i < llGetListLength(signal_offsets); i++)
                     {
                         if(signal_response_num = 1)
-                            llSay(npc_to_npc_signal_base_channel + llList2Integer(signal_offsets, i),"@signal-c"); 
+                            llSay(scenario_send_base_channel+ 1, llList2String(signal_offsets, i)+":"+(string)myid); 
                         else
-                            llSay(npc_to_npc_signal_base_channel + llList2Integer(signal_offsets, i),"@signal-w");
+                            llSay(scenario_send_base_channel + 2, llList2String(signal_offsets, i)+":"+(string)myid); // incrementing offers different reponse options
                     }        
 
                     state WaitSignal;    
@@ -1096,7 +1103,7 @@ state WaitSignal
 
     listen(integer c, string n, key ID, string msg)
     {
-        if(c == npc_to_npc_signal)
+        if(c == scenario_to_npc)
         {
             ignore_this_npc = ID;
             state Respond;
@@ -1191,17 +1198,17 @@ state Respond2NpcQuestion
         if(speak_with_response)
             llTriggerSound(say_this, 3.0);       
         osNpcSay(npc, to_say);
-        llSay(npc_to_npc_signal_base_channel+resp_signal_offset, "@done");
+        llSay(scenario_send_base_channel, "@done");
         state Idle;
     }
 
     listen(integer c, string n, key ID, string msg)
     {
-        if(c == npc_to_npc_signal)
+        if(c == scenario_to_npc)
         {
             if (ID != npc)
             {
-                if(msg == "@signal-c")
+                if(msg == "1")
                 {
 
                     to_say = correct_response; 
@@ -1211,7 +1218,7 @@ state Respond2NpcQuestion
                     to_say = gen_response;   
                 }
 
-                llSetTimerEvent(5.0);
+                llSetTimerEvent(5.0); // variable for this?
             }
         } else process_common_listen_port_msg(c, n, ID, msg);   
     }

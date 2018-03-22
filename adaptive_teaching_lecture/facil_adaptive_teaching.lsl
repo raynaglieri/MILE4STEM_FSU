@@ -45,9 +45,9 @@ list   d3_button1 = ["Okay"];
 string d3_msg2 = "You might want to ask students whether they understand the topic or not.";
 list   d3_button2 = ["Okay"];
 
-string d4_msg1 = "Keep in mind that students learn differently. You may use different forms of learning materials and activities to accommodate their learning styles.";
+string d4_msg1 = "Keep in mind that students learn differently. You may use different forms of learning materials and activities to accommodate their learning styles. For example, remind them to use handouts from the course site.";
 list   d4_button1 = ["Okay"];
-string d4_msg2 = "You might want to give the student a handout.";
+string d4_msg2 = "You might remind students that handouts are availble at the course site.";
 list   d4_button2 = ["Okay"];
 
 string d5_msg1 = "Students come to class with different goals: some focus on learning while some may concern more about grades.";
@@ -77,7 +77,7 @@ list   d9_button2 = ["Okay"];
 
 string d10_msg1 = "You might want to suggest to the only student who answers “no”  some alternative learning activities (look up in the shelf or find a handout on the table). If there are several students with similar needs you might want to put them in a separate group and provide them with some alternative activities.";
 list   d10_button1 = ["Okay"];
-string d10_msg2 = "You might want to provide the student with an alternative learning activity, for example, give him a handout from your inventory.";
+string d10_msg2 = "You might want to suggest an alternative learning activity to a student, for example, having a handout from the table.";
 list   d10_button2 = ["Okay"];
 
 string d11_msg1 = "You might want to draw the topic on whiteboard, use handouts, multimedia clips you have prepared or physical objects.";
