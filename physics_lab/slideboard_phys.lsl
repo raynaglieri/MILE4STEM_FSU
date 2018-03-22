@@ -1,4 +1,4 @@
-// Created on 1/29/2017 By Raymond Naglieri.
+// Created on 1/29/2018 By Raymond Naglieri.
 // Description: Takes commands from board_control_channel and updates textures on attatched prim.
 // 3/3/18 added MYID for individual board control.
 string slide_texture;

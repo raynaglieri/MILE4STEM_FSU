@@ -11,6 +11,7 @@ integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
 integer auto_facil_control_channel = 10102;
 integer physics_dialogue_state_control_channel = 10001; 
+integer npc_scenario_control_channel = 41000;
 
 
 integer random_integer(integer min, integer max)
@@ -26,6 +27,7 @@ reset_to_start()
     llSay(facil_control_channel, "-reset");
     llSay(physics_dialogue_state_control_channel, "-reset");   
     llSay(auto_facil_control_channel, "-reset");
+    llSay(npc_scenario_control_channel , "-reset");
 } 
 
 npc_group_speak() 
