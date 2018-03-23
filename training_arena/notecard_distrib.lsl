@@ -1,8 +1,8 @@
 //  CREATED BY: Raymond Naglieri on 3/21/18
 // DESCRIPTION: Hand out notecards from a given set. 
-// 		 NOTES: 1. delete_all_other_contents provided by: http://wiki.secondlife.com/wiki/LlRemoveInventory, modified to exclude ORDER_FILE
+// 		 NOTES: 1. delete_all_other_contents() provided by: http://wiki.secondlife.com/wiki/LlRemoveInventory, modified to exclude ORDER_FILE
 //				2. ORDER_FILE notecard must be placed in prim before running	
-//		   LOG: add empty ORDER_FILE handling
+//		   LOG: add empty ORDER_FILE handling [completed]
 //
 
 integer notecard_command_channel = 88000;
@@ -18,6 +18,8 @@ integer deck_position = 0;
 key notecard_insert_id = NULL_KEY;
 string notecard_name = "";
 
+integer debug = 0;
+
 
 delete_all_other_contents()
 {
@@ -31,7 +33,7 @@ delete_all_other_contents()
  
         inventoryItemName = llGetInventoryName(INVENTORY_ALL, index);
  
-        if (inventoryItemName != thisScript || inventoryItemName != ORDER_FILE)   
+        if (inventoryItemName != thisScript && inventoryItemName != ORDER_FILE)   
             llRemoveInventory(inventoryItemName);     
     }
 }
@@ -43,29 +45,42 @@ shuffle_card()
 
 draw_card(key user)
 {
-	llSay(0,  (string)llGetListLength(fixed_notecard_deck));
-	llSay(0,  (string)deck_position);
-	if(deck_position < llGetListLength(fixed_notecard_deck))
+	if(debug)
 	{
-		llGiveInventory(user, llList2String(fixed_notecard_deck, deck_position));
-		++deck_position;
+		llSay(0,  (string)llGetListLength(fixed_notecard_deck));
+		llSay(0,  (string)deck_position);
 	}
-	else
+
+	if(llGetListLength(fixed_notecard_deck) > 1)
 	{
-		llSay(0, "THE DECK IS OUT OF CARDS. -reshuffle THE DECK OR ADD -update THE DECK WITH MORE CARDS.");
+		if(deck_position < llGetListLength(fixed_notecard_deck))
+		{
+			llGiveInventory(user, llList2String(fixed_notecard_deck, deck_position));
+			++deck_position;
+		}
+		else
+		{
+			llSay(0, "THE DECK IS OUT OF CARDS. -reshuffle THE DECK OR ADD -update THE DECK WITH MORE CARDS.");
+		}
 	}
+	else 
+	{
+		llSay(0, "Error: No cards in DECK_ORDER_FILE.");
+	}	
 }
 
 command_interface(string command)
 {
 	if(command == "-reset") // complete script reset
 	{
+		llSay(0, "Resetting...");
 		delete_all_other_contents();
 		llResetScript();
 	}
 	else if(command == "-reshuffle") // restore current deck to original state
 	{
 		deck_position = 0;
+		llSay(0, "Reshuffling...");
 	}
 	else if(command == "-update") // update the deck contents
 	{
@@ -73,6 +88,7 @@ command_interface(string command)
 		deck_position = 0;
 		fixed_notecard_deck = [];
 		shuffle_card();
+		llSay(0, "Updating...");
 	}
 }
 
@@ -80,7 +96,8 @@ default
 {
 	state_entry()
 	{
-		llSay(0, "Enter.");
+		if(debug)
+			llSay(0, "Enter.");
 		llListen(notecard_command_channel, "", NULL_KEY, "");
 		shuffle_card();
 	}
@@ -92,13 +109,18 @@ default
 
  	dataserver(key query_id, string sdata)
     {
-    	llSay(0, "Query.");
-    	llSay(0, sdata);
+    	if(debug)
+    	{
+	    	llSay(0, "Query.");
+	    	llSay(0, sdata);
+    	}
+
         if(query_id == notecard_insert_id)
         {
             if(sdata == EOF)
             {
-				llSay(0, "EOF");
+            	if(debug)
+					llSay(0, "EOF");
             }
 			else
 			{
@@ -110,7 +132,8 @@ default
 
 	listen(integer channel, string name, key id, string message)
 	{
-		llSay(0, "Command.");
+		if(debug)
+			llSay(0, "Command.");
 		command_interface(message);
 	}
 }
