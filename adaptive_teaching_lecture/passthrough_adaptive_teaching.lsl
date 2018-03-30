@@ -17,6 +17,7 @@ integer npc_action_control_base_channel = 33000;
 integer room_control_base_channel = 35000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
+integer facil_capture_channel = -33157;
 integer wait = 10;
 
 integer random_integer(integer min, integer max)
@@ -29,7 +30,8 @@ reset_to_start()
     integer i;
     for (i=0; i<num_npc; i++)
        llSay(base_npc_control_channel+i, "-reset");
-    llSay(facil_control_channel, "-reset");      
+    llSay(facil_control_channel, "-reset");    
+    llSay(facil_capture_channel, "-reset");  
 } 
 
 npc_group_speak() 
@@ -305,7 +307,5 @@ default
         } else if (message == "-cmdanim2"){
             llSay(base_npc_control_channel+0, "-testcmdanim2");
         }
-
-
     }
 } 

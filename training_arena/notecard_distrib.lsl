@@ -3,6 +3,7 @@
 // 		 NOTES: 1. delete_all_other_contents() provided by: http://wiki.secondlife.com/wiki/LlRemoveInventory, modified to exclude ORDER_FILE
 //				2. ORDER_FILE notecard must be placed in prim before running	
 //		   LOG: add empty ORDER_FILE handling [completed]
+//				add support for ignoring whitespace at the end of the ORDER_FILE. [completed]
 //
 
 integer notecard_command_channel = 88000;
@@ -122,8 +123,14 @@ default
             	if(debug)
 					llSay(0, "EOF");
             }
+            else if(sdata == "")
+            {
+            	if(debug)
+					llSay(0, "Blank line.");
+            }
 			else
 			{
+				sdata = llStringTrim(sdata, STRING_TRIM); 
 				fixed_notecard_deck += sdata;
 				notecard_insert_id = llGetNotecardLine(ORDER_FILE, ++line);
 			}	

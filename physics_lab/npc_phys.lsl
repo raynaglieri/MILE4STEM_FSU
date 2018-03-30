@@ -17,6 +17,7 @@
 //
 
 //master keyword :"$%&", add override. 
+// 
 
 
 // NPC Variables
@@ -74,7 +75,20 @@ list keywords_resistors = ["parallel", "simultaneous", "repeat the formula" ];
 list keywords_kirchoff = ["loop", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_polarity = ["polarity", "ampere", "current", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_extratime = ["you", "can", "have"];
+list keywords_yes_no = ["yes", "no"];
 list keywords_current = []; // active keywords
+
+list lab_questions = ["Hi, I think I need your help. The digital multimeter is broken.", 
+                        "Can you take a look at my digital multimeter? I might have broken it.", 
+                        "I have measured the current between the first and the second resistor and between the second and the third resistor and it's always the same. Are the current readings supposed to be the same?", 
+                        "I have measured the voltage on the second resistor and it's 1.67 V. How do I know this is correct?", "I have measured current on the first resistor and it's 0.05 A.  Is it correct?", 
+                        "How do I connect the multimeter to measure the voltage across each resistor?", 
+                        "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?", 
+                        "We are still working on our report. Could you give us some extra time?"];
+list correct_responses = ["Yes, I misconnected the wires.", "Yes, I probably messed up the wires", "Thanks.", "Great Thank you so much!"];
+list gen_responses = ["I've tried that!", "Alright, we'll finish as much as we can."];
+
+list npc_to_npc_reponses = ["Yes, it's the same but the resistors have different resistances."];
 
 
 //also add dynamic path wait times
@@ -135,7 +149,7 @@ integer pending_convo_loc = 0;
 string cur_sentence;
 integer list_wait = 1;
 list sentence_and_time;
-integer keyword_match_amount = 0; 
+integer keyword_match_amount = 1; 
 integer speak_with_question = 0;
 integer speak_with_response = 0;
 integer speech_delay = 0;
@@ -323,6 +337,29 @@ integer keyword_match(string msg, key ID, list q_key_words)
     return 0;   
 }    
 
+set_active_keywords(integer selection)
+{
+    if(selection == 1)
+        keywords_current = keywords_multimeter;
+    else if(selection == 2)
+        keywords_current = keywords_series;
+    else if(selection == 3)
+        keywords_current = keywords_resistors;
+    else if(selection == 4)
+        keywords_current = keywords_kirchoff;
+    else if(selection == 5)
+        keywords_current = keywords_polarity;    
+    else if(selection == 6)
+        keywords_current = keywords_extratime;
+    else if(selection == 7)
+        keywords_current = keywords_yes_no;
+    else if(selection == 8)
+        keywords_current = ["yes"];
+    else
+        llSay(0, "not an option");
+
+}
+
 integer keyword_match_xy(string msg, list q_key_words) 
 {   // matches keywords in string message, return 1 if found
     string lower_msg = llToLower(msg); 
@@ -358,6 +395,41 @@ integer keyword_match_multi(string msg, list q_key_words, integer match_amount)
         }       
     }
     return 0;   
+}
+
+integer question_inbounds(integer index)
+{
+    if(index < llGetListLength(lab_questions) && index >= 0)
+        return 1;
+    return 0;    
+}
+
+integer corr_response_inbounds(integer index)
+{
+    if(index < llGetListLength(correct_responses) && index >= 0)
+        return 1;
+    return 0; 
+}
+
+integer gen_response_inbounds(integer index)
+{
+    if(index < llGetListLength(gen_responses) && index >= 0)
+        return 1;
+    return 0; 
+}
+
+integer npc_response_inbounds(integer index)
+{
+    if(index < llGetListLength(npc_to_npc_reponses) && index >= 0)
+        return 1;
+    return 0; 
+}
+
+integer npc_speech_inbounds(integer index)
+{
+    if(index < llGetListLength(npc_lab_sounds) && index >= 0)
+        return 1;
+    return 0;
 }
 
 integer random_integer(integer min, integer max)
@@ -421,6 +493,8 @@ integer remove_npc()
 } 
 
 
+
+
 //parse directions given by auto_faciliate or a person 
 npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
 {   
@@ -467,19 +541,6 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
     }
     else if(activescenario == "R")
     {
-        if(directive == "1" && myid == 3) 
-        {
-            correct_response = "Yes, it's the same but the resistors have different resistances.";
-            gen_response = ""; 
-            set_response_settings(1, 5 , 1, llList2String(npc_lab_sounds, 0));
-        }
-        else if(directive == "2" && myid == 6) 
-        {
-            correct_response = "Yes, it's the same but the resistors have different resistances.";
-            gen_response = ""; 
-            set_response_settings(1, 5 , 4, llList2String(npc_lab_sounds, 0));
-        }
-
         state Respond2NpcQuestion;
     }
 }
@@ -651,73 +712,9 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         {
             npc_state_handler("A:1", c, n, ID, msg);
         }
-        else if(msg == "-npcask2")
-        {
-            npc_state_handler("A:2", c, n, ID, msg);
-        }
-        else if(msg == "-npcask3")
-        {
-            npc_state_handler("A:3", c, n, ID, msg);
-        }
-        else if(msg == "-npcask4")
-        {
-            npc_state_handler("A:4", c, n, ID, msg);
-        }
-        else if(msg == "-npcask5")
-        {
-            npc_state_handler("A:5", c, n, ID, msg);
-        }
-        else if(msg == "-npcask6")
-        {
-            npc_state_handler("A:6", c, n, ID, msg);
-        }
-        else if(msg == "-npcask7")
-        {
-            npc_state_handler("A:7", c, n, ID, msg);
-        }
-        else if(msg == "-npcask8")
-        {
-            npc_state_handler("A:8", c, n, ID, msg);
-        }
-        else if(msg == "-npcask9")
-        {
-            npc_state_handler("A:9", c, n, ID, msg);
-        }
-        else if(msg == "-npcask10")
-        {
-            npc_state_handler("A:10", c, n, ID, msg);
-        }
-        else if(msg == "-npcask11")
-        {
-            npc_state_handler("A:11", c, n, ID, msg);
-        }
-        else if(msg == "-npcresp1")
+        else if(msg == "-npcresp")
         {
             npc_state_handler("R:1", c, n, ID, msg);
-        }
-        else if(msg == "-npcresp2")
-        {
-            npc_state_handler("R:2", c, n, ID, msg);
-        }
-        else if(msg == "-npcresp3")
-        {
-            npc_state_handler("R:3", c, n, ID, msg);
-        }
-        else if(msg == "-npcresp4")
-        {
-            npc_state_handler("R:4", c, n, ID, msg);
-        }
-        else if(msg == "-npcresp5")
-        {
-            npc_state_handler("R:5", c, n, ID, msg);
-        }
-        else if(msg == "-npcresp6")
-        {
-            npc_state_handler("R:6", c, n, ID, msg);
-        }
-        else if(msg == "-npcresp7")
-        {
-            npc_state_handler("R:7", c, n, ID, msg);
         }
         else
         {
@@ -728,7 +725,7 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
     { // change script parameters
         list tmplist = llParseString2List(msg, ["$~"], []);
         string ss = llList2String(tmplist, 0);
-        integer val = llList2Integer(tmplist, 1);
+        string val = llList2String(tmplist, 1);
         if (ss == "@Querydebug_level") 
         {
             osNpcSay(npc, "debuy_level = " + debug_level);
@@ -750,19 +747,19 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         }
         else if (ss == "@Setdebug_level") 
         {
-            debug_level = val;
+            debug_level = (integer)val;
         } 
         else if  (ss == "@Setreminder_interval") 
         {
-            reminder_interval = val;
+            reminder_interval = (integer)val;
         } 
         else if  (ss == "@Setrepeat_interval") 
         {
-            repeat_interval = val;
+            repeat_interval = (integer)val;
         } 
         else if (ss == "@Setmyid") 
         {
-            myid = val;
+            myid = (integer)val;
             spawn_npc(); // keep
             spawn_npc();
             reset_all();
@@ -779,37 +776,58 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         }
         else if(ss == "@SetAsk")
         {
-            currentquestion = val;
-            llSay(0, val);
+            if(question_inbounds((integer)val))   
+                currentquestion = llList2String(lab_questions, (integer)val);
+
+            // llSay(0, currentquestion);
+            // llSay(0, val);
         }
         else if (ss == "@SetKeywords") 
         {
-            set_keywords(val);
-            llSay(0, val);
+            set_active_keywords((integer)val);
+
+            //llSay(0, keywords_current);
+            // llSay(0, val);
         }
         else if (ss == "@SetResponseC") 
         {
-            correct_response = val;
-            llSay(0, val);
+            if(corr_response_inbounds((integer)val))
+                correct_response = llList2String(correct_responses, (integer)val);
+
+            // llSay(0,correct_response);
+            // llSay(0, val);
         }
         else if (ss == "@SetResponseG") 
         {
-            gen_response = val;
-            llSay(0, val);
+            if(gen_response_inbounds((integer)val))
+                gen_response = llList2String(gen_responses, (integer)val);
+
+            // llSay(0, gen_response);    
+            // llSay(0, val);
         }
         else if (ss == "@SetSay") 
         {
-            say_this = llList2String(npc_lab_sounds, (integer)val);
-            llSay(0, val);
+            if(npc_speech_inbounds((integer)val))
+                say_this = llList2String(npc_lab_sounds, (integer)val);
+            else
+                say_this = "NULL";
+
+            //llSay(0, say_this);    
+            //llSay(0, val);
         }
-        else if (ss == "@SetAskSettings") 
-        {
-            list settings_package = llParseString2List(val, ["::"], []);
-            set_ask_settings(llList2Integer(settings_package, 0), llList2Integer(settings_package, 1), 
-                            [llList2Integer(settings_package, 2)], llList2Integer(settings_package, 3), 
-                            llList2Integer(settings_package, 4),llList2Integer(settings_package, 5) , llList2Integer(settings_package, 6));
-            llSay(0, val);
+        else if (ss == "@SetKWMA") 
+       
+            keyword_match_amount = (integer)val;
+            //llSay(0, val);
         }
+        // else if (ss == "@SetAskSettings") //legacy
+        // {
+        //     list settings_package = llParseString2List(val, ["::"], []);
+        //     set_ask_settings(llList2Integer(settings_package, 0), llList2Integer(settings_package, 1), 
+        //                     [llList2Integer(settings_package, 2)], llList2Integer(settings_package, 3), 
+        //                     llList2Integer(settings_package, 4),llList2Integer(settings_package, 5) , llList2Integer(settings_package, 6));
+        //     llSay(0, val);
+        // }
         else if (ss == "@Resetscript") 
         {
             llResetScript();
@@ -990,25 +1008,7 @@ state Ask
             {
                 osNpcStopAnimation(npc, currentanimation);
                 osNpcSay(npc, currentquestion);
-                if(speak_with_question)
-                {
-                    llTriggerSound(say_this, 3.0);
-                    speak_with_question = 0;
-                }
-                if(signal_npc_reponse)
-                {
-                    integer i = 0;
-                    for(i = 0; i < llGetListLength(signal_offsets); i++)
-                    {
-                        if(signal_response_num = 1)
-                            llSay(scenario_send_base_channel+ 1, llList2String(signal_offsets, i)+":"+(string)myid); 
-                        else
-                            llSay(scenario_send_base_channel + 2, llList2String(signal_offsets, i)+":"+(string)myid); // incrementing offers different reponse options
-                    }        
-
-                    state WaitSignal;    
-                }
-
+                llTriggerSound(say_this, 3.0);
                 state Respond;
             }
         }  else process_common_listen_port_msg(c, n, ID, msg);   
@@ -1069,40 +1069,14 @@ state Respond
                 }
                 else 
                 {
-                    if(signal_npc_reponse && ID != ignore_this_npc && ID != npc)
+                    if (ID != npc)
                     {
                         osNpcSay(npc, gen_response);
-                        if(exit_on_incorrect)
-                        {
-                            if(signal_action_complete)
-                            {
-                                llSay(auto_facil_control_channel, "-ac");
-                            }
-                            state Idle;
-                        }
-                    }
-                    else if (ID != npc)
-                    {
-                        osNpcSay(npc, gen_response);
-                        if(exit_on_incorrect)
-                        {
-                            if(signal_action_complete)
-                            {
-                                llSay(auto_facil_control_channel, "-ac");
-                            }
-                            state Idle;
-                        }
                     }
                 }    
             }
-        }  else process_common_listen_port_msg(c, n, ID, msg);   
+        } else process_common_listen_port_msg(c, n, ID, msg);   
     }
-
-    // state_exit()
-    // {
-    //     llSay(0, "test");
-    //     llSay(auto_facil_control_channel, "-ac");
-    // }
 }
 
 state Respond2NpcQuestion
@@ -1121,9 +1095,7 @@ state Respond2NpcQuestion
 
     timer()
     {
-
-        if(speak_with_response)
-            llTriggerSound(say_this, 3.0);       
+        llTriggerSound(say_this, 3.0);       
         osNpcSay(npc, to_say);
         llSay(scenario_send_base_channel, "@done");
         state Idle;
@@ -1145,7 +1117,7 @@ state Respond2NpcQuestion
                     to_say = gen_response;   
                 }
 
-                llSetTimerEvent(5.0); // variable for this?
+                llSetTimerEvent(speech_delay); 
             }
         } else process_common_listen_port_msg(c, n, ID, msg);   
     }
@@ -1230,9 +1202,6 @@ state Quiz
         
     }
 }
-
-
-
 
 state Wait
 {
