@@ -85,7 +85,7 @@ list lab_questions = ["Hi, I think I need your help. The digital multimeter is b
                         "How do I connect the multimeter to measure the voltage across each resistor?", 
                         "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?", 
                         "We are still working on our report. Could you give us some extra time?"];
-list correct_responses = ["Yes, I misconnected the wires.", "Yes, I probably messed up the wires", "Thanks.", "Great Thank you so much!"];
+list correct_responses = ["Yes, I misconnected the wires.", "Yes, I probably messed up the wires", "All right", "Great. Thanks!"];
 list gen_responses = ["I've tried that!", "Alright, we'll finish as much as we can."];
 
 list npc_to_npc_reponses = ["Yes, it's the same but the resistors have different resistances."];
