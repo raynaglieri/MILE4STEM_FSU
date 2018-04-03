@@ -693,7 +693,7 @@ state S1R
                 reset_all();
                 // llSay(facil_action_control_channel, currentdirective); // not supported.
                 // let auto_facil know the current question has been completed
-                osNpcSay(npc, "Great. Thank you.");
+                osNpcSay(npc, "All right.");
                 if (myid == 0) 
                 {
                     llSay(npc_state_control_base_channel+3, "S1:3");
@@ -799,7 +799,7 @@ state S2R
                 llSetTimerEvent(repeat_interval);
                 reset_all();
                 // llSay(facil_action_control_channel, currentdirective); // no automatic facil yet
-                osNpcSay(npc, "Thanks! I'll try that.");
+                osNpcSay(npc, "Alright. I'll try that.");
                 state Idle;
             }
 
