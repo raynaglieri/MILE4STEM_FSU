@@ -9,7 +9,10 @@
 key trainee= NULL_KEY;
 key facilitator = NULL_KEY;
 vector COLOR_GREEN = <0.0, 1.0, 0.0>;
+vector COLOR_RED = <1.0, 0.0, 0.0>;
 float  OPAQUE = 1.0;
+
+
 
 // constants used acrosss all scripts
 integer facil_capture_channel = -33157;  // input from this channel contains the faciltators key
@@ -20,7 +23,7 @@ integer local_dialog_channel = 11003;    // this number should be different for
                                          
 default{    
     state_entry(){  
-        llSetText("Press to begin lecture.", COLOR_GREEN, OPAQUE );
+        llSetText("Press to begin lecture: facil not set", COLOR_RED, OPAQUE); 
         llListen(local_dialog_channel, "", NULL_KEY, "");
         llListen(facil_capture_channel, "", NULL_KEY, "");
     }   
@@ -42,13 +45,23 @@ default{
                 trainee = ID;
                 string key_package = trainee + ":" + facilitator; 
                 llSay(0, key_package);
-                llSay(button_to_facil_channel, trainee);
+                llSay(button_to_facil_channel, key_package);
+                if(facilitator == NULL_KEY)
+                    llSetText("Press to begin lecture: facil not set", <1,0,0>, 1); 
+                else 
+                    llSetText("Press to begin lecture: facil set", <0,1,0>, 0);
+
                 llSay(button_to_npc_channel, "-spawn");
             }
         }
         else if(c == facil_capture_channel)
         {
             facilitator = msg;
+            if(facilitator == NULL_KEY)
+                llSetText("Press to begin lecture: facil not set", COLOR_RED, OPAQUE); 
+            else 
+                llSetText("Press to begin lecture: facil set", COLOR_GREEN, OPAQUE);
+
         }
     } 
 }

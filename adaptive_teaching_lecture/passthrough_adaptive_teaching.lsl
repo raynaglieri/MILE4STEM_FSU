@@ -17,7 +17,7 @@ integer npc_action_control_base_channel = 33000;
 integer room_control_base_channel = 35000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
-integer facil_capture_channel = -33157;
+integer facil_capture_channel = -33156;
 integer wait = 10;
 
 integer random_integer(integer min, integer max)

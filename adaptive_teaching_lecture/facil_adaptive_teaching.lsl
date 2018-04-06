@@ -1,5 +1,6 @@
 // variables whose value can be changed during the execution of the script
 key trainee = NULL_KEY;      // the key for the TA being trained
+key facilitator = NULL_KEY;
                              // the person who push the start button is the TA                            
 integer auto_facil = TRUE;  // TRUE: automatic mode, FALSE: manual mode
 integer base_NPCID = -200;   // No use in this file
@@ -365,24 +366,28 @@ dialog_dialog_with_timer(string msg1, list button1, string msg2, list button2, i
 {
   llSetTimerEvent(t);
   if (internal_state == 0) {
+    llInstantMessage(facilitator, msg1);   
     if (button1 == [])
-          llTextBox(trainee, msg1, local_dialog_channel);
-    else llDialog(trainee, msg1, button1, local_dialog_channel);
+        llTextBox(trainee, msg1, local_dialog_channel); 
+    else llDialog(trainee, msg1, button1, local_dialog_channel);    
   } else if (internal_state == 1) {
+        llInstantMessage(facilitator, msg2);   
     if (button2 == []) 
         llTextBox(trainee, msg2, local_dialog_channel);
+
     else llDialog(trainee, msg2, button2, local_dialog_channel);
   }
 }
 
 common_state_entry(string n, string s, list l, integer t)
 {
-   internal_state = 0;
-   state_name = n;
-   if (l == [])
-     llTextBox(trainee, s, local_dialog_channel);
-   else llDialog(trainee, s, l, local_dialog_channel);
-   register_common_channel_timer(t);
+    internal_state = 0;
+    state_name = n;
+    llInstantMessage(facilitator, s);   
+     if (l == [])
+        llTextBox(trainee, s, local_dialog_channel);
+    else llDialog(trainee, s, l, local_dialog_channel);
+    register_common_channel_timer(t);
 }
 
 default
@@ -435,7 +440,10 @@ default
         } 
         else if (c == button_to_facil_channel) 
         {                   // sent from the green button
-            trainee = msg;  // here the green button passes the trainee ID to facil
+            list key_package = llParseString2List(msg, [":"], []);
+            trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);
+            llSay(0, trainee + "::::::::" + facilitator);
             llDialog(trainee, "Now you are going to teach a Lecture to the students. Click start when you are ready.", ["Start"] , local_dialog_channel);   
         } 
         else 

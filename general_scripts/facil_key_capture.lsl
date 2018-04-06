@@ -9,14 +9,15 @@ key facil_candidate = NULL_KEY;
 string passphrase = "pass";
 
 integer local_dialog_channel = -1000;
-integer facil_capture_channel = -33157;
+integer facil_capture_channel = -33156;
+integer facil_key_channel = -33157;
 
 
 command_interface(string command)
 {
 	if(command == "-reset") // complete script reset
 	{
-		llSay(0, "Resetting...");
+		llSay(facil_key_channel, NULL_KEY);
 		llResetScript();
 	}
 	else if(command == "-print") // print the current facilitator
@@ -58,7 +59,7 @@ state Authenticate
 		{
 			facil_key = facil_candidate;
 			llDialog(facil_key, llKey2Name(facil_key) + ", Authenticated.\n" + llKey2Name(facil_key) + " is the active facilitator." , ["Okay"], local_dialog_channel);
-			llSay(facil_capture_channel, facil_key);
+			llSay(facil_key_channel, facil_key);
 			state Locked;
 		}
 		else 
