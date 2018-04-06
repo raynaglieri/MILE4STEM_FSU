@@ -16,8 +16,7 @@
 // move communcation off of npc, have script intercept 
 //
 
-//master keyword :"$%p$", add override. 
-// 
+//master keyword :"$%&", add override. 
 
 
 // NPC Variables
@@ -45,23 +44,23 @@ string currentdirective = "_:_";
 string correct_response = "";
 string gen_response = "";
 string say_this = "";
-list npc_0_path = [];
-list npc_1_path = [];
-list npc_2_path = [];
-list npc_3_path = [];
-list npc_4_path = [];
-list npc_5_path = [];
-list npc_6_path = [];
-list npc_7_path = [];
+list npc_0_path = ["<0.0,-0.5,0.0>" , "<-2.0,0.0,0.0>"];
+list npc_1_path = ["<0.0,-0.5,0.0>" , "<-2.0,0.0,0.0>"];
+list npc_2_path = ["<0.0,-0.5,0.0>" , "<-2.0,0.0,0.0>"];
+list npc_3_path = ["<0.0,-0.5,0.0>" , "<-2.0,0.0,0.0>"];
+list npc_4_path = ["<0.0,-0.5,0.0>" , "<-2.0,0.0,0.0>"];
+list npc_5_path = ["<0.0,-0.5,0.0>" , "<-2.0,0.0,0.0>"];
+list npc_6_path = ["<0.0,-0.5,0.0>" , "<-2.0,0.0,0.0>"];
+list npc_7_path = ["<0.0,-0.5,0.0>" , "<-2.0,0.0,0.0>"];
 
-list npc_0_path_ret = [];
-list npc_1_path_ret = [];
-list npc_2_path_ret = [];
-list npc_3_path_ret = [];
-list npc_4_path_ret = [];
-list npc_5_path_ret = [];
-list npc_6_path_ret = [];
-list npc_7_path_ret = [];
+list npc_0_path_ret = ["<-2.0,0.0,0.0>" , "<0.0,-0.5,0.0>"];
+list npc_1_path_ret = ["<2.0,0.0,0.0>" , "<0.0,0.5,0.0>"];
+list npc_2_path_ret = ["<2.0,0.0,0.0>" , "<0.0,0.5,0.0>"];
+list npc_3_path_ret = ["<2.0,0.0,0.0>" , "<0.0,0.5,0.0>"];
+list npc_4_path_ret = ["<2.0,0.0,0.0>" , "<0.0,0.5,0.0>"];
+list npc_5_path_ret = ["<2.0,0.0,0.0>" , "<0.0,0.5,0.0>"];
+list npc_6_path_ret = ["<2.0,0.0,0.0>" , "<0.0,0.5,0.0>"];
+list npc_7_path_ret = ["<2.0,0.0,0.0>" , "<0.0,0.5,0.0>"];
 
 list group_one = ["group1", "group 1", "groupone", "group one", "first group", "firstgroup"];
 list group_two = ["group2", "group 2", "grouptwo", "group two", "second group", "secondgroup"];
@@ -69,27 +68,13 @@ list group_two = ["group2", "group 2", "grouptwo", "group two", "second group", 
 list group_one_metaphors = ["metaphor1", "metaphor2", "metaphor3", "metaphor4"];
 list group_two_metaphors = ["metaphor1", "metaphor2", "metaphor3", "metaphor4"];
 
-list keywords_multimeter = ["wire", "connect", "wires" , "connected"];
-list keywords_series = ["series", "one after another"];
+list keywords_multimeter = ["$%&", "wire", "connect", "wires" , "connected"];
+list keywords_series = ["$%&", "series", "one after another"];
 list keywords_resistors = ["parallel", "simultaneous", "repeat the formula" ];
 list keywords_kirchoff = ["loop", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_polarity = ["polarity", "ampere", "current", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_extratime = ["you", "can", "have"];
-list keywords_yes_no = ["yes", "no"];
 list keywords_current = []; // active keywords
-string MASTER_PASSWORD = "$%p$"
-
-list lab_questions = ["Hi, I think I need your help. The digital multimeter is broken.", 
-                        "Can you take a look at my digital multimeter? I might have broken it.", 
-                        "I have measured the current between the first and the second resistor and between the second and the third resistor and it's always the same. Are the current readings supposed to be the same?", 
-                        "I have measured the voltage on the second resistor and it's 1.67 V. How do I know this is correct?", "I have measured current on the first resistor and it's 0.05 A.  Is it correct?", 
-                        "How do I connect the multimeter to measure the voltage across each resistor?", 
-                        "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?", 
-                        "We are still working on our report. Could you give us some extra time?"];
-list correct_responses = ["Yes, I misconnected the wires.", "Yes, I probably messed up the wires", "Thanks.", "Great Thank you so much!"];
-list gen_responses = ["I've tried that!", "Alright, we'll finish as much as we can."];
-
-list npc_to_npc_reponses = ["Yes, it's the same but the resistors have different resistances."];
 
 
 //also add dynamic path wait times
@@ -150,7 +135,7 @@ integer pending_convo_loc = 0;
 string cur_sentence;
 integer list_wait = 1;
 list sentence_and_time;
-integer keyword_match_amount = 1; 
+integer keyword_match_amount = 0; 
 integer speak_with_question = 0;
 integer speak_with_response = 0;
 integer speech_delay = 0;
@@ -314,27 +299,29 @@ integer name_called(string checkname)
     return FALSE;
 } 
 
-set_active_keywords(integer selection)
-{
-    if(selection == 1)
-        keywords_current = keywords_multimeter;
-    else if(selection == 2)
-        keywords_current = keywords_series;
-    else if(selection == 3)
-        keywords_current = keywords_resistors;
-    else if(selection == 4)
-        keywords_current = keywords_kirchoff;
-    else if(selection == 5)
-        keywords_current = keywords_polarity;    
-    else if(selection == 6)
-        keywords_current = keywords_extratime;
-    else if(selection == 7)
-        keywords_current = keywords_yes_no;
-    else if(selection == 8)
-        keywords_current = ["yes"];
-    else
-        llSay(0, "not an option");
-}
+integer keyword_match(string msg, key ID, list q_key_words) 
+{ // matches keywords in string message, return 1 if found
+    string lower_msg = llToLower(msg); 
+    integer i = 0;
+    string key_word;       
+    for(i = 0; i < llGetListLength(q_key_words); i++) 
+    {
+        key_word = llList2String(q_key_words, i);
+        integer index = llSubStringIndex(lower_msg, key_word);
+        if(ID != npc)
+        {
+            if(index == -1) 
+            {
+                osNpcSay(npc, "I don't understand.");     
+            } 
+            else 
+            {  
+                return 1;        
+            }
+        }    
+    }
+    return 0;   
+}    
 
 integer keyword_match_xy(string msg, list q_key_words) 
 {   // matches keywords in string message, return 1 if found
@@ -352,11 +339,9 @@ integer keyword_match_xy(string msg, list q_key_words)
 integer keyword_match_multi(string msg, list q_key_words, integer match_amount) 
 {   // matches keywords in string message, return 1 if found
     if (keyword_match_amount == 0)
+    {
         return 1;
-
-    if(msg == MASTER_PASSWORD)
-        return 1;
-
+    }
     string lower_msg = llToLower(msg); 
     integer i;
     string key_word;   
@@ -373,41 +358,6 @@ integer keyword_match_multi(string msg, list q_key_words, integer match_amount)
         }       
     }
     return 0;   
-}
-
-integer question_inbounds(integer index)
-{
-    if(index < llGetListLength(lab_questions) && index >= 0)
-        return 1;
-    return 0;    
-}
-
-integer corr_response_inbounds(integer index)
-{
-    if(index < llGetListLength(correct_responses) && index >= 0)
-        return 1;
-    return 0; 
-}
-
-integer gen_response_inbounds(integer index)
-{
-    if(index < llGetListLength(gen_responses) && index >= 0)
-        return 1;
-    return 0; 
-}
-
-integer npc_response_inbounds(integer index)
-{
-    if(index < llGetListLength(npc_to_npc_reponses) && index >= 0)
-        return 1;
-    return 0; 
-}
-
-integer npc_speech_inbounds(integer index)
-{
-    if(index < llGetListLength(npc_lab_sounds) && index >= 0)
-        return 1;
-    return 0;
 }
 
 integer random_integer(integer min, integer max)
@@ -471,8 +421,6 @@ integer remove_npc()
 } 
 
 
-
-
 //parse directions given by auto_faciliate or a person 
 npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
 {   
@@ -515,15 +463,125 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
     }
     else if(activescenario == "A") // settings (integer swq, integer snr, list so, integer srn, integer kma, integer eoi, integer sac)
     {
-        if(directive == "1")
-            state Ask;
-        else if (directive == "2")
-            state AskSignal;  
-        else if (directive == "3")
-            state Ask_RA;
+        if(directive == "1" && myid == 0)
+        {
+            currentquestion = "Hi, I think I need your help. The digital multimeter is broken.";
+            keywords_current = keywords_multimeter;
+            correct_response = "Yes, I misconnected the wires.";
+            gen_response = "I've tried that!";
+            say_this = llList2String(npc_lab_sounds, 7);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+        } 
+        else if (directive == "2" && myid == 5)
+        {
+            currentquestion = "Can you take a look at my digital multimeter? I might have broken it.";
+            keywords_current = keywords_multimeter;
+            correct_response = "Yes, I probably messed up the wires";
+            gen_response = "I've done that!";
+            say_this = llList2String(npc_lab_sounds, 2);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+
+        } 
+        else if(directive == "3" && myid == 1) 
+        {
+            currentquestion = "I have measured the current between the first and the second resistor and between the second and the third resistor and it's always the same. Are the current readings supposed to be the same?";
+            keywords_current = keywords_series;
+            correct_response = "Oh,yeah. Ok.";
+            gen_response = "I've tried that!";
+            say_this = llList2String(npc_lab_sounds,4);
+            set_ask_settings(1, 1, [3], 1, 1, 0, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+        }
+        else if(directive == "4" && myid == 4) 
+        {
+            currentquestion = "Why am I getting the same voltage reading across each of the resistors?";
+            keywords_current = keywords_resistors;
+            correct_response = "Alright";
+            gen_response = "I've tried that!";
+            say_this = llList2String(npc_lab_sounds, 6);
+            set_ask_settings(1, 1, [6], 1, 1, 0, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+        }
+        else if (directive == "5" && myid == 2)
+        {
+            currentquestion = "I have measured the voltage on the second resistor and it's 1.67 V. How do I know this is correct?";
+            keywords_current = ["yes", "no"];
+            correct_response = "All right.";
+            gen_response = "I've tried that!";
+            say_this = llList2String(npc_lab_sounds, 3);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+        } 
+        else if (directive == "6" && myid == 7)
+        {
+            currentquestion = "I have measured current on the first resistor and it's 0.05 A.  Is it correct?";
+            keywords_current = ["yes" , "no"];
+            correct_response = "Thanks.";
+            gen_response = "Fine";
+            say_this = llList2String(npc_lab_sounds, 6);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+        }  
+        else if (directive == "7" && myid == 2)
+        {
+            currentquestion = "How do I connect the multimeter to measure the voltage across each resistor?";
+            keywords_current = ["connecting the voltmeter"]; 
+            correct_response = "Got it!";
+            gen_response = "I've tried that!";
+            say_this = llList2String(npc_lab_sounds, 3);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+        }  
+        else if (directive == "8" && myid == 7)
+        {
+            currentquestion = "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?";
+            keywords_current = ["break the circuit"]; 
+            correct_response = "Oh, yes, fine.";
+            gen_response = "I've tried that!";
+            say_this = llList2String(npc_lab_sounds, 6);
+            set_ask_settings(1, 0, [], 0, 1, 0, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+        } 
+        else if(directive == "11" && myid == 2) 
+        {
+            currentquestion = "We are still working on our report. Could you give us some extra time?";
+            keywords_current = ["yes"];
+            correct_response = "Great Thanks";
+            gen_response = "Alright, we'll finish as much as we can.";
+            say_this = llList2String(npc_lab_sounds, 5);
+            set_ask_settings(1, 0, [], 3, 1, 1, 1);
+            // speak_with_question = 1;
+            // currentsound = "You_are_talking_too_fast";
+        }  
+
+         state Ask;    
+
     }
     else if(activescenario == "R")
     {
+        if(directive == "1" && myid == 3) 
+        {
+            correct_response = "Yes, it's the same but the resistors have different resistances.";
+            gen_response = ""; 
+            set_response_settings(1, 5 , 1, llList2String(npc_lab_sounds, 0));
+        }
+        else if(directive == "2" && myid == 6) 
+        {
+            correct_response = "Yes, it's the same but the resistors have different resistances.";
+            gen_response = ""; 
+            set_response_settings(1, 5 , 4, llList2String(npc_lab_sounds, 0));
+        }
+
         state Respond2NpcQuestion;
     }
 }
@@ -695,9 +753,73 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         {
             npc_state_handler("A:1", c, n, ID, msg);
         }
-        else if(msg == "-npcresp")
+        else if(msg == "-npcask2")
+        {
+            npc_state_handler("A:2", c, n, ID, msg);
+        }
+        else if(msg == "-npcask3")
+        {
+            npc_state_handler("A:3", c, n, ID, msg);
+        }
+        else if(msg == "-npcask4")
+        {
+            npc_state_handler("A:4", c, n, ID, msg);
+        }
+        else if(msg == "-npcask5")
+        {
+            npc_state_handler("A:5", c, n, ID, msg);
+        }
+        else if(msg == "-npcask6")
+        {
+            npc_state_handler("A:6", c, n, ID, msg);
+        }
+        else if(msg == "-npcask7")
+        {
+            npc_state_handler("A:7", c, n, ID, msg);
+        }
+        else if(msg == "-npcask8")
+        {
+            npc_state_handler("A:8", c, n, ID, msg);
+        }
+        else if(msg == "-npcask9")
+        {
+            npc_state_handler("A:9", c, n, ID, msg);
+        }
+        else if(msg == "-npcask10")
+        {
+            npc_state_handler("A:10", c, n, ID, msg);
+        }
+        else if(msg == "-npcask11")
+        {
+            npc_state_handler("A:11", c, n, ID, msg);
+        }
+        else if(msg == "-npcresp1")
         {
             npc_state_handler("R:1", c, n, ID, msg);
+        }
+        else if(msg == "-npcresp2")
+        {
+            npc_state_handler("R:2", c, n, ID, msg);
+        }
+        else if(msg == "-npcresp3")
+        {
+            npc_state_handler("R:3", c, n, ID, msg);
+        }
+        else if(msg == "-npcresp4")
+        {
+            npc_state_handler("R:4", c, n, ID, msg);
+        }
+        else if(msg == "-npcresp5")
+        {
+            npc_state_handler("R:5", c, n, ID, msg);
+        }
+        else if(msg == "-npcresp6")
+        {
+            npc_state_handler("R:6", c, n, ID, msg);
+        }
+        else if(msg == "-npcresp7")
+        {
+            npc_state_handler("R:7", c, n, ID, msg);
         }
         else
         {
@@ -706,9 +828,9 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
     } 
     else if (c == npc_para_control_channel) 
     { // change script parameters
-        list tmplist = llParseString2List(msg, ["$~"], []);
+        list tmplist = llParseString2List(msg, [" "], []);
         string ss = llList2String(tmplist, 0);
-        string val = llList2String(tmplist, 1);
+        integer val = llList2Integer(tmplist, 1);
         if (ss == "@Querydebug_level") 
         {
             osNpcSay(npc, "debuy_level = " + debug_level);
@@ -730,19 +852,19 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         }
         else if (ss == "@Setdebug_level") 
         {
-            debug_level = (integer)val;
+            debug_level = val;
         } 
         else if  (ss == "@Setreminder_interval") 
         {
-            reminder_interval = (integer)val;
+            reminder_interval = val;
         } 
         else if  (ss == "@Setrepeat_interval") 
         {
-            repeat_interval = (integer)val;
+            repeat_interval = val;
         } 
         else if (ss == "@Setmyid") 
         {
-            myid = (integer)val;
+            myid = val;
             spawn_npc(); // keep
             spawn_npc();
             reset_all();
@@ -759,58 +881,8 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         }
         else if(ss == "@SetAsk")
         {
-            if(question_inbounds((integer)val))   
-                currentquestion = llList2String(lab_questions, (integer)val);
-
-            // llSay(0, currentquestion);
-            // llSay(0, val);
+            currentquestion = ss;
         }
-        else if (ss == "@SetKeywords") 
-        {
-            set_active_keywords((integer)val);
-
-            //llSay(0, keywords_current);
-            // llSay(0, val);
-        }
-        else if (ss == "@SetResponseC") 
-        {
-            if(corr_response_inbounds((integer)val))
-                correct_response = llList2String(correct_responses, (integer)val);
-
-            // llSay(0,correct_response);
-            // llSay(0, val);
-        }
-        else if (ss == "@SetResponseG") 
-        {
-            if(gen_response_inbounds((integer)val))
-                gen_response = llList2String(gen_responses, (integer)val);
-
-            // llSay(0, gen_response);    
-            // llSay(0, val);
-        }
-        else if (ss == "@SetSay") 
-        {
-            if(npc_speech_inbounds((integer)val))
-                say_this = llList2String(npc_lab_sounds, (integer)val);
-            else
-                say_this = "NULL";
-
-            //llSay(0, say_this);    
-            //llSay(0, val);
-        }
-        else if (ss == "@SetKWMA")
-        { 
-            keyword_match_amount = (integer)val;
-            //llSay(0, val);
-        }
-        // else if (ss == "@SetAskSettings") //legacy
-        // {
-        //     list settings_package = llParseString2List(val, ["::"], []);
-        //     set_ask_settings(llList2Integer(settings_package, 0), llList2Integer(settings_package, 1), 
-        //                     [llList2Integer(settings_package, 2)], llList2Integer(settings_package, 3), 
-        //                     llList2Integer(settings_package, 4),llList2Integer(settings_package, 5) , llList2Integer(settings_package, 6));
-        //     llSay(0, val);
-        // }
         else if (ss == "@Resetscript") 
         {
             llResetScript();
@@ -991,132 +1063,31 @@ state Ask
             {
                 osNpcStopAnimation(npc, currentanimation);
                 osNpcSay(npc, currentquestion);
-                llTriggerSound(say_this, 3.0);
+                if(speak_with_question)
+                {
+                    llTriggerSound(say_this, 3.0);
+                    speak_with_question = 0;
+                }
+                if(signal_npc_reponse)
+                {
+                    integer i = 0;
+                    for(i = 0; i < llGetListLength(signal_offsets); i++)
+                    {
+                        if(signal_response_num = 1)
+                            llSay(scenario_send_base_channel+ 1, llList2String(signal_offsets, i)+":"+(string)myid); 
+                        else
+                            llSay(scenario_send_base_channel + 2, llList2String(signal_offsets, i)+":"+(string)myid); // incrementing offers different reponse options
+                    }        
+
+                    state WaitSignal;    
+                }
+
                 state Respond;
             }
         }  else process_common_listen_port_msg(c, n, ID, msg);   
     }
 } 
 
-state Ask_RA // Ask respond all
-{
-    state_entry()
-    {
-        ask_question();
-        register_common_channel_timer(wait_time);
-        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
-    }
-
-    touch_start(integer num_detected)
-    { 
-        backdoor_reset();
-    }
-
-    timer()
-    {
-        ask_question();
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(c == PUBLIC_CHANNEL)
-        {
-            if(name_called(msg)) 
-            {
-                osNpcStopAnimation(npc, currentanimation);
-                osNpcSay(npc, currentquestion);
-                llTriggerSound(say_this, 3.0);
-                state RespondAll;
-            }
-        }  else process_common_listen_port_msg(c, n, ID, msg);   
-    }
-}
-
-state AskSignal
-{
-    state_entry()
-    {
-        ask_question();
-        register_common_channel_timer(wait_time);
-        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
-    }
-
-    touch_start(integer num_detected)
-    { 
-        backdoor_reset();
-    }
-
-    timer()
-    {
-        ask_question();
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(c == PUBLIC_CHANNEL)
-        {
-            if(name_called(msg)) 
-            {
-                osNpcStopAnimation(npc, currentanimation);
-                osNpcSay(npc, currentquestion);
-                llTriggerSound(say_this, 3.0);
-                integer i = 0;
-                for(i = 0; i < llGetListLength(signal_offsets); i++)
-                {
-                    if(signal_response_num = 1)
-                        llSay(scenario_send_base_channel+ 1, llList2String(signal_offsets, i)+":"+(string)myid); 
-                    else
-                        llSay(scenario_send_base_channel + 2, llList2String(signal_offsets, i)+":"+(string)myid); // incrementing offers different reponse options
-                } 
-
-                state WaitSignal;    
-            }
-        }  else process_common_listen_port_msg(c, n, ID, msg);   
-    }
-}
-
-state AskSignal_RA
-{
-    state_entry()
-    {
-        ask_question();
-        register_common_channel_timer(wait_time);
-        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
-    }
-
-    touch_start(integer num_detected)
-    { 
-        backdoor_reset();
-    }
-
-    timer()
-    {
-        ask_question();
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(c == PUBLIC_CHANNEL)
-        {
-            if(name_called(msg)) 
-            {
-                osNpcStopAnimation(npc, currentanimation);
-                osNpcSay(npc, currentquestion);
-                llTriggerSound(say_this, 3.0);
-                integer i = 0;
-                for(i = 0; i < llGetListLength(signal_offsets); i++)
-                {
-                    if(signal_response_num = 1)
-                        llSay(scenario_send_base_channel+ 1, llList2String(signal_offsets, i)+":"+(string)myid); 
-                    else
-                        llSay(scenario_send_base_channel + 2, llList2String(signal_offsets, i)+":"+(string)myid); // incrementing offers different reponse options
-                } 
-
-                state WaitSignal_RA;    
-            }
-        }  else process_common_listen_port_msg(c, n, ID, msg);   
-    }
-}  
 
 state WaitSignal
 {
@@ -1136,28 +1107,6 @@ state WaitSignal
         {
             ignore_this_npc = ID;
             state Respond;
-        } else process_common_listen_port_msg(c, n, ID, msg);   
-    }
-}
-
-state WaitSignal_RA
-{
-    state_entry()
-    {
-        register_common_channel_timer(wait_time);
-    }
-
-    touch_start(integer num_detected)
-    { 
-        backdoor_reset();
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(c == scenario_to_npc)
-        {
-            ignore_this_npc = ID;
-            state RespondAll;
         } else process_common_listen_port_msg(c, n, ID, msg);   
     }
 }
@@ -1193,50 +1142,41 @@ state Respond
                 }
                 else 
                 {
-                    if (ID != npc)
+                    if(signal_npc_reponse && ID != ignore_this_npc && ID != npc)
                     {
                         osNpcSay(npc, gen_response);
+                        if(exit_on_incorrect)
+                        {
+                            if(signal_action_complete)
+                            {
+                                llSay(auto_facil_control_channel, "-ac");
+                            }
+                            state Idle;
+                        }
+                    }
+                    else if (ID != npc)
+                    {
+                        osNpcSay(npc, gen_response);
+                        if(exit_on_incorrect)
+                        {
+                            if(signal_action_complete)
+                            {
+                                llSay(auto_facil_control_channel, "-ac");
+                            }
+                            state Idle;
+                        }
                     }
                 }    
             }
-        } else process_common_listen_port_msg(c, n, ID, msg);   
+        }  else process_common_listen_port_msg(c, n, ID, msg);   
     }
+
+    // state_exit()
+    // {
+    //     llSay(0, "test");
+    //     llSay(auto_facil_control_channel, "-ac");
+    // }
 }
-
-state RespondALL// exit even if incorrect
-{
-    state_entry()
-    {
-        //ask_question();
-        register_common_channel_timer(wait_time);
-        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
-    }
-
-    touch_start(integer num_detected)
-    { 
-        backdoor_reset();
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(c == PUBLIC_CHANNEL)
-        {
-            if(msg)
-            {
-                if (ID != npc) 
-                {
-                    osNpcSay(npc, correct_response);
-                    if(signal_action_complete)
-                    {
-                        llSay(auto_facil_control_channel, "-ac");
-                    }
-                    state Idle;  
-                }
-            }
-        } else process_common_listen_port_msg(c, n, ID, msg);   
-    }
-}
-
 
 state Respond2NpcQuestion
 {
@@ -1254,7 +1194,9 @@ state Respond2NpcQuestion
 
     timer()
     {
-        llTriggerSound(say_this, 3.0);       
+
+        if(speak_with_response)
+            llTriggerSound(say_this, 3.0);       
         osNpcSay(npc, to_say);
         llSay(scenario_send_base_channel, "@done");
         state Idle;
@@ -1276,8 +1218,246 @@ state Respond2NpcQuestion
                     to_say = gen_response;   
                 }
 
-                llSetTimerEvent(speech_delay); 
+                llSetTimerEvent(5.0); // variable for this?
             }
         } else process_common_listen_port_msg(c, n, ID, msg);   
     }
+}
+
+///////////OUT_DATED////////////
+
+state Show_focus
+{
+    state_entry()
+    {
+        register_common_channel_timer(reminder_interval);
+        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
+        if(mymood == "bored")
+        {
+            osNpcPlayAnimation(npc, "avatar_impatient");
+        }
+        else
+        {
+            if(debug_level)
+                llSay(0, "not bored");
+            //osNpcPlayAnimation(npc, "avatar_impatient");
+        }  
+    }
+
+    listen(integer c, string n, key ID, string msg) 
+    {
+        if(c == PUBLIC_CHANNEL)
+        {
+            if(keyword_match_xy(msg, ["quiz"]))
+            {
+                if(debug_level)
+                    llSay(0, "Quiz");
+                osNpcStopAnimation(npc, "avatar_impatient");
+                state Quiz;
+            }
+        }
+        else
+        {
+            process_common_listen_port_msg(c, n, ID, msg);    
+        }
+        
+    }
+
+}
+
+state Quiz
+{
+    state_entry()
+    {
+        register_common_channel_timer(reminder_interval);
+        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
+    }  
+
+    listen(integer c, string n, key ID, string msg)
+    {
+        if(c == PUBLIC_CHANNEL)
+        {
+            if(name_called(msg)) 
+            {
+                if(mymood == "bored")
+                {
+                    osNpcSay(npc, "I have no idea.");
+                }
+                else
+                {
+                    if(random_integer(0,1))
+                    {
+                        osNpcSay(npc, "True.");
+                    } 
+                    else
+                    {
+                       osNpcSay(npc, "False."); 
+                    }     
+                }  
+            }
+        }
+        else
+        {
+            process_common_listen_port_msg(c, n, ID, msg);
+        }
+        
+    }
+}
+
+
+
+
+state Wait
+{
+    state_entry()
+    {
+        if(debug_level)
+            llSay(0,(string)wait_time);
+        register_common_channel_timer(wait_time);
+    }
+
+    touch_start(integer num_detected)
+    { 
+        backdoor_reset();
+    }
+
+    timer() 
+    {
+        osNpcStopAnimation(npc, currentanimation);
+        state Idle;
+    }
+
+    listen(integer c, string n, key ID, string msg)
+    {
+        process_common_listen_port_msg(c, n, ID, msg);   
+    }
+    
+}
+
+state DelayAction
+{
+    state_entry()
+    {
+    
+        register_common_channel_timer((integer)llList2String(pending_actions, 3));
+    }
+
+    touch_start(integer num_detected)
+    { 
+        backdoor_reset();
+    }
+
+    timer() 
+    {
+        osNpcStopAnimation(npc, currentanimation);
+        state SpeakAnimation;
+    }
+
+    listen(integer c, string n, key ID, string msg)
+    {
+        process_common_listen_port_msg(c, n, ID, msg);   
+    }
+}
+
+state SpeakAnimation
+{
+    state_entry()
+    {
+        currentanimation = llList2String(pending_actions, 1);
+        llSay(0, llList2String(pending_actions, 1));
+        osNpcPlayAnimation(npc, currentanimation);
+        osNpcSay(npc, llList2String(pending_actions, 0));
+         llSay(0, llList2String(pending_actions, 2));
+        register_common_channel_timer((integer)llList2String(pending_actions, 2));
+    }
+
+    touch_start(integer num_detected)
+    { 
+        backdoor_reset();
+    }
+
+    timer() 
+    {
+        osNpcStopAnimation(npc, currentanimation);
+        state Idle;
+    }
+
+    listen(integer c, string n, key ID, string msg)
+    {
+        process_common_listen_port_msg(c, n, ID, msg);   
+    }
+    
+}
+
+state Wait2Speak
+{
+    state_entry()
+    {
+        llSay(0,(string)wait_talk);
+        register_common_channel_timer(wait_talk);
+    }
+
+    touch_start(integer num_detected)
+    { 
+        backdoor_reset();
+    }
+
+    timer() 
+    {
+        osNpcSay(npc, to_say);
+        wait_talk = 1;
+        state Idle;
+    }
+
+    listen(integer c, string n, key ID, string msg)
+    {
+        process_common_listen_port_msg(c, n, ID, msg);   
+    }
+    
+}
+
+state Wait2SpeakList
+{
+    state_entry()
+    {
+        sentence_and_time = llParseString2List(llList2String(pending_convo, pending_convo_loc), ["#"],[]);
+        llSay(0, llList2String(pending_convo, pending_convo_loc));
+        cur_sentence = llList2String(sentence_and_time, 0);
+        list_wait = llList2Integer(sentence_and_time, 1);
+        llSay(0,(string)list_wait);
+        register_common_channel_timer(list_wait);
+    }
+
+    touch_start(integer num_detected)
+    { 
+        backdoor_reset();
+    }
+
+    timer() 
+    {
+        osNpcSay(npc, cur_sentence);
+        pending_convo_loc++;
+        pending_convo_count --;
+        if(pending_convo_count == 0)
+        {
+            pending_convo_loc = 0;
+            pending_convo_count = 0;
+            sentence_and_time = [];
+            pending_convo = [];
+            list_wait = 1;
+
+            state Idle;
+        }
+        sentence_and_time = llParseString2List(llList2String(pending_convo, pending_convo_loc), ["#"],[]);
+        llSay(0, llList2String(pending_convo, pending_convo_loc));
+        cur_sentence = llList2String(sentence_and_time, 0);
+        list_wait = llList2Integer(sentence_and_time, 1);
+        llSetTimerEvent(list_wait);
+    }
+
+    listen(integer c, string n, key ID, string msg)
+    {
+        process_common_listen_port_msg(c, n, ID, msg);   
+    }
+    
 }

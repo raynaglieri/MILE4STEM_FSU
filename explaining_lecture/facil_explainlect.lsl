@@ -249,10 +249,12 @@ dialog_dialog_with_timer(string msg1, list button1, string msg2, list button2, i
 {
   llSetTimerEvent(t);
   if (internal_state == 0) {
+    llInstantMessage(facilitator, msg1); 
     if (button1 == [])
           llTextBox(trainee, msg1, local_dialog_channel);
     else llDialog(trainee, msg1, button1, local_dialog_channel);
   } else if (internal_state == 1) {
+        llInstantMessage(facilitator, msg1); 
     if (button2 == []) 
         llTextBox(trainee, msg2, local_dialog_channel);
     else llDialog(trainee, msg2, button2, local_dialog_channel);
@@ -263,6 +265,7 @@ common_state_entry(string n, string s, list l, integer t)
 {
    internal_state = 0;
    state_name = n;
+   llInstantMessage(facilitator, s); 
    if (l == [])
      llTextBox(trainee, s, local_dialog_channel);
    else llDialog(trainee, s, l, local_dialog_channel);
