@@ -4,6 +4,7 @@
 
 // variables whose value can be changed during the execution of the script
 key trainee = NULL_KEY;      // the key for the TA being trained
+key facilitator = NULL_KEY;
                              // the person who push the start button is the TA                            
 integer auto_facil = TRUE;  // TRUE: automatic mode, FALSE: manual mode
 integer base_NPCID = -200;   // No use in this file
@@ -318,9 +319,11 @@ default
         } 
         else if (c == button_to_facil_channel) 
         {                   // sent from the green button
-            trainee = msg;  // here the green button passes the trainee ID to facil
-            llDialog(trainee, "Now you are going to teach a Lecture to the students. Start by suggesting a group game. Click start when you are ready.", 
-                     ["Start"] , local_dialog_channel);   
+            list key_package = llParseString2List(msg, [":"], []);
+            trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);
+            llSay(0, trainee + "::::::::" + facilitator);
+            llDialog(trainee, "Now you are going to teach a Lecture to the students. Click start when you are ready.", ["Start"] , local_dialog_channel);      
         } 
         else 
         {
