@@ -1,16 +1,21 @@
 // change history:
 //   November 2017: created by Raymond Naglieri
+//  4/10/18 - added reset for facil capture
 integer num_npc = 8;
 integer base_npc_control_channel = 31000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
+integer facil_capture_channel = -33156;
+  
 
 reset_to_start() 
 {
     integer i;
     for (i=0; i<num_npc; i++)
        llSay(base_npc_control_channel+i, "-reset");
-    llSay(facil_control_channel, "-reset");   
+    llSay(facil_control_channel, "-reset");  
+    llSay(facil_capture_channel, "-reset");  
+
 } 
 
 npc_group_speak() 

@@ -4,8 +4,10 @@
 //				2. ORDER_FILE notecard must be placed in prim before running	
 //		   LOG: add empty ORDER_FILE handling [completed]
 //				add support for ignoring whitespace at the end of the ORDER_FILE. [completed]
+//				4/10/18 - added unique ID. 
 //
 
+integer myid = 0;
 integer notecard_command_channel = 88000;
 
 string ORDER_FILE = "DECK_ORDER_FILE";
@@ -99,7 +101,7 @@ default
 	{
 		if(debug)
 			llSay(0, "Enter.");
-		llListen(notecard_command_channel, "", NULL_KEY, "");
+		llListen(notecard_command_channel + myid, "", NULL_KEY, "");
 		shuffle_card();
 	}
 
