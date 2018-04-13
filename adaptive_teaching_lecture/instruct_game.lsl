@@ -37,7 +37,7 @@ help_message()
 {
     if(internal_state)
     {
-        llDialog(player, "Click any button to continue'.", ["Okay"], game_text_channel);
+        llDialog(player, "Click the 'yes' or 'no' button to continue'.", ["Okay"], game_text_channel);
     }
 
     llDialog(player, "Click the Green Button for 'Yes' and the Red Button for 'No'.", ["Okay"], game_text_channel);
@@ -153,7 +153,7 @@ state R1
 
     touch_start(integer num_detected)
     {
-        llDialog(player, "Click any button to continue.", ["Okay"], game_text_channel);
+        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -234,7 +234,7 @@ state R2W
 
     touch_start(integer num_detected)
     {
-        llDialog(player, "Click any button to continue.", ["Okay"], game_text_channel);
+        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -316,7 +316,7 @@ state R3W
 
     touch_start(integer num_detected)
     {
-        llDialog(player, "Click any button to continue.", ["Okay"], game_text_channel);
+        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -398,7 +398,7 @@ state R4W
 
     touch_start(integer num_detected)
     {
-        llDialog(player, "Click any button to continue.", ["Okay"], game_text_channel);
+        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -480,7 +480,7 @@ state R5W
 
     touch_start(integer num_detected)
     {
-        llDialog(player, "Click any button to continue.", ["Okay"], game_text_channel);
+        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -561,7 +561,7 @@ state R6W
 
     touch_start(integer num_detected)
     {
-        llDialog(player, "Click any button to continue.", ["Okay"], game_text_channel);
+        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
     }
 
     listen(integer c, string n, key ID, string msg)
