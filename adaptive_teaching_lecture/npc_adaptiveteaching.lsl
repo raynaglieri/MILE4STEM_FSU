@@ -116,6 +116,8 @@ integer perform_iter_remaining = 0;
 
 integer speak_during_anim = 0;
 
+integer follow_up_time = 15;
+
 
 
 integer perform_amount = 0;
@@ -214,6 +216,17 @@ npc_rand_bored_animation()
     random_index =  random_integer(0,5);
     currentanimation = llList2String(random_anim,random_index);
     osNpcPlayAnimation(npc, currentanimation);          
+}
+
+npc_rand_response()
+{
+    integer i;
+    list resp = ["Yes, gotcha.", "All-right.", "Ok. Nice", "Yes, fine."];
+    list random_resps = llListRandomize(resp, 1);
+    integer random_index = 0;
+    random_index =  random_integer(0,5);
+    string sel_resp = llList2String(random_resps,random_index);
+    osNpcSay(npc ,sel_resp);        
 }
 
 provide_metaphor() //rewrite
@@ -987,6 +1000,8 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
             currentanimation = action;
             osNpcPlayAnimation(npc, currentanimation);
         }
+
+        state FollowUp;
     } 
     else 
     {
@@ -1051,7 +1066,30 @@ state Idle
         llSetTimerEvent(reminder_interval);       
         process_common_listen_port_msg(c, n, ID, msg);
     }
-}   
+}  
+
+state FollowUp
+{
+    state_entry()
+    {
+        llSay(0,"FollowUp");
+        register_common_channel_timer(follow_up_time);
+    }
+
+    timer()
+    {
+        state Idle;
+    }
+
+    listen(integer channel, string name, key id, string message)
+    {
+        if (message == "-npcfollow") 
+        {
+            npc_rand_response();
+            state Idle;
+        } else process_common_listen_port_msg(channel, name, id, message);  
+    }
+} 
 
 // ////////////////////////GroupThink//////////////////////// //
 
@@ -1230,7 +1268,7 @@ state Ask
                     llPlaySound(currentsound, 3.0);
                     speak_with_question = 0;
                 }
-                state Idle;
+                state FollowUp;
             }
         }  else process_common_listen_port_msg(c, n, ID, msg);   
     }
@@ -1300,13 +1338,13 @@ state AnimationHandle
             else
             {
                 osNpcStopAnimation(npc, currentanimation);
-                state Idle;
+                state FollowUp;
             }
         }    
         else
         {
             osNpcStopAnimation(npc, currentanimation);
-            state Idle;        
+            state FollowUp;        
         }
     }
 
@@ -1495,7 +1533,7 @@ state Wait2Speak
     {
         osNpcSay(npc, to_say);
         wait_talk = 1;
-        state Idle;
+        state FollowUp;
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -1537,7 +1575,7 @@ state Wait2SpeakList
             pending_convo = [];
             list_wait = 1;
 
-            state Idle;
+            state FollowUp;
         }
         sentence_and_time = llParseString2List(llList2String(pending_convo, pending_convo_loc), ["#"],[]);
         if(debug_level)

@@ -96,6 +96,13 @@ npc_ask_animation()
     }
 }
 
+follow_up_resp()
+{
+    integer i;
+    for (i=0; i<num_npc; i++)
+       llSay(base_npc_control_channel+i, "-npcfollow");    
+}
+
 npc_bored_animation() ///////////////////////////////////////////////////////////
 {
     integer i;
@@ -120,6 +127,8 @@ default
     {
         if (message == "-reset"){
             reset_to_start();
+        } else if (message == "-npcr"){
+            follow_up_resp();
         } else if (message == "-npcgroup"){
             npc_group();
         } else if (message == "-npcgs"){
