@@ -9,6 +9,7 @@
 //    2/15/18: various changes to match design docs
 //    2/16/18: standard wait time between dialogue and actions implemented
 //    3/01/18: Updated to match New NPC "Move" structure.
+//    4/19/18: added interrupt command support. 
 
 integer num_npc = 8;
 integer base_npc_control_channel = 31000;
@@ -409,7 +410,7 @@ default
             interrupt();
             llSleep(2.0);
             llSay(facil_control_channel, "-a1!");
-            llSay(0, "It's time to presemt your students with a prepared example.");
+            //llSay(0, "It's time to presemt your students with a prepared example.");
         } else if (message == "-announce2"){
             interrupt();
             llSleep(2.0);

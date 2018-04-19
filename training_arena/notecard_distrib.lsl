@@ -74,9 +74,9 @@ draw_card(key user)
 
 command_interface(string command)
 {
-	if(command == "-reset") // complete script reset
+	if(command == "-delete_cards") // complete script reset
 	{
-		llSay(0, "Resetting...");
+		llSay(0, "Removing notecards from inventory...");
 		delete_all_other_contents();
 		llResetScript();
 	}

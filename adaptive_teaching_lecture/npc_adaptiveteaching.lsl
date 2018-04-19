@@ -4,6 +4,7 @@
 //         2/15/17: added debug level
 //         2/28/18: completed AnimationHandle
 //         3/01/18: added 'M'(move) commands to work with animation handle
+//         4/19/19: added interrupts and follow-up question support 
 
 // Notes:
 //  1. Please use the currentanimation variable when playing an animation.
@@ -149,7 +150,6 @@ integer internal_state;    // working storage to store the status within a state
 //helper functions
 reset_all() 
 {  // resets all globals    
-llSay(0,"reset_all");
 mymood = "neutral";
 my_behavior = "NULL" ;
 recently_engaged = FALSE;
@@ -1092,7 +1092,6 @@ state FollowUp
 {
     state_entry()
     {
-        llSay(0,"FollowUp");
         register_common_channel_timer(follow_up_time);
     }
 
