@@ -13,6 +13,13 @@ integer auto_facil_control_channel = 10102;
 integer physics_dialogue_state_control_channel = 10001; 
 integer npc_scenario_control_channel = 41000;
 
+interrupt()
+{
+    integer i;
+    for (i=0; i<num_npc; i++)
+        llSay(base_npc_control_channel+i, "-interrupt"); // ask(temp)
+    
+}
 
 integer random_integer(integer min, integer max)
 {
@@ -124,22 +131,27 @@ default
         }
         else if(message == "-nc_wiresandfuse") 
         {
+            interrupt();
             llSay(facil_control_channel, "-nc1");
         } 
         else if(message == "-nc_npccorrectvoltage") 
         {
+             interrupt();
              llSay(facil_control_channel, "-nc2");
         } 
         else if(message == "-nc_npcrighthandside") 
         {
-             llSay(facil_control_channel, "-nc2");
+            interrupt();
+            llSay(facil_control_channel, "-nc2");
         }
         else if(message == "-d_start") 
         {
+            interrupt();
             llSay(facil_control_channel, "-d0");
         } 
         else if(message == "-d_studentexperiments") 
         {
+            interrupt();
             llSay(facil_control_channel, "-d1");
             llSay(board_control_channel+0, "1"); 
             llSay(board_control_channel+1, "1");
@@ -147,152 +159,187 @@ default
         } 
         else if(message == "-d_lookatboard") 
         {
+            interrupt();
             llSay(facil_control_channel, "-d2");
         }  
         else if(message == "-d_lookatboard!") 
         {
+            interrupt();
             llSay(facil_control_channel, "-d2!");
         } 
         else if(message == "-d_waystomonitor") // only
         {
+            interrupt();
             llSay(facil_control_channel, "-d3");
         }
         else if(message == "-d_samequestion") 
         {
+            interrupt();
             llSay(facil_control_channel, "-d4");
         }
         else if(message == "-d_npcmeasurecurrent") 
         {
+            interrupt();
             llSay(facil_control_channel, "-d5");
         }
         else if(message == "-d_npcmeasurevoltage") 
         {
+            interrupt();
             llSay(facil_control_channel, "-d5");
         }
         else if(message == "-d_npccorrectvoltage")
         {
-             llSay(facil_control_channel, "-d7");
+            interrupt();
+            llSay(facil_control_channel, "-d7");
         } 
         else if(message == "-d_npccorrectvoltage!") 
         {
-             llSay(facil_control_channel, "-d6");
+            interrupt();
+            llSay(facil_control_channel, "-d6");
         } 
         else if(message == "-d_tokirchoffsrules") 
         {
-             llSay(facil_control_channel, "-d8");
+            interrupt();
+            llSay(facil_control_channel, "-d8");
         } 
         else if(message == "-d_npcdifferentcurrent")
         {
+            interrupt();
             llSay(facil_control_channel, "-d9");
         }
         else if(message == "-d_npcdifferentcurrent2")
         {
+            interrupt();
             llSay(facil_control_channel, "-d9");
         }
         else if(message == "-d_npcnegativevoltage")
         {
+            interrupt();
             llSay(facil_control_channel, "-d10");
         }
         else if(message == "-d_npcrighthandside")
         {
-             llSay(facil_control_channel, "-d7");
+            interrupt();
+            llSay(facil_control_channel, "-d7");
         } 
         else if(message == "-d_npcrighthandside!") 
         {
-             llSay(facil_control_channel, "-d6");
+            interrupt();
+            llSay(facil_control_channel, "-d6");
         } 
         else if(message == "-d_labending") 
         {
-             llSay(facil_control_channel, "-d11");
+            interrupt();
+            llSay(facil_control_channel, "-d11");
         } 
         else if(message == "-d_labover") 
         {
-             llSay(facil_control_channel, "-d12");
+            interrupt();
+            llSay(facil_control_channel, "-d12");
         } 
         else if(message == "-d_dodifferent") 
         {
-             llSay(facil_control_channel, "-d13");
+            interrupt();
+            llSay(facil_control_channel, "-d13");
         } 
         else if(message == "-d_congrats") 
         {
-             llSay(facil_control_channel, "-d14");
+            interrupt();
+            llSay(facil_control_channel, "-d14");
         } 
         else if(message == "-d_startnow") 
         {
-             llSay(facil_control_channel, "-d15");
+            interrupt();
+            llSay(facil_control_channel, "-d15");
         } 
         else if(message == "-d_physicsdialogue") 
         {
-             llSay(physics_dialogue_state_control_channel, "-gotostate:s0");
+            interrupt();
+            llSay(physics_dialogue_state_control_channel, "-gotostate:s0");
         }
         else if(message == "-d_extratime") 
         {
-             llSay(facil_control_channel, "-d16");
+            interrupt();
+            llSay(facil_control_channel, "-d16");
         }
         else if(message == "-d_noextratime") 
         {
-             llSay(facil_control_channel, "-d17");
+            interrupt();
+            llSay(facil_control_channel, "-d17");
         }   
         else if(message == "-d_connect4voltage") 
         {
-             llSay(facil_control_channel, "-d18");
+            interrupt();
+            llSay(facil_control_channel, "-d18");
         }   
         else if(message == "-d_connect4current") 
         {
-             llSay(facil_control_channel, "-d19");
+            interrupt();
+            llSay(facil_control_channel, "-d19");
         }     
         else if(message == "-a_lookatboard")
         {
-             llSay(npc_action_control_base_channel, "@Rotate-n");
+            interrupt();
+            llSay(npc_action_control_base_channel, "@Rotate-n");
         }  
         else if(message == "-a_npcmeterbroken")
         {
-             llSay(base_npc_control_channel, "-npcask");
+            interrupt();
+            llSay(base_npc_control_channel, "-npcask");
         } 
         else if(message == "-a_npclookatmeter")
         {
-             llSay(base_npc_control_channel+5, "-npcask2");
+            interrupt();
+            llSay(base_npc_control_channel+5, "-npcask2");
         } 
         else if(message == "-a_npcmeasurecurrent")
         {
+            interrupt();
             llSay(base_npc_control_channel+1, "-npcask3");
             llSay(base_npc_control_channel+3, "-npcresp1");
             slide_board_update_all("5");
         } 
         else if(message == "-a_npcmeasurevoltage")
         {
-             llSay(base_npc_control_channel+4, "-npcask4");
-             llSay(base_npc_control_channel+6, "-npcresp2");
-             slide_board_update_all("0");
+            interrupt();
+            llSay(base_npc_control_channel+4, "-npcask4");
+            llSay(base_npc_control_channel+6, "-npcresp2");
+            slide_board_update_all("0");
         } 
         else if(message == "-a_npccorrectresvoltage")
         {
-             llSay(base_npc_control_channel+2, "-npcask5");
-             slide_board_update_all("3");
+            interrupt();
+            llSay(base_npc_control_channel+2, "-npcask5");
+            slide_board_update_all("3");
         } 
         else if(message == "-a_npccorrectcurrent")
         {
-             llSay(base_npc_control_channel+7, "-npcask6");
-             slide_board_update_all("2");
+            interrupt();
+            llSay(base_npc_control_channel+7, "-npcask6");
+            slide_board_update_all("2");
         }  
         else if(message == "-a_npcoutoftime")
         {   
-             llSay(base_npc_control_channel+2, "-npcask11");
+            interrupt();
+            llSay(base_npc_control_channel+2, "-npcask11");
         } 
         else if(message == "-a_connect4voltage") 
         {
-             llSay(base_npc_control_channel+2, "-npcask7");
-             slide_board_update_all("3");
+            interrupt();
+            llSay(base_npc_control_channel+2, "-npcask7");
+            slide_board_update_all("3");
         }   
         else if(message == "-a_connect4current") 
         {
-             llSay(base_npc_control_channel+7, "-npcask8");
-             slide_board_update_all("2");
+            interrupt();
+            llSay(base_npc_control_channel+7, "-npcask8");
+            slide_board_update_all("2");
         } 
         else if(message == "-ad_labending") 
         {
-             llSay(facil_control_channel, "-d11");
-             llSay(base_npc_control_channel+2, "-npcask11");
+            interrupt();
+            llSay(facil_control_channel, "-d11");
+            llSay(base_npc_control_channel+2, "-npcask11");
         }  
         else if(message == "-sb_npcmeasurevoltage") 
         {

@@ -172,15 +172,39 @@ integer state_id;          // id of the state
 integer internal_state;    // working storage to store the status within a state
 
 //helper functions
-reset_all() 
 {  // resets all globals    
-    mymood = "neutral";
-    ignore_count = 0;
-    recently_engaged = FALSE;
-    NPC_ACTION_TAKEN = FALSE;
-    prev_msg = ""; 
-    attention_span = 30; 
-    string currentquestion = "no_question";
+mymood = "neutral";
+my_behavior = "NULL" ;
+recently_engaged = FALSE;
+randomnum = 0;
+wait_time = 5;
+wait_talk = 1;
+to_say = "NULL";
+currentphrase = "no_question";
+currentanimation = "no_animation";
+currentsound = "no_sound";
+currentdirective = "_:_";
+NPC_ACTION_TAKEN = FALSE;
+ignore_count = 0;
+SCAN_RANGE = 10.0;
+SCAN_INTERVAL = 1.0;
+reminder_interval = 180;
+repeat_interval = 20;
+pending_convo = [];
+pending_convo_count = 0;
+pending_convo_loc = 0;
+cur_sentence = "NULL";
+list_wait = 1;
+sentence_and_time = [];
+speak_with_question = 0;
+pending_actions = []; 
+perform_for_time = 0;
+perform_for_iter = 0;
+perform_iter_remaining = 0;
+speak_during_anim = 0;
+follow_up_time = 15;
+perform_amount = 0;
+DEFAULT_AMOUNT = 100;    
 }
 
 string enviro_fact() 
@@ -873,6 +897,16 @@ state Idle
         process_common_listen_port_msg(c, n, ID, msg);
     }
 }  
+
+state ResetRecover
+{
+    state_entry()
+    {
+        osNpcStopAnimation(npc, currentanimation);
+        reset_all();
+        state Idle;
+    }
+}
 
 state Ask
 {

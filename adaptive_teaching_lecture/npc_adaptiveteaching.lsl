@@ -162,19 +162,18 @@ currentanimation = "no_animation";
 currentsound = "no_sound";
 currentdirective = "_:_";
 NPC_ACTION_TAKEN = FALSE;
-ignore_count = 0;
 SCAN_RANGE = 10.0;
 SCAN_INTERVAL = 1.0;
 reminder_interval = 180;
 repeat_interval = 20;
-pending_convo = [];
+pending_convo;
 pending_convo_count = 0;
 pending_convo_loc = 0;
-cur_sentence = "NULL";
+cur_sentence;
 list_wait = 1;
-sentence_and_time = [];
+sentence_and_time;
 speak_with_question = 0;
-pending_actions = []; 
+pending_actions; 
 perform_for_time = 0;
 perform_for_iter = 0;
 perform_iter_remaining = 0;
@@ -1117,7 +1116,6 @@ state ResetRecover
         osNpcStopAnimation(npc, currentanimation);
         reset_all();
         state Idle;
-
     }
 }
 // ////////////////////////GroupThink//////////////////////// //
