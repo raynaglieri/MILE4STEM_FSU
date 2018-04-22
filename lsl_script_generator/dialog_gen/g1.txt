@@ -1,0 +1,15 @@
+digraph lab_guide {
+  default [label = ""];
+  s0 [label="Now You are going to teach a labl on Acids and Bases to the students. Do you want to go through the lab guide first?"];
+  s1    [label="Did you talk about learning objectives?"];
+  s2    [label="A learning objective informs studens what they are expected to achieve after the instruction. Can you think of 1 or 2 objective for this lab session?"];
+  final   [label="Great! Keep in mind that informing students learn objectives help them better understand why they are doing this lab. Please click 'Continue' to go to the next stage"];
+
+  default -> s0 [label=""];
+  s0 -> s1 [label="Yes"];
+  s0 -> default [label="No"]; 
+  s1 -> final [label="Yes"];
+  s1 -> s2 [label="No"];
+  s2 -> final [label="Submit"];
+  final -> default [label="Continue"];
+}
