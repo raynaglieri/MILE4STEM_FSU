@@ -1,0 +1,7 @@
+This directory contains files and examples for generating dialog scripts
+
+dialog_gen_v1.cpp: the generator program
+dialog_script_doc.docx: some details about dialog_gen_v1.cpp, more or less a developer's guide
+g1.txt: an example DOT input file
+g2.txt: an example DOT inptu file
+phisics_lab_corrected.txt: a real program written from Mariya in the MILE4STEM project
