@@ -1,2 +1,2 @@
 This directory contains the lex files to get tokens: lexer.l, token.h and a test program driver.c, and a makefile lex.mk
-These files are slight modification of some very old programs. It is surprising that they still works.
+These files are slight modification of some very old programs. It is surprising that they still work.
