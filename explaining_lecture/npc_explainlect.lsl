@@ -1,6 +1,7 @@
 // change history:
 // 2/19/18 - Created by Raymond Naglieri
 // 3/15/18 - modified reponse state to add delay. 
+// 4/27/18 - completed interrupts and follow-up functions. Updated to mactch new design
 
 
 // Notes:
@@ -173,39 +174,33 @@ integer state_id;          // id of the state
 integer internal_state;    // working storage to store the status within a state
 
 //helper functions
+reset_all()
 {  // resets all globals    
-mymood = "neutral";
-my_behavior = "NULL" ;
-recently_engaged = FALSE;
-randomnum = 0;
-wait_time = 5;
-wait_talk = 1;
-to_say = "NULL";
-currentphrase = "no_question";
-currentanimation = "no_animation";
-currentsound = "no_sound";
-currentdirective = "_:_";
-NPC_ACTION_TAKEN = FALSE;
-ignore_count = 0;
-SCAN_RANGE = 10.0;
-SCAN_INTERVAL = 1.0;
-reminder_interval = 180;
-repeat_interval = 20;
-pending_convo = [];
-pending_convo_count = 0;
-pending_convo_loc = 0;
-cur_sentence = "NULL";
-list_wait = 1;
-sentence_and_time = [];
-speak_with_question = 0;
-pending_actions = []; 
-perform_for_time = 0;
-perform_for_iter = 0;
-perform_iter_remaining = 0;
-speak_during_anim = 0;
-follow_up_time = 15;
-perform_amount = 0;
-DEFAULT_AMOUNT = 100;    
+    mymood = "neutral";
+    my_behavior = "NULL" ;
+    recently_engaged = FALSE;
+    randomnum = 0;
+    wait_time = 5;
+    wait_talk = 1;
+    to_say = "NULL";
+    currentanimation = "no_animation";
+    currentsound = "no_sound";
+    currentdirective = "_:_";
+    NPC_ACTION_TAKEN = FALSE;
+    ignore_count = 0;
+    SCAN_RANGE = 10.0;
+    SCAN_INTERVAL = 1.0;
+    reminder_interval = 180;
+    repeat_interval = 20;
+    pending_convo = [];
+    pending_convo_count = 0;
+    pending_convo_loc = 0;
+    cur_sentence = "NULL";
+    list_wait = 1;
+    sentence_and_time = [];
+    speak_with_question = 0;
+    pending_actions = []; 
+    follow_up_time = 15; 
 }
 
 string enviro_fact() 
@@ -274,6 +269,17 @@ provide_metaphor() //rewrite
     }      
 }
 
+npc_rand_response()
+{
+    integer i;
+    list resp = ["Yes, gotcha.", "All-right.", "Ok. Nice", "Yes, fine."];
+    list random_resps = llListRandomize(resp, 1);
+    integer random_index = 0;
+    random_index =  random_integer(0,5);
+    string sel_resp = llList2String(random_resps,random_index);
+    osNpcSay(npc ,sel_resp);        
+}
+
 set_ask_settings(integer swq, integer snr, list so, integer srn, integer kma, integer eoi, integer sac, integer frd)
 {
     speak_with_question = swq;
@@ -284,6 +290,7 @@ set_ask_settings(integer swq, integer snr, list so, integer srn, integer kma, in
     exit_on_incorrect = eoi;
     signal_action_complete = sac;
     final_repsonse_delay = frd;
+    ignore_this_npc = NULL_KEY;
 }
 
 set_response_settings(integer sqr, integer sd, integer rso, string st)
@@ -479,20 +486,29 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
     {
         if(directive == "1" && myid == 2)
         {
-            currentquestion = "Excuse me. What would be an example of a metaphor?";
+            currentquestion = "Excuse me. I didn't understand this whole concept, it is too complex. Can you draw it?";
             keywords_current = [];
             correct_response = "Thanks.";
             gen_response = "I still don't get it.";
             say_this = "";
-            set_ask_settings(0, 0, [], 0, 0, 0, 1, 2);
+            // speak_with_question = swq;
+            // signal_npc_reponse = snr;
+            // signal_offsets = so;
+            // signal_response_num = srn;
+            // keyword_match_amount = kma;
+            // exit_on_incorrect = eoi;
+            // signal_action_complete = sac;
+            // final_repsonse_delay = frd;
+            set_ask_settings(0, 1, [3], 1, 0, 0, 1, 2);
         }  
-        else if(directive == "2" && myid == 1)
+        else if(directive == "2" && myid == 4)
         {
-            currentquestion = "Why did they win? Explain why their metaphor is better!";
+            currentquestion = "I'm lost with all these multiple parts you have drawn, that are related to the main concept!";
             keywords_current = [];
             correct_response = "Thanks.";
             gen_response = "I still don't get it.";
             say_this = "";
+            //ignore_this_npc = 0;
             set_ask_settings(0, 0, [], 0, 0, 0, 1, 2);
         } 
 
@@ -511,9 +527,14 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
     {
         if(directive == "1" && myid == 3) 
         {
-            correct_response = "Yes, it's the same but the resistors have different resistance.";
+            correct_response = "I don't think it's something the TA can draw";
             gen_response = ""; 
-            set_response_settings(1, 5 , 1, llList2String(npc4_lab_sounds, 0));
+            set_response_settings(0, 4 , 2, "NULL");
+
+            // speak_with_response = sqr;
+            // speech_delay = sd;
+            // resp_signal_offset = rso;
+            // say_this = st;
         }
 
         state Respond2NpcQuestion;
@@ -688,6 +709,10 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         {
             npc_state_handler("A:3", c, n, ID, msg);
         }
+        else if(msg == "-npcresp")
+        {
+            npc_state_handler("R:1", c, n, ID, msg);
+        }
         else
         {
             if (debug_level) llSay(0, "unknown_command");
@@ -763,7 +788,7 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         if (action_spec == "@Speak") 
         {
             to_say = action;
-            state Wait2Speak;
+            osNpcSay(npc, to_say);
         } 
         else if(action_spec == "@SpeakList")
         {
@@ -1017,7 +1042,8 @@ state Respond
     state_entry()
     {
         //ask_question();
-        register_common_channel_timer(wait_time);
+        llSetTimerEvent(0.0);
+        register_common_channel();
         llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
     }
 
@@ -1057,21 +1083,26 @@ state Respond
         {
             if(msg)
             {
-                if(keyword_match_multi(msg, keywords_current, keyword_match_amount) && ID != npc) 
+                if(keyword_match_multi(msg, keywords_current, keyword_match_amount) && ID != npc && ID != ignore_this_npc) 
                 {
+                    if(debug_level)
+                        llSay(0, "match");
                     response_choice = 0;
                     llSetTimerEvent(final_repsonse_delay);
-                    
                 }
                 else 
                 {
                     if(signal_npc_reponse && ID != ignore_this_npc && ID != npc)
                     {
+                        if(debug_level)
+                            llSay(0, "no-match_sig");
                         response_choice = 1;
                         llSetTimerEvent(final_repsonse_delay);
                     }
                     else if (ID != npc)
                     {
+                        if(debug_level)
+                            llSay(0, "no-match");
                         response_choice = 1;
                         llSetTimerEvent(final_repsonse_delay);
                     }

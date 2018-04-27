@@ -1,5 +1,6 @@
 // change history:
 //   2/21/18: created by Raymond Naglieri 
+//   4/27/18: updated to match new design 
 
 
 // variables whose value can be changed during the execution of the script
@@ -40,20 +41,38 @@ list   d0_button1 = ["Okay"];
 string d0_msg2 = "Empty";
 list   d0_button2 = ["Okay"];
 // Message for the dialog and textboxes in the conversation
-string d1_msg1 = "Present an example metaphor";
+string d1_msg1 = "Not all the complex concepts can be drawn as is, but creating a concept map that shows interrelations between parts of the concept might be helpful. 
+You might want to try creating such a map.";
 list   d1_button1 = ["Okay"];
 string d1_msg2 = "Empty";
 list   d1_button2 = ["Okay"];
 
-string d2_msg1 = "Choose the winning group!";
+string d1w_msg1 = "Present an example of a metaphor";
+list   d1w_button1 = ["Okay"];
+string d1w_msg2 = "Empty";
+list   d1w_button2 = ["Okay"];
+
+string d2_msg1 = "One of the ways to explain a complex concept is to start with explaining subcomponents or parts of the concept and their use. 
+Alternatively, you could explain all the new terminology and definitions if students don't know them. 
+Then, when parts are explained you could proceed with explaining the whole concept in all its complexity.";
 list   d2_button1 = ["Okay"];
 string d2_msg2 = "Empty";
 list   d2_button2 = ["Okay"];
 
-string d3_msg1 = "You might want to explain why the winning group's metaphor is good";
+string d2w_msg1 = "You might want to exaplain parts first and then the whole concept";
+list   d2w_button1 = ["Okay"];
+string d2w_msg2 = "Empty";
+list   d2w_button2 = ["Okay"];
+
+string d3_msg1 = "There are a few ways to promote deep conceptual understanding of the learning material: explaining parts and then the whole is one of them, the other method is explaining using examples, cases or case studies. Please, describe your example now.";
 list   d3_button1 = ["Okay"];
 string d3_msg2 = "Empty";
 list   d3_button2 = ["Okay"];
+
+string d3w_msg1 = "Explaining using examples, cases or case studies is another way to promote deep conceptual understanding of the learning material. Please describe your example now.";
+list   d3w_button1 = ["Okay"];
+string d3w_msg2 = "Empty";
+list   d3w_button2 = ["Okay"];
 
 string d4_msg1 = "There are a few ways to promote deep conceptual understanding of the learning material: explaining with metaphor is one of them, the other method is explaining using cases or case studies. Please, describe your case now.";
 list   d4_button1 = ["Okay"];
@@ -65,12 +84,12 @@ list   d4w_button1 = ["Okay"];
 string d4w_msg2 = "";
 list   d4w_button2 = ["Okay"];
 
-string d5_msg1 = "Do not forget to analyze and compare similarities and differences using the case as an example. Link the case to lecture content.";
+string d5_msg1 = "Do not forget to link the example to the lecture content.";
 list   d5_button1 = ["Okay"];
 string d5_msg2 = "";
 list   d5_button2 = ["Okay"];
 
-string d5w_msg1 = "It's important you link the case to the lecture content";
+string d5w_msg1 = "It's important you link the example to the lecture content";
 list   d5w_button1 = ["Okay"];
 string d5w_msg2 = "";
 list   d5w_button2 = ["Okay"];
@@ -180,6 +199,9 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         } else if (msg == "-d1"){     
             llSetTimerEvent(0);  
             state D1;    
+        } else if (msg == "-d1!"){     
+            llSetTimerEvent(0);  
+            state D1W;    
         } else if (msg == "-d2"){     
             llSetTimerEvent(0);  
             state D2;    
@@ -339,7 +361,8 @@ state Idle
 {    
     state_entry(){
         state_name = "idle";
-        llSay(0, "in idle state.");
+        if(debug_level)
+            llSay(0, "in idle state.");
         register_common_channel_timer(reminder_interval*3);
     } 
     
@@ -348,7 +371,8 @@ state Idle
     }  
     
     timer() {
-        llSay(0, "in idle state");
+        if(debug_level)
+            llSay(0, "in idle state");
         llSetTimerEvent(reminder_interval*3);
     }
         
@@ -419,6 +443,36 @@ state D1
     } 
 }
 
+state D1W
+{
+    state_entry()
+    {
+        common_state_entry("d1w", d1w_msg1, d1w_button1, dialog_box_interact_interval);
+    }  
+    
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d1w_msg1, d1w_button1,
+                                 d1w_msg2, d1w_button2, dialog_box_interact_interval);
+    }
+  
+    timer()
+    {
+        dialog_dialog_with_timer(d1w_msg1, d1w_button1,
+                                 d1w_msg2, d1w_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg){
+        llSetTimerEvent(dialog_box_interact_interval);        
+        if (c == local_dialog_channel){
+            if(msg == "Okay")
+            {
+                state Idle;
+            } else state Idle;      
+
+        }  else process_common_listen_port_msg(c, n, ID, msg);
+    } 
+}
 state D2
 {
     state_entry()
@@ -436,6 +490,37 @@ state D2
     {
         dialog_dialog_with_timer(d2_msg1, d2_button1,
                                  d2_msg2, d2_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg){
+        llSetTimerEvent(dialog_box_interact_interval);        
+        if (c == local_dialog_channel){
+            if(msg == "Okay")
+            {
+                state Idle;
+            } else state Idle;      
+
+        }  else process_common_listen_port_msg(c, n, ID, msg);
+    } 
+}
+
+state D2W
+{
+    state_entry()
+    {
+        common_state_entry("d2w", d2w_msg1, d2w_button1, dialog_box_interact_interval);
+    }  
+    
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d2w_msg1, d2w_button1,
+                                 d2w_msg2, d2w_button2, dialog_box_interact_interval);
+    }
+  
+    timer()
+    {
+        dialog_dialog_with_timer(d2w_msg1, d2w_button1,
+                                 d2w_msg2, d2w_button2, dialog_box_interact_interval);
     }
     
     listen(integer c, string n, key ID, string msg){
@@ -481,6 +566,36 @@ state D3
     } 
 }
 
+state D3W
+{
+    state_entry()
+    {
+        common_state_entry("d3w", d3w_msg1, d3w_button1, dialog_box_interact_interval);
+    }  
+    
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d3w_msg1, d3w_button1,
+                                 d3w_msg2, d3w_button2, dialog_box_interact_interval);
+    }
+  
+    timer()
+    {
+        dialog_dialog_with_timer(d3w_msg1, d3w_button1,
+                                 d3w_msg2, d3w_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg){
+        llSetTimerEvent(dialog_box_interact_interval);        
+        if (c == local_dialog_channel){
+            if(msg == "Okay")
+            {
+                state Idle;
+            } else state Idle;      
+
+        }  else process_common_listen_port_msg(c, n, ID, msg);
+    } 
+}
 
 state D4
 {
@@ -704,12 +819,12 @@ state D7
 // { 
 //     state_entry()
 //     { 
-//         common_state_entry("wfg", d1_msg1, d1_button1, dialog_box_interact_interval);
+//         common_state_entry("wfg", d1w_msg1, d1w_button1, dialog_box_interact_interval);
 //     }
     
 //     touch_start(integer num_detected) 
 //     {  
-//         dialog_dialog_with_timer(d1_msg1, d1_button1, dialog_box_interact_interval);
+//         dialog_dialog_with_timer(d1w_msg1, d1w_button1, dialog_box_interact_interval);
 //     }
   
 //     timer()

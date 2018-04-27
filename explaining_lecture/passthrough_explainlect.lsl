@@ -1,18 +1,27 @@
 // change history:
 //   November 2017: created by Raymond Naglieri
 //  4/10/18 - added reset for facil capture
+//  4/27/18 - updated to support interrupts. Now supports the ability to delay a command. Matches new design
 integer num_npc = 8;
 integer base_npc_control_channel = 31000;
+integer npc_para_control_base_channel = 32000;
+integer npc_action_control_base_channel = 33000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
 integer facil_capture_channel = -33156;
 
+string delayed_command = "NULL";
+integer dc_is_action = 0;
+integer dc_npc_offset = 0;
+
 interrupt()
 {
+    llSetTimerEvent(0.0);
+    delayed_command = "NULL";
     integer i;
     for (i=0; i<num_npc; i++)
-        llSay(base_npc_control_channel+i, "-interrupt"); // ask(temp)
-    
+        llSay(base_npc_control_channel+i, "-interrupt");
+    llSleep(2.0); 
 }  
 
 reset_to_start() 
@@ -46,90 +55,90 @@ npc_group_return()
        llSay(base_npc_control_channel+i, "-groupreturn");    
 }
 
+follow_up_resp()
+{
+    integer i;
+    for (i=0; i<num_npc; i++)
+       llSay(base_npc_control_channel+i, "-npcfollow");    
+}
+
 default
 {
     state_entry()
     {
         llListen(backdoor_channel, "", NULL_KEY, "");
-    }   
+    }  
+
+    timer()
+    {
+        if(dc_is_action)
+            llSay(npc_action_control_base_channel+dc_npc_offset, delayed_command);
+        else    
+            llSay(base_npc_control_channel+dc_npc_offset, delayed_command);
+        llSetTimerEvent(0.0);    
+    } 
     
     listen(integer channel, string name, key id, string message)
     {
-        if (message == "-reset"){
+        if (message == "-reset")
+        {
             reset_to_start();
         } 
-        else if (message == "-a_askmetaphor")
+        else if (message == "-npcr")
+        {
+            follow_up_resp();
+        }  
+        else if (message == "-ad_drawmap")
         {
             interrupt();
+            llSay(facil_control_channel, "-d1");
+            llSay(base_npc_control_channel+3, "-npcresp");
             llSay(base_npc_control_channel+2, "-npcask");
+          
+
         } 
-        else if (message == "-a_groupact")
+        else if (message == "-ad_promoteunder")
         {
             interrupt();
-            npc_group(); 
+            llSay(facil_control_channel, "-d3");
+            llSay(npc_action_control_base_channel+4, "@Speak-I'm still lost. Can you give us an example?");  
+        }
+        else if (message == "-a_lost")
+        {
+            interrupt();
+            llSay(npc_action_control_base_channel+0, "@Speak-Now, with a concept map I understand it better.");
+            llSay(npc_para_control_base_channel+4, "@Setwait_talk 2");
+            llSay(npc_action_control_base_channel+4, "@Speak-And I don't. I don't even understand what parts of the concept TA is using");
+            dc_is_action = 0;
+            dc_npc_offset = 4;
+            delayed_command = "-npcask2";
+            llSetTimerEvent(2.0);
         } 
-        else if (message == "-a_g1explainloss")
-        {
-            interrupt();
-            llSay(base_npc_control_channel+1, "-npcask2");
-        }
-        else if (message == "-a_g2explainloss")
-        {
-            interrupt();
-            llSay(base_npc_control_channel+5, "-npcask3");
-        }
-        else if (message == "-npcreturn")
-        {
-            interrupt();
-            npc_group_return();
-        } 
-        else if(message == "-anc_groupup")
-        {
-            interrupt();
-            llSay(0, "The students have to break on two groups and compete in giving a good metaphor for **your choice**, **whatever you will be covering in the lecture**."); 
-            llSay(0, "Assign neighboring students to the same group."); 
-            llSay(0, "Students can use physical objects at the side table as needed.");
-        }
         else if(message == "-anc_cont")
         {
             interrupt();
             llSay(0,"Lecture continues.");
-        }
-        else if(message == "-d_groupup")
+        }    
+        else if(message == "-d_drawmap!")
         {
             interrupt();
-            llSay(facil_control_channel, "-d0");
+            llSay(facil_control_channel, "-d1!");
         }
-        else if(message == "-d_groupup!")
-        {
-            interrupt();
-            llSay(facil_control_channel, "-d0w");
-        }
-        else if(message == "-d_giveexample")
-        {
-            interrupt();
-            llSay(facil_control_channel, "-d1");
-        }
-        else if(message == "-d_choosewinner")
+        else if(message == "-d_lost")
         {
             interrupt();
             llSay(facil_control_channel, "-d2");
-        }       
-        else if(message == "-d_explainloss")
+        }   
+        else if(message == "-d_lost!")
         {
             interrupt();
-            llSay(facil_control_channel, "-d3");
-        }        
-        else if(message == "-d_promoteunder")
-        {
-            interrupt();
-            llSay(facil_control_channel, "-d4");
-        }
+            llSay(facil_control_channel, "-d2!");
+        }    
         else if(message == "-d_promoteunder!")
         {
             interrupt();
-            llSay(facil_control_channel, "-d4!");
-        }        
+            llSay(facil_control_channel, "-d3!");
+        }                
         else if(message == "-d_analyze")
         {
             interrupt();
