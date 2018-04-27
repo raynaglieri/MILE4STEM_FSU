@@ -7,6 +7,8 @@
 //        2/1/18:    added auto_facil support.  
 //        2/8/18:    added initial audio respose feature.
 //        2/22/18:   updated actions to match design 
+//        4/20/18:   added interupt feature to npcs. If npc recieves a new command 
+//                   it will stop its current action and begin the new one.
 
 
 // Notes:
@@ -186,6 +188,7 @@ integer internal_state;    // working storage to store the status within a state
 //helper functions
 reset_all() 
 {  // resets all globals 
+llSay(0,"r_a");
 mymood = "neutral";   
 recently_engaged = FALSE;
 wait_time = 5;
@@ -218,9 +221,20 @@ signal_offsets = [];
 resp_signal_offset = 0;
 signal_response_num = 0;
 exit_on_incorrect = 0;
-ignore_this_npc = NULL_KEY
+ignore_this_npc = NULL_KEY;
 signal_action_complete = 0;
 }
+
+// reset_all() 
+// {  // resets all globals    
+//     mymood = "neutral";
+//     ignore_count = 0;
+//     recently_engaged = FALSE;
+//     NPC_ACTION_TAKEN = FALSE;
+//     prev_msg = ""; 
+//     attention_span = 30; 
+//     string currentquestion = "no_question";
+// }
 
 string enviro_fact() 
 { //simple random gen
@@ -752,6 +766,10 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         {        
             backdoor_reset();     
         } 
+        else if (msg == "-interrupt")
+        {
+            state ResetRecover;
+        }
         else if (msg == "-group")
         {   
             npc_state_handler("G:0", c, n, ID, msg);
@@ -1031,6 +1049,23 @@ default
     }      
 }
 
+state ResetRecover
+{
+    state_entry()
+    {
+        register_common_channel();
+        osNpcStopAnimation(npc, currentanimation);
+        reset_all();
+        state Idle;
+
+    }
+
+   listen(integer channel, string name, key id, string message)
+   {
+       process_common_listen_port_msg(channel, name, id, message);
+   }
+} 
+
 // when an npc is not engaged in a scenario
 state Idle 
 {
@@ -1062,17 +1097,7 @@ state Idle
         process_common_listen_port_msg(c, n, ID, msg);
     }
 }
-
-state ResetRecover
-{
-    state_entry()
-    {
-        osNpcStopAnimation(npc, currentanimation);
-        reset_all();
-        state Idle;
-    }
-}  
-
+ 
 state Ask
 {
     state_entry()

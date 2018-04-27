@@ -18,7 +18,7 @@ interrupt()
     integer i;
     for (i=0; i<num_npc; i++)
         llSay(base_npc_control_channel+i, "-interrupt"); // ask(temp)
-    
+    llSleep(3.0);
 }
 
 integer random_integer(integer min, integer max)
@@ -343,6 +343,7 @@ default
         }  
         else if(message == "-sb_npcmeasurevoltage") 
         {
+            interrupt();
             slide_board_update_all("1");
         }   
 

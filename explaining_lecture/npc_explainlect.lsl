@@ -138,6 +138,7 @@ integer exit_on_incorrect = 0;
 key ignore_this_npc = NULL_KEY;
 list pending_actions; 
 integer signal_action_complete = 0;
+integer follow_up_time = 20;
 
 
 
@@ -667,6 +668,10 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         {        
             backdoor_reset();     
         } 
+        else if (msg == "-interrupt")
+        {
+            state ResetRecover;
+        }
         else if (msg == "-group")
         {   
             npc_state_handler("G:1", c, n, ID, msg);
@@ -827,7 +832,9 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
             angles_in_radians = xyz_angles*DEG_TO_RAD;
             rot_xyzq = llEuler2Rot(angles_in_radians); 
             osNpcSetRot(npc, rot_xyzq);
-         }   
+         }
+
+         state FollowUp;  
     } 
     else 
     {
@@ -895,6 +902,28 @@ state Idle
     {
         llSetTimerEvent(reminder_interval);       
         process_common_listen_port_msg(c, n, ID, msg);
+    }
+} 
+
+state FollowUp
+{
+    state_entry()
+    {
+        register_common_channel_timer(follow_up_time);
+    }
+
+    timer()
+    {
+        state Idle;
+    }
+
+    listen(integer channel, string name, key id, string message)
+    {
+        if (message == "-npcfollow") 
+        {
+            npc_rand_response();
+            state Idle;
+        } else process_common_listen_port_msg(channel, name, id, message);  
     }
 }  
 
@@ -1008,7 +1037,7 @@ state Respond
                 {
                     llSay(auto_facil_control_channel, "-ac");
                 }
-                state Idle;
+                state FollowUp;
             }
         } 
         else
@@ -1018,7 +1047,7 @@ state Respond
             {
                 llSay(auto_facil_control_channel, "-ac");
             }
-            state Idle;  
+            state FollowUp;  
         }
     }
 
@@ -1079,7 +1108,7 @@ state Respond2NpcQuestion
             llTriggerSound(say_this, 3.0);       
         osNpcSay(npc, to_say);
         llSay(npc_to_npc_signal_base_channel+resp_signal_offset, "@done");
-        state Idle;
+        state FollowUp;
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -1138,7 +1167,7 @@ state GroupThink
                     {
                         osNpcSay(npc, "We did it!");
                     }
-                    state Idle;
+                    state FollowUp;
                 }
                 else if(keyword_match_xy(msg, group_two) || keyword_match_xy(msg, group_two_members))
                 {
@@ -1149,7 +1178,7 @@ state GroupThink
                         osNpcSay(npc, "We did it!");
 
                     }
-                    state Idle;
+                    state FollowUp;
                 } 
             } 
         } 
