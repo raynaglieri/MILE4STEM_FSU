@@ -1,0 +1,14 @@
+/*
+ * Leave the NPC alone, it will randomly perform one animation 
+ * out of the five options every 15 seconds. The five animation must be 
+ * installed in the NPC.
+ * To test:
+ *   create the npc and wait for 30 seconds and observes the npc's random animation
+ */
+
+NPC Chemistrylab begin
+  state default begin
+    time 15 : action (random animation ["avatar_express_wink", "avatar_no_unhappy", 
+                      "exp_anim", "Okay_nodding", "raisingahand"]);
+  end
+end

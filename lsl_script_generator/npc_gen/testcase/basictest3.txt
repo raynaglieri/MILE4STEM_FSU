@@ -1,0 +1,17 @@
+/*
+ * Leave the NPC alone, it will randomly perform one sound file 
+ * out of the four options every 15 to 30 seconds (decided randomly). 
+ * The four sound file must be installed in the NPC.
+ *
+ * To test:
+ *   create the npc, leave it alone for 30 seconds and observe the random sound
+ */
+
+NPC Chemistrylab begin
+  state default begin
+    randomtime 15 30 : action (random sound ["am_i_doing_everything_correctly_male", 
+                      "am_i_doing_wrong_female", 
+                      "extra_time_male", "is_it_correct_male"]);
+  end
+end
+

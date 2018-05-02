@@ -1,0 +1,20 @@
+/*
+ * test the basic trigger
+ * 'channel -1' is the state_control_channel (31000 + myid)
+ * To test: 
+ *   creat the npc
+ *   '/31000 -three1'
+ *   when the npc raises hand, call his name ('john' by default)
+ *   the npc should then perform the three operations
+ *   1. say "Hello world", 
+ *   2. play Okay_nodding animation,
+ *   3. play sound file is_it_correct_male   
+ *
+ *   you can repeat this
+ */
+
+NPC Test begin
+  state default begin
+    channel -1 "-three1":  askaction (animation Okay_nodding, say "Hello world", sound is_it_correct_male);
+  end
+end

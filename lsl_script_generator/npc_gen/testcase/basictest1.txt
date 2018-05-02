@@ -1,0 +1,18 @@
+/*
+ * test the basic trigger
+ * 'channel -2' is the action_control_channel (33000 + myid)
+ * To test:
+ *   create the npc
+ *   '/33000 -t1 -t2'
+ *   '/33000 -t1 -t3'
+ *
+ * When you do '/33000 -t1 -t2', the NPC would randomly say "1111", 
+ * "2222", or "3333". The trigger is two of the three terms
+ */
+
+NPC Test begin
+  state default begin
+    channel -2  2 ["-t1", "-t2", "-t3"] :  
+      action (random say ["1111",  "2222", "3333"]);
+  end
+end
