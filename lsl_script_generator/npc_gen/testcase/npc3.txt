@@ -1,0 +1,31 @@
+/*
+ * This NPC has two triggers
+ * '/31000 -s1' to make the npc randomly play one of the two animations
+ * '/31000 -s2' to start an interaction sequence, the npc will raise hand ......
+
+ * To test:
+ *   create the npc
+ *   '/31000 -s1'
+ *   npc should do a random animation
+ *   '/31000 -s2' 
+ *   npc should wait a little bit then raise hand
+ *   you call the name ('John' by default'
+ *   npc should say 'please react to my sentence'
+ *   you can type any thing and the npc should say something and move the the idle state
+ *
+ *   you can try '/31000 -s1' and '/31000 -s2' whenever you like
+ */
+
+NPC Chemistrylab begin
+  state default begin
+    channel -1 "-s1": action (random animation ["avatar_no_unhappy", "avatar_express_wink"]);
+    channel -1 "-s2": askaction (say "please react to my sentence"); 
+                           rbegin channel 0 1 ["responses", "to", "s1_q1"]: 
+                             action (say "msg1_for_s1");  
+                           rend
+			   rbegin allothers:
+			     action (say "Whatever, I move on", animation Okay_nodding)
+			     idle
+                           rend
+  end
+end

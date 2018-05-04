@@ -1,0 +1,21 @@
+/*
+ * this is combined triggers one channel or time
+ * the NPC should randomly say one of five sentences and react to the
+ * "-three1" command on the state_control_channel ('/31000 -three1') to
+ * perform three action in basictest0.txt
+ * 
+ * to test:
+ *   create the npc
+ *   leave the npc alone for a while and observe the random say's
+ *   '/31000 -three1'
+ *  
+ *   continue observing the random say's and you can do '/31000 -three1' whenever
+ *   you like.
+ */
+ 
+NPC Chemistrylab begin
+  state default begin
+    channel -1 "-three1":  action (animation Okay_nodding, say "Hello world", sound is_it_correct_male);
+    time 15 : action (random say ["111", "222", "333", "444", "555"]);
+  end
+end
