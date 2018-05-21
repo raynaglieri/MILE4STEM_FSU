@@ -1,0 +1,11 @@
+NPC test02 begin
+	state default begin
+		channel -1 "-npcask2": askaction (say "Can you take a look at my digital multimeter? I might have broken it.", sound am_i_correct_male);
+			rbegin channel 0 1 ["connect", "wire", "ABCDE"] : /*;*/
+				action (say "Yes, I probably messed up the wires.");
+			rend
+			rbegin allothers:
+				action (say "I've done that.");
+			rend
+	end
+end

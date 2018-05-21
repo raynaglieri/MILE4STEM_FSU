@@ -1,0 +1,47 @@
+/*
+ * an npc with many triggers
+ *  
+ * read the code to understand how to test.
+ */
+ 
+NPC Chemistrylab begin
+  state default begin
+    channel -1 "-s1": action (animation avatar_express_wink, say "express wink");
+    channel -1 "-s2": askaction (say "s2 msg"); 
+                           rbegin channel 0 1 ["rs2", "rrs2", "rrrs2"]: 
+                             action (say "correct react to s2 msg 1",
+			     sound am_i_doing_wrong_female); 
+                           rend
+			   rbegin channel 0 2 ["111", "222", "333"]: 
+                             action (say "correct react to s2 msg 2");  
+                           rend
+			   rbegin allothers:
+			     action (say "I have tried that", animation avatar_express_wink)
+			     repeat
+                           rend
+    channel -1 "-s3":   action (say "s3 msg"); 
+                           rbegin channel 0 1 ["rs3", "rrs3", "rrrs3"]: 
+                             action (say "correct react to msg s3");
+                           rend
+			   rbegin allothers:
+			     action (say "I have tried that")
+			     repeat
+                           rend
+     channel -1 "-s4": askaction (say "s4 msg"); 
+                           rbegin channel 0 1 ["rs4", "rrs4", "rrrs4"]: 
+                             action (say "correct react to msg s4"); 
+                           rend
+			   rbegin allothers:
+			     action (say "whatever, I move on", sound extra_time_male)
+			     idle
+                           rend
+     channel -1 "-s5": askaction (say "s5 msg"); 
+                           rbegin channel 0 1 ["rs5", "rrs5", "rrrs5"]: 
+                             action (say "correct react to msg s5"); 
+                           rend
+			   rbegin allothers:
+			     action (say "Can i have more time?", sound extra_time_male)
+			     repeat
+                           rend			   
+  end
+end

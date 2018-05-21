@@ -1,0 +1,12 @@
+NPC practice1 begin
+	state default begin
+		channel -1 "-npcask": askaction (say "Hi, I think I need your help. This digital multimeter is broken");
+			rbegin channel 0 1 ["wire", "connect", "wires", "conn"] : /*;*/
+				action (say "Yes, I misconnected the wires.");
+			rend
+			rbegin allothers:
+				action (say "I've tried that!")
+				repeat
+			rend
+	end
+end

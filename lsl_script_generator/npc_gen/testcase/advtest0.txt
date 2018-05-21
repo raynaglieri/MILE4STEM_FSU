@@ -1,0 +1,35 @@
+/*
+ * this tests an NPC with three moods, depending on the mood
+ * the npc may react to the same command in different ways
+ * each may have its own timed activities
+ * use '/31000 -goto:statename' to go to state 'statename'
+ * for example '/31000 -goto:badmood'.
+ *
+ * to test:
+ *   create the npc
+ *   '/31000 -three1'
+ *   you may wait some time to see the time triggered action
+ *   '/31000 -goto:badmood'
+ *   '/31000 -three1'    npc would have a different action from the previous one
+ *   you may wait some time to see the time triggered actions
+ *   '/31000 -goto:goodmood'
+ *   '/31000 -three1'    another new set of actions
+ *   '/31000 -goto:default'    go back to the default state
+ *   
+ */
+
+NPC mood begin
+  state default begin
+    channel -1 "-three1":  action (animation Okay_nodding, say "Hello world", sound is_it_correct_male);
+    time 20 : action (random say ["normal 1", "normal 2", "normal 3", "normal 4"]);
+  end
+
+state badmood begin
+    channel -1 "-three1":  action (random say ["I am bored.", "Get lost.", "Go away"]);
+    randomtime 30 40 : action (random say ["I am bored", "Get lost", "Go away"]);
+  end
+  
+  state goodmood begin
+    channel -1 "-three1":  askaction (say "What a beautiful day.");
+    time 10 : action (random say ["Hello, Sunshine.", "I love you", "What is wonderful day."]);  end
+end

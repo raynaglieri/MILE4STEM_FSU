@@ -1,0 +1,23 @@
+/*
+ * three states. To see how different states react to '/31000 -three1'
+ * you can do the following 
+ * '/31000 -three1'
+ * '/31000 -goto:S0'
+ * '/31000 -three1'
+ * '/31000 -goto:S1'
+ * '/31000 -three1'
+ * '/31000 -goto:default'
+ * '/31000 -three1'
+ */
+
+NPC Chemistrylab begin
+  state default begin
+    channel -1 "-three1":  action (animation Okay_nodding, say "Hello world", sound is_it_correct_male);
+  end
+  state S0 begin
+    channel -1 "-three1":  action (random say ["I am bored.", "Get lost.", "Go away"]);
+  end
+  state S1 begin
+    channel -1 "-three1":  action (say "What a beautiful day.");
+  end
+end
