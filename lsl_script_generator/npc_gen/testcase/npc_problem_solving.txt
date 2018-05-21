@@ -1,0 +1,28 @@
+/*
+ * NPC decription test for problem solving lecture - RN
+ */
+
+NPC ProblemSolvingLecture begin
+	state default begin
+		channel -1 "npcask0":
+			askaction(say "I don't understand. Where are the restictions?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask1":
+			askaction(say "I don't understand. Where are the givens?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask2":
+			askaction(say "I don't understand. Where are the givens?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask3":
+			askaction(say "I thought Problem 2 was just like Problem 1");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask4":
+			askaction(say "???I thought the solution for Problem 1 was similar to the solution for Problem 2");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+	end
+end

@@ -1,0 +1,37 @@
+/*
+ * this file test the basic interaction. After '/31000 -s1_q1',
+ * the NPC will raise hand to ask a question.
+ * when his name is called upon, the NPC will say 'msg_for_s1'.
+ * After that, if the user responded in the public channel 
+ * with one of "responses", "to", or "s1_q1",
+ * the npc will say 'msg1_for_response 1' and go back to idle
+ * or if the user responded in the public channel with two of 
+ * '111', '222', or '333', the npc will say 'msg1_for_response 2'
+ * all other responses with trigger the npc is say 'AAA' and play an
+ * animation (exp_anim) and then repeat for the 'msg_for_s1' sequence.
+ *
+ * To test:
+ *   create the npc
+ *   '/31000 -s1_q1'
+ *   when the npc raises hand, call the name ('John' by default)
+ *   the npc should then say: 'msg_for_s1'
+ *   you may answer 'to' to '111 222" to perform specified actions,
+ *   or input anything to get 'AAA'
+ *
+ *   You can repeat '/31000 -s1_q1' whenever you want
+ *   
+ */
+
+
+NPC testinteraction begin
+  state default begin
+    channel -1 "npcask": askaction (say "Hi, I think I need your help. This digital multimeter is broken."); 
+                           rbegin channel 0 1 ["wire", "connect", "wire", "conn"]: 
+                             action (say "Yes, I misconnected the wires.");  
+                           rend
+			   rbegin allothers:
+			     action (say "I've tried that!")
+			     repeat
+                           rend
+  end
+end

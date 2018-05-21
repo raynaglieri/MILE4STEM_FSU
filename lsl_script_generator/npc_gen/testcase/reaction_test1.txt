@@ -1,0 +1,68 @@
+/*
+
+ * this file test the basic reaction. After '/31000 -s1_r1',
+
+ * NPC appears bored - animations (avatar_express_bored, avatar_away). 
+
+ * When his name is called upon, the NPC will say "yes".
+
+ * After that, if the user responded in the public channel 
+
+ * with one of "pay attention", "concentrate", "focus"
+
+ * the npc will say 'I just got distracted' and go to idle state
+
+ * all other responses will trigger the npc to say 'whatever' and get back to
+
+ * animations (avatar_express_bored, avatar_away).
+ * 
+
+ * to test:
+
+ *   create the npc
+
+ *   then '/31000-s1_r1'
+
+ *   npc looks bored, call the name ('John' by default)
+
+ *   the npc should then say: 'yes'
+
+ *   you may answer "pay attention", "concentrate", "focus" to perform specified actions,
+
+ *   or input anything to get 'whatever' and npc returns to a bored state
+
+
+ */
+
+ 
+
+NPC Boredome begin
+
+  state default begin
+  
+    channel -1 "-s1_r1": askaction (say "yes"); 
+
+                           rbegin channel 0 1 ["pay attention", "concentrate", "focus"]: 
+
+                             action (say "I just got distracted", say -1 "-goto:notbored");  
+
+                           rend
+
+			   rbegin allothers:
+
+			     action (say "whatever");
+
+                           rend
+
+
+    time 10 : action (random animation ["avatar_express_wink", "avatar_no_unhappy"]);
+
+  end
+
+  state notbored begin
+
+    time 30 : action (say "I am not bored.");
+
+  end
+
+end

@@ -1,0 +1,27 @@
+/*
+ * This is a test file modified by Zhaihuan. 
+ */
+
+
+NPC testinteraction begin
+  state default begin
+    channel -1 "npcask": askaction (say "Hi, I think I need your help. This digital multimeter is broken."); 
+                           rbegin channel 0 1 ["wire", "connect", "wire", "conn"]: 
+                             action (say "Yes, I misconnected the wires.");  
+                           rend
+			   rbegin allothers:
+			     action (say "I've tried that!")
+			     repeat
+                           rend
+/*  end */
+  
+    channel -1 "-npcask2": askaction (say "Can you take a look at my ditital multimeter? I might have broken it.", sound am_i_correct_male); 
+                           rbegin channel 0 1 ["connect", "wire", "ABCED"]: 
+                             action (say "Yes, I probably messed up the wires.");  
+                           rend
+			   rbegin allothers:
+			     action (say "I've done that!")
+			     repeat
+                           rend
+  end
+end

@@ -1,0 +1,51 @@
+/*
+ * NPC decription test for problem solving lecture - RN
+ * 05/10/2018 - Added all NPC actions. Added a user defined routine. 
+ */
+
+NPC ProblemSolvingLecture begin
+	state default begin
+		channel -1 "npcask0":
+			askaction(say "I don't understand. Where are the restictions?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask1":
+			askaction(say "I don't understand. Where are the givens?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask2":
+			askaction(say "I don't understand. Where are the givens?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask3":
+			askaction(say "I thought Problem 2 was just like Problem 1");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask4":
+			askaction(say "I thought the solution for Problem 1 was similar to the solution for Problem 2");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcaction0":
+			action (animation Okay_nodding, say "I think problem 1 constitutes a separate type");
+		channel -1  "npcanim0":
+			action (animation Okay_nodding);
+		channel -1  "npcrndsay0":
+			action (random say ["Alright", "Gotcha"]);
+		channel -1  "npcrandsay1":
+			action (random say ["Cool. Now I'll be able to do it", "Alright, it's eaiser than I thought", "Great"]);
+		channel -1  "npccustsay0":
+			action (userdefine rand_pairing_structure);
+		channel -1  "npcsay0":
+			action (say "Hmm...I don???t know...I guess...I use buffer");
+		channel -1  "npcsay1":
+			action (say "I don't know how to think aloud");
+		channel -1  "npcsay2":
+			action (say "I'm totally lost, can you tell us how to think aloud?");
+		channel -1  "npcsay3":
+			action (say "Why was that question important?");
+		channel -1  "npcsay4":
+			action (say "How does that affect our final grades?");
+		channel -1  "npcsay5":
+			action (say "Is there a reason to doubt we know it?");
+	end
+end

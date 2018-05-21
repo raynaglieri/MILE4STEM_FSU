@@ -1,0 +1,102 @@
+/*
+ * an npc with many triggers
+ */
+ 
+NPC Chemistrylab begin
+  state default begin
+    channel -1 "-npcask":
+                      askaction (say "Hi, I think I need your help. This digital multimeter is broken", sound am_i_doing_everything_correctly_male);
+                      rbegin channel 0 1 ["$%&", "wire", "connect", "wires",
+		                         "connected"] :
+		          action (say "Yes, I misconnected the wires.");
+		      rend
+		      rbegin allothers :
+		          action (say "I've tried that!")
+			  repeat 
+                      rend
+    channel -1 "-npcask2":
+                      askaction (say "Can you take a look at my digital multimeter? I might have broken it", sound am_i_doing_everything_correctly_male);
+                      rbegin channel 0 1 ["$%&", "wire", "connect", "wires",
+		                         "connected"] :
+		          action (say "Yes, I probably messed up the wires.");
+		      rend
+		      rbegin allothers :
+		          action (say "I've done that!")
+			  repeat 
+                      rend
+    channel -1 "-npcask3":
+                      askaction (say "I have measured the current between the first and the second resistor and between the second and the third resistor and it's always the same. Are the current readings supposed to the the same?", sound is_it_correct_male);
+                      rbegin channel 0 1 ["$%&", "series", "one after another"] :
+		          action (say "Thanks.");
+		      rend
+		      rbegin allothers :
+		          action (say "I've tried that!")
+			  repeat 
+                      rend
+
+    channel -1 "-npcask4":
+                      askaction (say "Why am I getting the same voltage reading across each of the resistors?", sound am_i_doing_wrong_female);
+                      rbegin channel 0 1 ["parallel", "simultaneous", "repeat the formula"] :
+		          action (say "Thanks.");
+		      rend
+		      rbegin allothers :
+		          action (say "I've tried that!")
+			  repeat 
+                      rend
+
+    channel -1 "-npcask5":
+                      askaction (say "I have measured the voltage on the second resistor and it's 1.67 V. How do I know this is correct?", sound is_it_correct_male);
+                      rbegin channel 0 1 ["yes", "no"] :
+		          action (say "Thanks.");
+		      rend
+		      rbegin allothers :
+		          action (say "I've tried that!")
+			  repeat 
+                      rend
+
+    channel -1 "-npcask6":
+                      askaction (say "I have measured current on the first resistor and it's 0.05 A. Is it correct??", sound am_i_doing_wrong_female);
+                      rbegin channel 0 1 ["yes", "no"] :
+		          action (say "Thanks.");
+		      rend
+		      rbegin allothers :
+		          action (say "I've tried that!")
+			  repeat 
+                      rend
+
+    channel -1 "-npcask7":
+                      askaction (say "How do I connect the multimeter to measure the voltage across each resistor?", sound am_i_doing_wrong_female);
+                      rbegin channel 0 1 ["connecting the voltmeter"] :
+		          action (say "Thanks.");
+		      rend
+		      rbegin allothers :
+		          action (say "I've tried that!")
+			  repeat 
+                      rend
+
+    channel -1 "-npcask8":
+                      askaction (say "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?", sound am_i_doing_wrong_female);
+                      rbegin channel 0 1 ["break the circuit"] :
+		          action (say "Thanks.");
+		      rend
+		      rbegin allothers :
+		          action (say "I've tried that!")
+			  repeat 
+                      rend
+
+    channel -1 "-npcask11":
+                      askaction (say "We are still working on our report. Could you give us some extra time?", sound extra_time_male);
+                      rbegin channel 0 1 ["yes"] :
+		          action (say "Great. Than you so much!");
+		      rend
+		      rbegin allothers :
+		          action (say "Alright, we will finish as much as we can")
+			  idle 
+                      rend
+
+
+
+
+
+  end
+end

@@ -1,0 +1,55 @@
+/*
+ * this file tests a challenge interaction. After '/31000 -s1_q1',
+ * the NPC will raise hand to ask a question.
+ * when his name is called upon, the NPC will say 'msg_for_s1'.
+ *
+ * Read the code the details.
+ * 
+ * To test:
+ *    create npc
+ *    '/31000 -s1'
+ *    when the npc raises hand, call the name
+ *    npc should say 'msg_for_s1'
+ *    you can enter 'lll1'
+ *    npc should say 'msg1_for_response 1'
+ *    you can enter 'aa2'
+ *    npc should say 'msg1_for_AAA2
+ *
+ *   repeat from '/31000 -s1' and try other branches 
+ */
+
+NPC testinteraction begin
+  state default begin
+    channel -1 "-s1" : askaction (say "msg_for_s1"); 
+                           rbegin channel 0 1 ["l1", "ll1", "lll1"]: 
+                             action (say "msg1_for_response 1");  
+                               rbegin channel 0 1 ["l2", "ll2", "lll2"]: 
+                                 action (say "msg1_for_LLLL2");  
+                                   rbegin channel 0 1 ["l3", "ll3", "lll3"]: 
+                                     action (say "msg1_for_LLLL3");  
+                                   rend
+                                   rbegin channel 0 1 ["a3", "aa3", "aaa3"]: 
+                                     action (say "msg1_for_XXXX3");  
+                                   rend
+			           rbegin allothers:
+			             action (say "CCC")
+			             repeat
+                                   rend
+                               rend
+                               rbegin channel 0 1 ["a2", "aa2", "aaa2"]: 
+                                  action (say "msg1_for_AAAA2");  
+                               rend
+			       rbegin allothers:
+			         action (say "BBB")
+			         repeat
+                               rend
+                           rend
+                           rbegin channel 0 2 ["111", "222", "333"]: 
+                             action (say "msg1_for_response 2");  
+                           rend
+			   rbegin allothers:
+			     action (say "AAA", animation exp_anim)
+			     repeat
+                           rend
+  end
+end

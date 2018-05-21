@@ -1,0 +1,45 @@
+/*
+ * this file tests a challenge interaction.
+ * Read the code the details.
+ *
+ * To test:
+ *    create npc
+ *    '/31000 -npcask'
+ *    when the npc raises hand, call the name
+ *    npc should say 'Hi, I think I need your help. This digital multimeter is broken'
+ *    you can enter 'wire', 'connect', 'wires', 'conn'
+ *    npc should say 'Yes, I misconnected the wires.'
+ *    and go to idle
+ *    if you enter something else npc should say 'I have tried that!'
+ *	 and repeat the question
+ *    if you use
+ *    '/31000 -npcask2'
+ *    when the npc raises hand, call the name
+ *    npc should say 'Can you take a look at my digital multimeter? I might have broken it.' and play sound am_I_correct
+ *    you can enter 'wire', 'connect', 'ABCDE'
+ *    npc should say 'Yes, I probably messed up the wires.'
+ *    if you enter something else npc should say 'I have tried that!'
+ *	 and repeat the question
+ */
+
+NPC testXin begin
+  state default begin
+      channel -1 "-npcask" : askaction (say "Hi, I think I need your help. This digital multimeter is broken");
+      rbegin channel 0 1 ["wire", "connect", "wires", "conn"]:
+        action (say "Yes, I misconnected the wires.")
+        ; /* idle, 'idle' only works in allothers block, semicolon in other blocks  - XY*/
+      rend
+      rbegin allothers:
+        action (say "I have tried that!")
+        repeat
+      rend
+      channel -1 "-npcask2": askaction (say "Can you take a look at my digital multimeter? I might have broken it.", sound am_I_correct_male);
+      rbegin channel 0 1 ["connect", "wire", "ABCDE"]:
+        action (say "Yes, I probably messed up the wires.");
+      rend
+      rbegin allothers:
+        action (say "I have tried that!")
+        repeat
+      rend
+    end
+end
