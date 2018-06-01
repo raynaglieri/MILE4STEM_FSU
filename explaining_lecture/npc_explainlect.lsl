@@ -139,7 +139,7 @@ integer exit_on_incorrect = 0;
 key ignore_this_npc = NULL_KEY;
 list pending_actions; 
 integer signal_action_complete = 0;
-integer follow_up_time = 20;
+integer follow_up_time = 30;
 
 
 

@@ -1,0 +1,75 @@
+/* 
+ * Created: 5/30/2018 by Raymond Naglieri
+ * About  : NPC decription test for updated chemistry lab
+ * 
+ */
+
+NPC ProblemSolvingLecture begin
+	state default begin
+		channel -1 "ask_s1:1":
+        	askaction (say  "Hi, we have a question. We dipped the pH paper 
+        					into the lime juice, but why our color doesn’t match 
+        					any of those on the pH chart?", 
+        					sound am_i_doing_everything_correctly_male);
+            rbegin channel 0 1 [“follow”, “understand the purpose”, “observe”, “results”] :
+		    action (say "Oh, I see. Thank you");
+		    rend
+		    rbegin allothers :
+		        action (say "We did everything in the procedures from the lab manual.")
+			  	repeat 
+            rend
+
+		channel -1 "ask_s1:2":
+        	askaction (say  "I think we need your help. We followed all the procedures, 
+        					but the color we got doesn’t match any of those in the 
+        					pH chart. Do you know why?", 
+        					sound am_i_doing_everything_correctly_male);
+            rbegin channel 0 1 [“follow”, “understand the purpose”, “observe”, “results”] :
+		    action (say "I got it. Thank you!");
+		    rend
+		    rbegin allothers :
+		        action (say "Yes, we did that. We followed every step.")
+			  	repeat 
+            rend
+
+		channel -1 "ask_s1:3":
+        	askaction (say  "Can you take a look at our pH paper? We couldn’t find 
+        					our color in the pH chart.", 
+        					sound am_i_doing_everything_correctly_male);
+            rbegin channel 0 1 [“follow”, “understand the purpose”, “observe”, “results”] :
+		    action (say "OK, thank you.");
+		    rend
+		    rbegin allothers :
+		        action (say "Yes, that's how we did it.")
+			  	repeat 
+            rend
+
+		channel -1  "ask_s1:4":
+
+			askaction(say "I don't think we can finish everything in 15 minutes. 
+							What should we do?");
+
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", 
+													"alright", "thanks"]);
+
+			rend
+
+		channel -1 "ask_s2:1":
+        	askaction (say  "Excuse me! Could you come over here?");
+            rbegin channel 0 1 [“absorb”, “neutralize”,“vinegar”, “baking soda”, 
+            					“cold water”] :
+		    action (say "I see, thank you! I will do that.");
+		    rend
+		    rbegin allothers :
+		        action (say "I see, but how to do that?")
+			  	repeat 
+            rend
+
+		channel -1  "ask_s3:1":
+			action (userdefine FireRespond);
+
+		channel -1  "anim_addAcid":
+			action (animation adding_acid);
+
+	end
+end
