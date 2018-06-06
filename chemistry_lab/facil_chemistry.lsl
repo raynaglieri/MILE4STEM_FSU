@@ -116,12 +116,12 @@ list   d15_button1 = [];
 string d15_msg2 = "Empty";
 list   d15_button2 = ["Okay"];
 
-string d16_msg1 = "Do you want to try a more challenging lab emergency task?";
+string d16_msg1 = "Do you want to continue with lab emergency challenge?";
 list   d16_button1 = ["Yes", "No"];
 string d16_msg2 = "Empty";
 list   d16_button2 = ["Okay"];
 
-string d17_msg1 = "Great! Your studenst are doing the Acids and Bases lab now. Help them as needed.";
+string d17_msg1 = "Great! Your students are doing the Acids and Bases lab now. Help them as needed.";
 list   d17_button1 = ["Okay"];
 string d17_msg2 = "Empty";
 list   d17_button2 = ["Okay"];
@@ -135,6 +135,11 @@ string d19_msg1 = "Great! Let's get started!";
 list   d19_button1 = ["Okay"];
 string d19_msg2 = "Empty";
 list   d19_button2 = ["Okay"];
+
+string d20_msg1 = "Do you want to try a more challenging lab emergency task?";
+list   d20_button1 = ["Okay"];
+string d20_msg2 = "Empty";
+list   d20_button2 = ["Okay"];
 
 //reset the changeable variables to the original mode
 reset_glob(){
@@ -297,7 +302,10 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         } else if (msg == "-d19"){     
             llSetTimerEvent(0);    
             state D19;    
-        }else if(msg == "-nc1"){
+        } else if (msg == "-d20"){     
+            llSetTimerEvent(0);    
+            state D20;    
+        } else if(msg == "-nc1"){
             state NC1;
         } else if(msg == "-nc2"){
             state NC2;
@@ -1618,6 +1626,40 @@ state D19
         //internal_state = 1;
         dialog_dialog_with_timer(d19_msg1, d19_button1,
                                  d19_msg2, d19_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg)
+    {
+        llSetTimerEvent(dialog_box_interact_interval);
+        if (c == local_dialog_channel)
+        {
+            if (msg == "Okay") 
+            {
+                llSetTimerEvent(0);
+                state Idle;
+            }    
+        } else process_common_listen_port_msg (c, n, ID, msg);         
+    }    
+}
+
+state D20
+{
+    state_entry()
+    {
+        common_state_entry("d20", d20_msg1, d20_button1, dialog_box_interact_interval);
+    }  
+
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d20_msg1, d20_button1,
+                                 d20_msg2, d20_button2, dialog_box_interact_interval); 
+    }
+  
+    timer()
+    {
+        //internal_state = 1;
+        dialog_dialog_with_timer(d20_msg1, d20_button1,
+                                 d20_msg2, d20_button2, dialog_box_interact_interval);
     }
     
     listen(integer c, string n, key ID, string msg)
