@@ -129,7 +129,7 @@ default
         else if (message == "-ad_gotogether")
         {
             interrupt();
-            llSay(board_control_channel, "-cycle"); 
+            //llSay(board_control_channel, "-cycle"); 
             npc_rnd_pair_all();
             llSleep(1.0);
             llSay(facil_control_channel, "-d19"); 

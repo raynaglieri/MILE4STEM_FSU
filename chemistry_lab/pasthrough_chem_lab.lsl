@@ -73,5 +73,125 @@ default
             interrupt();
             multi_command("-goto:default", [0,1,2,3,4,5,6,7]);
         }
+        else if(message == "-d_monprog")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d1");
+        }
+        else if(message == "-d_imaglab")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d2");
+        }
+        else if(message == "-d_idlemonitor")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d2");
+        }
+        else if(message == "-d_nomonitor")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d3");
+        }
+        else if(message == "-d_idlemonitor")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d4");
+        }
+        else if(message == "-d_helpmonitor")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d5");
+        }
+        else if(message == "-a_ph1")
+        {
+            interrupt();
+            llSay(base_npc_control_channel, "ask_s1:1");
+        }
+        else if(message == "-a_ph2")
+        {
+            interrupt();
+            llSay(base_npc_control_channel, "ask_s1:2");
+        }
+        else if(message == "-a_ph3")
+        {
+            interrupt();
+            llSay(base_npc_control_channel, "ask_s1:3");
+        }
+        else if(message == "-d_ph!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d6");
+        }
+        else if(message == "-nc_ph!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-nc1");
+        }
+        else if(message == "-d_similar")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d7");
+        }
+        else if(message == "-d_similarkey!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d8");
+        }
+        else if(message == "-d_similarkey")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d9");
+        }
+        else if(message == "-d_similarann")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d10");
+        }
+        else if(message == "-d_teachagain")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d11");
+        }
+        else if(message == "-d_teachagainkey!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d12");
+        }
+        else if(message == "-d_teachagainkey")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d13");
+        }
+        else if(message == "-a_time")
+        {
+            interrupt();
+            llSay(base_npc_control_channel, "ask_s1:4");
+        }
+        else if(message == "-d_labover")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d14");
+        }
+        else if(message == "-d_labdiff")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d15");
+        }
+        else if(message == "-d_cont2spill")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d16");
+        }
+        else if(message == "-d_yes2spill")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d17");
+        }
+        else if(message == "-d_no2spill")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d18");
+        }
     }
 }
