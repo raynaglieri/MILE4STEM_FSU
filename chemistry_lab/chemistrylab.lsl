@@ -27,6 +27,14 @@ list currentNPCkeys;
 string say_this = "";
 
 //also add dynamic path wait times
+list npc_0_path = ["<0.0,10.0,0.0>" , "<10.0,0.0,0.0>"];
+list npc_1_path = ["<0.0,5.0,0.0>" , "<-12.0,0.0,0.0>", "<0.0,6.0,0.0>"];
+list npc_2_path = ["<0.0,5.0,0.0>", "<-3.0,0.0,0.0>", "<0.0,5.0,0.0>", "<-10.0,0.0,0.0>", "<0.0,5.0,0.0>"];
+list npc_3_path = ["<0.0,5.0,0.0>", "<-2.0,0.0,0.0>", "<0.0,8.0,0.0>", "<-10.0,0.0,0.0>", "<0.0,5.0,0.0>"];
+list npc_4_path = ["<0.0,-7.0,0.0>", "<6.0,0.0,0.0>", "<0.0,-12.0,0.0>"];
+list npc_5_path = ["<0.0,-5.0,0.0>", "<3.0,0.0,0.0>", "<0.0,-10.0,0.0>"];
+list npc_6_path = ["<0.0,-6.0,0.0>", "<6.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_7_path = ["<4.0,0.0,0.0>", "<0.0,-8.0,0.0>"];
 
 list firstname = ["John", "Michael", "Kevin", "Robert", "Linda", "Thomas",
                    "Steven", "Karen", 
@@ -133,6 +141,9 @@ list I_default_A5 = [1, 3, 14,
 0];
 list I_default_A6 = [1, 3, 14,
 0, 1, "", 0, 1, "", 1, "", 1, "adding_acid", "", 
+0];
+list I_default_A7 = [1, 3, 14,
+0, 1, "", 0, 1, "", 1, "", 1, "", "MoveNPC", 
 0];
 list I_default_T = [1, 3, 15, 0, 1, "", 0, 1, "", 1, "", 1, "", ""];
 //helper functions
@@ -314,9 +325,9 @@ process_common_para_control_msg(integer c, string n, key ID, string msg)
         {
             osNpcSay(npc, "reminder_interval = " + reminder_interval);
         } 
-        else if (ss == "@Queryrepeat_interval") 
+        else if (ss == "@Querylocal_timer") 
         {
-            //osNpcSay(npc, "repeat_interval = " + repeat_interval);
+            //osNpcSay(npc, "local_timer = " + local_timer);
         } 
         else if (ss == "@Querymyid") {
             osNpcSay(npc, "myid = " + myid);
@@ -329,7 +340,7 @@ process_common_para_control_msg(integer c, string n, key ID, string msg)
         {
             reminder_interval = val;
         } 
-        else if  (ss == "@Setrepeat_interval") 
+        else if  (ss == "@Setlocal_timer") 
         {
         } 
         else if (ss == "@Setmyid") 
@@ -599,11 +610,74 @@ do_response_action(string msg)
     }
 }
 
+FireRespond()
+{
+    state FireS3;
+}
+
+auto_leave(list path, integer longest_wait) // add "dynamic" wait times
+{   
+    osNpcStand(npc);
+    rotation rot = osNpcGetRot(npc); 
+    integer i;
+    for(i = 0; i < llGetListLength(path); i++)
+    {
+        osNpcMoveToTarget(npc,osNpcGetPos(npc) + (vector)llList2String(path, i)*rot,OS_NPC_NO_FLY);
+        llSleep(longest_wait);
+    }
+}
+
+MoveNPC()
+{
+    if(myid == 0)
+    {
+        auto_leave(npc_0_path, 5);
+    }
+    else if(myid == 1)
+    {   
+        llSleep(6.0); // so NPCs do not collide. 
+        auto_leave(npc_1_path, 6); 
+    }
+    else if(myid == 2)
+    {
+        llSleep(10.0);
+        auto_leave(npc_2_path, 4); 
+    }
+    else if(myid == 3)
+    {
+        llSleep(14.0);
+        auto_leave(npc_3_path, 4);
+    }
+    else if(myid == 4)
+    {
+        llSleep(12.0);
+        auto_leave(npc_4_path, 2);
+    }
+    else if(myid == 5)
+    {
+        llSleep(8.0);
+        auto_leave(npc_5_path, 2);
+    }
+    else if(myid == 6)
+    {
+        llSleep(4.0);
+        auto_leave(npc_6_path, 2);
+    }
+    else if(myid == 7)
+    {
+        llSleep(2.0);
+        auto_leave(npc_7_path, 6);
+    } 
+
+    reset_all();
+    state Idle_default; 
+}
 
 run_routine(string s)
 {
   if (s=="reset_all") reset_all();
   else if (s == "FireRespond") FireRespond();
+  else if (s == "MoveNPC") MoveNPC();
   else osNpcSay(npc, "routine "+ s + " is not supported.");
 }
 
@@ -656,6 +730,13 @@ process_state_specific_msg_default(integer c, string n, key ID, string msg)
     }
     else if (msg == "anim_addAcid") {
       current_interaction = I_default_A6;
+      curr_int_index = do_ask_action(3);
+      ii = llList2Integer(current_interaction, curr_int_index);
+      if (ii == 0) state Idle_default;
+      else state Respond_default;
+    }
+    else if (msg == "leave_s3:1") {
+      current_interaction = I_default_A7;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
@@ -886,3 +967,121 @@ state Respond1_default
     }
 }
 
+// Begin - Custom States
+
+state FireS3
+{
+    state_entry()
+    {
+        local_timer = 30;
+        state_name = "FireS3";
+        register_common_channel_timer(local_timer);
+        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
+        rotation rot = osNpcGetRot(npc);  
+        osNpcStand(npc);
+        llSleep(2.0);        
+        osNpcMoveToTarget(npc,osNpcGetPos(npc) + <2.0,0.0,0.0>*rot,OS_NPC_NO_FLY); //direction based on other lab
+        llSleep(2.0);
+        osNpcMoveToTarget(npc,osNpcGetPos(npc) + <0.0,4.0,0.0>*rot,OS_NPC_NO_FLY);
+        llSleep(3.0);
+        ask_question();
+        osNpcSay(npc, "Fire! Hurry!");
+    }
+
+    touch_start(integer num_detected)
+    { 
+        backdoor_reset();
+    }
+
+    timer()
+    {
+        ask_question();
+        osNpcSay(npc, "Fair! Hurry!");
+        llSetTimerEvent(local_timer);
+    }
+    
+    listen(integer c, string n, key ID, string msg) 
+    {
+        if ((c == PUBLIC_CHANNEL) && (ID != npc))
+        {
+            if(name_called(msg))
+            {    
+                if (debug_level > 10) llSay(0,"name_detected");
+                llSetTimerEvent(0);
+                state RespondFireS3;
+            }
+        } 
+        else
+        {
+            llSetTimerEvent(local_timer);
+            process_common_listen_port_msg(c, n, ID, msg);     
+        }           
+    }        
+} 
+
+state RespondFireS3
+{
+    state_entry()
+    {
+        local_timer = 30;
+        state_name = "RespondFireS3";
+        register_common_channel_timer(local_timer);
+        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
+        osNpcSay(npc, "There is a fire! What should we do?");
+    }
+
+    touch_start(integer num_detected)
+    { 
+        backdoor_reset();
+    }
+
+    timer()
+    {
+        osNpcSay(npc, "I am sorry. There is a fire! What should we do?");
+        llSetTimerEvent(local_timer);
+    }
+    
+    listen(integer c, string n, key ID, string msg) 
+    {
+        if ((c == PUBLIC_CHANNEL) && (ID != npc))
+        {
+            integer  NPC_ACTION_TAKEN = FALSE;
+            string lower_msg = llToLower(msg);
+
+            if(llSubStringIndex(lower_msg, "alarm") != -1) 
+            {     
+                osNpcSay(npc, "Okay Im on it!");
+                llSay(fire_alarm_channel, "-alarm-on");
+                NPC_ACTION_TAKEN = TRUE;  
+            }    
+                    
+            if (llSubStringIndex(lower_msg, "911") != -1) 
+            { 
+                osNpcSay(npc, "I'll Call 911.");
+                llSleep(2.0);
+                osNpcSay(npc, "Hi 911, We have a fire in the chemistry lab...");
+                NPC_ACTION_TAKEN = TRUE;
+            }     
+               
+            if (llSubStringIndex(lower_msg, "leave") != -1) 
+            {
+                osNpcSay(npc, "Okay we'll exit the classroom");
+                llSay(backdoor_channel, "-npcs3left");
+                NPC_ACTION_TAKEN = TRUE;
+            } 
+            
+            if(NPC_ACTION_TAKEN)
+            {    
+                reset_all();
+                state Idle_default;  
+            }      
+        } 
+        else
+        {
+            llSetTimerEvent(local_timer);
+            process_common_listen_port_msg(c, n, ID, msg);     
+        }    
+    }         
+} 
+
+// End - Custom States

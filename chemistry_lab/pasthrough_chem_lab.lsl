@@ -111,12 +111,12 @@ default
         else if(message == "-a_ph2")
         {
             interrupt();
-            llSay(base_npc_control_channel, "ask_s1:2");
+            llSay(base_npc_control_channel+2, "ask_s1:2");
         }
         else if(message == "-a_ph3")
         {
             interrupt();
-            llSay(base_npc_control_channel, "ask_s1:3");
+            llSay(base_npc_control_channel+4, "ask_s1:3");
         }
         else if(message == "-d_ph!")
         {
@@ -166,7 +166,7 @@ default
         else if(message == "-a_time")
         {
             interrupt();
-            llSay(base_npc_control_channel, "ask_s1:4");
+            llSay(base_npc_control_channel+6, "ask_s1:4");
         }
         else if(message == "-d_labover")
         {
@@ -192,6 +192,52 @@ default
         {
             interrupt();
             llSay(facil_control_channel, "-d18");
+        }
+        else if(message == "-a_spill")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+2, "ask_s2:1");
+        }
+        else if(message == "-nc_")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d20");
+        }        
+        else if(message == "-d_cont2fire")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d20");
+        }
+        else if(message == "-d_yes2fire")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d18");
+        }
+        else if(message == "-d_no2fire")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d18");
+        }
+        else if(message == "-a_fire")
+        {
+            interrupt();
+            //add fire
+            llSay(base_npc_control_channel, "ask_s3:1");
+        }
+        else if(message == "-a_allleave")
+        {
+            interrupt();
+            llSay(base_npc_control_channel, "leave_s3:1");
+        }
+        else if(message == "-d_fireout")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d21");
+        }
+        else if(message == "-d_congrats")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d22");
         }
     }
 }
