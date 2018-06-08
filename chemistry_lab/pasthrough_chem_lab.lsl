@@ -8,8 +8,10 @@ integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
+integer facil_beg_guide_channel = 10104
 integer facil_capture_channel = -33156;
 integer board_control_channel = 36000;
+integer interact_with_lab_channel = 101;
 
 string delayed_command = "NULL";
 integer dc_is_action = 0;
@@ -26,6 +28,12 @@ interrupt()
     //llSleep(2.0); 
 }  
 
+reset_lab_items()
+{
+    llShout(interact_with_lab_channel, "-reset");
+}    
+
+
 reset_to_start() 
 {
     integer i;
@@ -33,6 +41,7 @@ reset_to_start()
        llSay(base_npc_control_channel+i, "-reset");
     llSay(facil_control_channel, "-reset");  
     llSay(facil_capture_channel, "-reset");  
+    reset_lab_items();
 
 } 
 

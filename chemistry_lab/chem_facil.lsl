@@ -31,7 +31,7 @@ integer facil_state_control_channel = 10101;  // chat channel for human control 
 integer facil_para_control_channel = 10102;
 integer facil_action_control_channel = 10103;
 
-integer button_to_facil_channel = 11500;   // chat channel from green button to facil
+integer button_to_facil_channel = 11501;   // chat channel from green button to facil
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
 
@@ -51,7 +51,7 @@ list   d2_button1 = ["Okay"];
 string d2_msg2 = "Empty";
 list   d2_button2 = ["Okay"];
 
-string d3_msg1 = ", what do you think are some ways to monitor students' progress with their experiments?"
+string d3_msg1 = ", what do you think are some ways to monitor students' progress with their experiments?";
 list   d3_button1 = ["Okay"];
 string d3_msg2 = "Empty";
 list   d3_button2 = ["Okay"];
@@ -76,7 +76,7 @@ list   d7_button1 = ["Okay"];
 string d7_msg2 = "Empty";
 list   d7_button2 = ["Okay"];
 
-string d8_msg1 = " You may also think about making an announcement to the whole class about this point because this may be a common question for all students." "Talking to the whole class will help more students pay attention to it and it also saves your time answering it repeatedly.";
+string d8_msg1 = " You may also think about making an announcement to the whole class about this point because this may be a common question for all students. Talking to the whole class will help more students pay attention to it and it also saves your time answering it repeatedly.";
 list   d8_button1 = ["Okay"];
 string d8_msg2 = "Empty";
 list   d8_button2 = ["Okay"];
@@ -371,16 +371,17 @@ dialog_dialog_with_timer(string msg1, list button1, string msg2, list button2, i
 {
   llSetTimerEvent(t);
   if (internal_state == 0) {
-    llInstantMessage(facilitator, msg1);   
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator, msg1);   
     if (button1 == [])
         llTextBox(trainee, msg1, local_dialog_channel); 
     else llDialog(trainee, msg1, button1, local_dialog_channel);    
   } else if (internal_state == 1) {
-        llInstantMessage(facilitator, msg2);   
-    if (button2 == []) 
-        llTextBox(trainee, msg2, local_dialog_channel);
-
-    else llDialog(trainee, msg2, button2, local_dialog_channel);
+        if(facilitator != NULL_KEY)
+            llInstantMessage(facilitator, msg2);   
+        if (button2 == []) 
+            llTextBox(trainee, msg2, local_dialog_channel);
+        else llDialog(trainee, msg2, button2, local_dialog_channel);
   }
 }
 
@@ -388,7 +389,8 @@ common_state_entry(string n, string s, list l, integer t)
 {
     internal_state = 0;
     state_name = n;
-    llInstantMessage(facilitator, s);   
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator, s);   
      if (l == [])
         llTextBox(trainee, s, local_dialog_channel);
     else llDialog(trainee, s, l, local_dialog_channel);
@@ -448,7 +450,9 @@ default
             list key_package = llParseString2List(msg, [":"], []);
             trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
             facilitator = llList2String(key_package, 1);
-            llDialog(trainee, "Now you are going to teach a Lecture to the students. Click start when you are ready.", ["Start"] , local_dialog_channel);   
+            llSay(0,trainee);
+            llSay(0,facilitator)
+            ;llDialog(trainee, "Now you are going to teach a Lecture to the students. Click start when you are ready.", ["Start"] , local_dialog_channel);   
         } 
         else 
         {
@@ -515,7 +519,8 @@ state Idle {
             }
         } else process_common_listen_port_msg(c, n, ID, msg);
     }   
-} 
+}
+
 
 //////Intro//////
 state D1
@@ -659,21 +664,20 @@ state D3
 {
     state_entry()
     {
-        string trainee_name_d3_msg1;
-        trainee_name_d3_msg1 = llKey2Name(trainee) + d3_msg1; 
-        common_state_entry("d3", trainee_name_d3_msg1, d3_button1, dialog_box_interact_interval);
+
+        common_state_entry("d3",  (string)llKey2Name(trainee) + d3_msg1, d3_button1, dialog_box_interact_interval);
     }  
 
     touch_start(integer num_detected) 
     {
-        dialog_dialog_with_timer(trainee_name_d3_msg1, d3_button1,
+        dialog_dialog_with_timer( (string)llKey2Name(trainee) + d3_msg1, d3_button1,
                                  d3_msg2, d3_button2, dialog_box_interact_interval); 
     }
   
     timer()
     {
         //internal_state = 1;
-        dialog_dialog_with_timer(trainee_name_d3_msg1, d3_button1,
+        dialog_dialog_with_timer( llKey2Name(trainee) + d3_msg1, d3_button1,
                                  d3_msg2, d3_button2, dialog_box_interact_interval);
     }
     
@@ -937,19 +941,19 @@ state D7
 {
     state_entry()
     {
-        common_state_entry("d7", d7_msg1, d7_button1, dialog_box_interact_interval);
+        common_state_entry("d7",  llKey2Name(trainee) + d7_msg1, d7_button1, dialog_box_interact_interval);
     }  
 
     touch_start(integer num_detected) 
     {
-        dialog_dialog_with_timer(d7_msg1, d7_button1,
+        dialog_dialog_with_timer( llKey2Name(trainee) + d7_msg1, d7_button1,
                                  d7_msg2, d7_button2, dialog_box_interact_interval); 
     }
   
     timer()
     {
         //internal_state = 1;
-        dialog_dialog_with_timer(d7_msg1, d7_button1,
+        dialog_dialog_with_timer( llKey2Name(trainee) + d7_msg1, d7_button1,
                                  d7_msg2, d7_button2, dialog_box_interact_interval);
     }
     
@@ -1235,9 +1239,10 @@ state D11
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
-            if (msg == "Okay") 
+            if (msg) 
             {
-                llSetTimerEvent(0);
+               if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator, msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1812,56 +1817,4 @@ state NC2
     {
         process_common_listen_port_msg (c, n, ID, msg);         
     } 
-}
-
-state NC3
-{
-    state_entry()
-    {
-        llGiveInventory(trainee, "problem_solving_aid");
-        register_common_channel_timer(reminder_interval);
-        state Idle;
-    }    
-
-    touch_start(integer num_detected) 
-    {
-        llSay(0, "State: NC3");
-    }
-  
-    timer()
-    {
-        if(debug_level)
-            llSay(0, "State: NC3");
-    }
-    
-    listen(integer c, string n, key ID, string msg)
-    {
-        process_common_listen_port_msg (c, n, ID, msg);         
-    } 
-}
-
-state NC4
-{
-    state_entry()
-    {
-        llGiveInventory(trainee, "socaratic_questions");
-        register_common_channel_timer(reminder_interval);
-        state Idle;
-    }    
-
-    touch_start(integer num_detected) 
-    {
-        llSay(0, "State: NC4");
-    }
-  
-    timer()
-    {
-        if(debug_level)
-            llSay(0, "State: NC4");
-    }
-    
-    listen(integer c, string n, key ID, string msg)
-    {
-        process_common_listen_port_msg (c, n, ID, msg);         
-    } 
-}
+} 
