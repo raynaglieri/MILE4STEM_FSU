@@ -137,7 +137,7 @@ string d19_msg2 = "Empty";
 list   d19_button2 = ["Okay"];
 
 string d20_msg1 = "Do you want to try a more challenging lab emergency task?";
-list   d20_button1 = ["Okay"];
+list   d20_button1 = ["Yes", "No"];
 string d20_msg2 = "Empty";
 list   d20_button2 = ["Okay"];
 
@@ -372,13 +372,13 @@ dialog_dialog_with_timer(string msg1, list button1, string msg2, list button2, i
   llSetTimerEvent(t);
   if (internal_state == 0) {
     if(facilitator != NULL_KEY)
-        llInstantMessage(facilitator, msg1);   
+        llInstantMessage(facilitator,"Trainee response: " + msg1);   
     if (button1 == [])
         llTextBox(trainee, msg1, local_dialog_channel); 
     else llDialog(trainee, msg1, button1, local_dialog_channel);    
   } else if (internal_state == 1) {
         if(facilitator != NULL_KEY)
-            llInstantMessage(facilitator, msg2);   
+            llInstantMessage(facilitator,"Trainee response: " + msg2);   
         if (button2 == []) 
             llTextBox(trainee, msg2, local_dialog_channel);
         else llDialog(trainee, msg2, button2, local_dialog_channel);
@@ -390,7 +390,7 @@ common_state_entry(string n, string s, list l, integer t)
     internal_state = 0;
     state_name = n;
     if(facilitator != NULL_KEY)
-        llInstantMessage(facilitator, s);   
+        llInstantMessage(facilitator,"Trainee response: " + s);   
      if (l == [])
         llTextBox(trainee, s, local_dialog_channel);
     else llDialog(trainee, s, l, local_dialog_channel);
@@ -551,6 +551,8 @@ state D1
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -585,6 +587,8 @@ state D1W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -619,6 +623,8 @@ state D2
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg);   
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -653,7 +659,8 @@ state D2W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -689,6 +696,8 @@ state D3
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -723,7 +732,8 @@ state D3W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -758,6 +768,8 @@ state D4
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -792,7 +804,8 @@ state D4W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -827,6 +840,8 @@ state D5
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -861,7 +876,8 @@ state D5W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -896,6 +912,8 @@ state D6
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -930,7 +948,8 @@ state D6W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -965,6 +984,8 @@ state D7
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -999,7 +1020,8 @@ state D7W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1034,6 +1056,8 @@ state D8
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1068,7 +1092,8 @@ state D8W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1103,6 +1128,8 @@ state D9
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1137,7 +1164,8 @@ state D9W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1173,6 +1201,8 @@ state D10
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1207,7 +1237,8 @@ state D10W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1242,7 +1273,7 @@ state D11
             if (msg) 
             {
                if(facilitator != NULL_KEY)
-                    llInstantMessage(facilitator, msg); 
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1277,7 +1308,8 @@ state D11W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1313,6 +1345,8 @@ state D12
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1347,7 +1381,8 @@ state D12W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1383,6 +1418,8 @@ state D13
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1417,7 +1454,8 @@ state D13W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1450,9 +1488,11 @@ state D14
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
-            if (msg == "Okay") 
+            if (msg) 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1487,7 +1527,8 @@ state D14W
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
-                //llGiveInventory(trainee, "situational_interest");
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1519,9 +1560,11 @@ state D15
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
-            if (msg == "Okay") 
+            if (msg) 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1554,9 +1597,11 @@ state D16
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
-            if (msg == "Okay") 
+            if (msg == "Yes" || msg == "No") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1591,6 +1636,8 @@ state D17
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1625,6 +1672,8 @@ state D18
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1659,6 +1708,8 @@ state D19
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1690,9 +1741,11 @@ state D20
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
-            if (msg == "Okay") 
+            if (msg == "Yes" || msg == "No") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1727,6 +1780,8 @@ state D21
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         
@@ -1761,6 +1816,8 @@ state D22
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
                 state Idle;
             }    
         } else process_common_listen_port_msg (c, n, ID, msg);         

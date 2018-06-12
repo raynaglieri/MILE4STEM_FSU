@@ -1,0 +1,64 @@
+     
+        F18: -d_monprog
+        
+        F19: -d_imaglab
+
+        F20: -d_nomonitor
+
+        F21: -d_idlemonitor
+
+        F22: -d_helpmonitor
+
+        F25: -a_ph1
+
+        F33: -a_ph2
+
+        F41: -a_ph3
+
+        F30 F38 F45: -d_ph!
+
+        F31,F39,F47: -nc_ph!
+
+        F48: -d_similar
+ 
+        F49: -d_similarkey!
+
+        F50: -d_similarkey
+
+        F51: -d_similarann
+
+        F52: -d_teachagain
+
+        F53: -d_teachagainkey!
+
+        F54: -d_teachagainkey
+
+        F58: -a_time
+
+        F61: -d_labover
+
+        F62: -d_labdiff
+
+        F64: -d_cont2spill
+
+        F65: -d_yes2spill
+
+        F67: -d_no2spill
+
+        F71, F72: -a_spill
+ 
+        F77: -nc_acid
+       
+        F78: -d_cont2fire
+
+        F79: -d_yes2fire
+
+        F81: -d_no2fire
+
+
+        F85: -a_fire
+
+
+        F95: -d_fireout
+
+        F96: -d_congrats

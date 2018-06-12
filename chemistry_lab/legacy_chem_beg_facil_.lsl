@@ -1,8 +1,21 @@
-//  CREATED BY: Raymond Naglieri on 06/01/2018 
-// DESCRIPTION: Facilitator beg pop-up control. 
-//         LOG: 06/06/2018 - Updated for chemistry lab.
-//
-                     
+// change history:
+//   September 2017: created by Raymond Naglieri in September 2017 to implement Zhaihuan's 
+//      chemistry flowchart
+//   10/11/2017, fixed the communication channels with constants defined in the beginning
+//               of the program, this gives better understanding of the use of channels --XY
+//   10/12/2017, added debug_level so diagnose messages do not interference with game message -- XY
+//   10/13/2017, fixed the touch issue, added feedbacks to the player in the game -- XY
+//   10/14/2017, added timer to each state to send reminder to users when no other activities
+//               were detected for the timeout period. -- XY
+//   10/14/2017, add a global script parameter, script state and script action function -- XY
+//   10/14/2017, add timer for all states -- XY
+//   10/15/2017, add touch support for all states -- XY
+//   10/15/2017, redo the channel design.  --XY
+//   10/28/2017, make timer and touch of general state into a function. -- XY
+//   10/28/2017, move messages in each state to be variables in the early part of the file -- XY
+//   10/28/2017, add common_state_entry function -- xY
+
+
 // variables whose value can be changed during the execution of the script
 key trainee = NULL_KEY;      // the key for the TA being trained
                              // the person who push the start button is the TA                            
@@ -26,13 +39,13 @@ integer dialog_box_interact_interval = 60;
 //DO NOT MODIFY
 // these are the constants used for all scripts for the chemistry lab
 
-// chat channel for human control shared by all scripts
+integer facil_state_control_channel = 10101;  // chat channel for human control shared by all scripts
+integer facil_para_control_channel = 10102;
+integer facil_action_control_channel = 10103;
 
-integer facil_beg_guide_channel = 10104;
-integer facil_para_control_channel = 10105;
-integer facil_action_control_channel = 10106;
 integer button_to_facil_channel = 11500;   // chat channel from green button to facil
-integer local_dialog_channel = 11002; // chat channel for feedbacks from the dialog box
+integer backdoor_channel = 20001;    // channel to talk to backdoor script
+integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
 
 // Message for the dialog and textboxes in the conversation
 string d1_msg1 = "Did you talk about learning objectives? Please click on Yes or No.";
@@ -120,7 +133,7 @@ reset_glob(){
     debug_level = 0;
     state_name = "";
     state_id = -1;
-    //llSay(0, "facil restart a new training section ......");
+    llSay(0, "facil restart a new training section ......");
 }
 
 // goto a state based on the id number
@@ -145,15 +158,15 @@ change_to_auto_mode()
 // common port to state, parameter, and action
 register_common_channel()
 {
-    llListen(facil_beg_guide_channel, "", NULL_KEY, "");
-    llListen(facil_action_control_channel, "", NULL_KEY, "");
+    llListen(facil_state_control_channel, "", NULL_KEY, "");
+    llListen(facil_para_control_channel, "", NULL_KEY, "");
     llListen(local_dialog_channel, "", NULL_KEY, "");
 }
 
 register_common_channel_timer(integer t)
 {
-    llListen(facil_beg_guide_channel, "", NULL_KEY, "");
-    llListen(facil_action_control_channel, "", NULL_KEY, "");
+    llListen(facil_state_control_channel, "", NULL_KEY, "");
+    llListen(facil_para_control_channel, "", NULL_KEY, "");
     llListen(local_dialog_channel, "", NULL_KEY, "");
     llSetTimerEvent(t);
 }
@@ -165,7 +178,7 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
     string ss;
     integer val;
     key k;
-    if (c == facil_action_control_channel) {  // change state include restart
+    if (c == facil_state_control_channel) {  // change state include restart
         if (msg == "-repeat") {
             gotostate(state_id);
         } if ((msg  == "-is") || (msg == "-reset") || (msg == "-restart") ||
@@ -255,30 +268,25 @@ dialog_dialog_with_timer(string msg1, list button1, string msg2, list button2, i
 {
   llSetTimerEvent(t);
   if (internal_state == 0) {
-    //llInstantMessage(facilitator, msg1);   
     if (button1 == [])
-        llTextBox(trainee, msg1, local_dialog_channel); 
-    else llDialog(trainee, msg1, button1, local_dialog_channel);    
+          llTextBox(trainee, msg1, local_dialog_channel);
+    else llDialog(trainee, msg1, button1, local_dialog_channel);
   } else if (internal_state == 1) {
-        //llInstantMessage(facilitator, msg2);   
     if (button2 == []) 
         llTextBox(trainee, msg2, local_dialog_channel);
-
     else llDialog(trainee, msg2, button2, local_dialog_channel);
   }
 }
 
 common_state_entry(string n, string s, list l, integer t)
 {
-    internal_state = 0;
-    state_name = n;
-    //llInstantMessage(facilitator, s);   
-     if (l == [])
-        llTextBox(trainee, s, local_dialog_channel);
-    else llDialog(trainee, s, l, local_dialog_channel);
-    register_common_channel_timer(t);
-}    
-
+   internal_state = 0;
+   state_name = n;
+   if (l == [])
+     llTextBox(trainee, s, local_dialog_channel);
+   else llDialog(trainee, s, l, local_dialog_channel);
+   register_common_channel_timer(t);
+}
 // default state:
 //   prepare to start the lab: allow people to change session mode:
 //      manual: guided by a facilitator
@@ -287,24 +295,51 @@ common_state_entry(string n, string s, list l, integer t)
 default{
   
     state_entry(){
-        llListen(facil_beg_guide_channel, "", NULL_KEY, "");
-        llListen(local_dialog_channel, "", NULL_KEY, "");
+        internal_state = 0;
+        state_name = "default";
+        llSay(0, "Chemistry lab session default auotmatic mode; touch me to change mode; push the green button to start the session.");
+        llListen(button_to_facil_channel, "", NULL_KEY, "");
+        register_common_channel_timer(reminder_interval);
     }   
-            
+        
+    touch_start(integer num_detected){
+        key kk;   // display a dialog box to whoever touch the script
+                  // may not be the TA
+        kk = llDetectedKey(0);
+        llSetTimerEvent(reminder_interval);
+        llDialog(kk, "If you are not the TA trainee, please click ignore. Otherwise please choose a facilitator mode: ", 
+                 ["Manual", "Automatic" ] , 
+                 local_dialog_channel);
+        llSetTimerEvent(reminder_interval);
+    }  
+    
+    timer() {
+        llSay(0, "in default state; touch me to select mode; push the green button to start the guide.");
+        llSetTimerEvent(reminder_interval);
+    }
+    
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(reminder_interval); // some activity, do not send reminder just yet
         if (c == local_dialog_channel) {
-            if (msg == "Yes") {
+            if (msg == "Manual"){      
+                auto_facil = FALSE;
+                llSay(0, "Session set to the manual mode.");
+            } else if (msg == "Automatic"){                
+                auto_facil = TRUE;
+                llSay(0, "Session set to the automatic mode."); 
+            } else if (msg == "Yes") {
+                llSetTimerEvent(0); // turn off timer
                 state Intro_d1;
             } else if (msg == "No") {
                 llSetTimerEvent(0); // turn off timer
                 llSay(0, "Ok, the facilitator will guide you through the scenario.");
+                auto_facil = FALSE;
                 state Idle; 
             } else {
                 if (debug_level > 0) 
                     llSay(0, "default state: received unknown feedback from dialog box, ignore");
             }             
-        } else if (c == facil_beg_guide_channel) {  // sent from the green button
+        } else if (c == button_to_facil_channel) {  // sent from the green button
             trainee = msg;  // here the green button passes the trainee ID to facil
             llDialog(trainee, "Now you are going to teach a lab on Acids and Bases to the students. Do you want to go through the basic lab guide?", 
                      ["Yes", "No"] , local_dialog_channel);               

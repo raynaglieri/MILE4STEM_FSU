@@ -11,6 +11,7 @@ float  OPAQUE = 1.0;
 
 
 // constants used acrosss all scripts
+integer facil_beg_guide_channel = 10104;
 integer green_button_channel = 11500;
 integer facil_capture_channel = -33157;  // input from this channel contains the faciltators key
 integer button_to_facil_channel = 11501; // chat channel from green button to facil
@@ -40,6 +41,7 @@ default{
         if (c == local_dialog_channel) {
             if (msg == "Yes") { 
                 trainee = ID;
+                llSay(facil_beg_guide_channel, trainee);
                 string key_package = trainee + ":" + facilitator; 
                 llSay(0, key_package);
                 llSay(button_to_facil_channel, key_package);

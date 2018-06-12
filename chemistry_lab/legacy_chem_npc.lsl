@@ -16,14 +16,13 @@
 //               NPC will no longer automatically respawn. --RN            
 //   10/26/2017: added auto_leave function to simplify leave_npc_s3() --RN
 //   01/25/2018: added new keywords and modified s2r to match updated design.
-// 
 
 
 // NPC Variables
 integer tc = 0; 
 key npc;         // the key for the NPC 
 key TA_trainee;
-integer myid = 6;  // myid 0 from 7
+integer myid = 0;  // myid 0 from 7
 integer num_npcs = 8;  // total number of npcs in this lab.
 string NPC_mood;
 string my_behavior;
@@ -64,7 +63,7 @@ list moods = ["bored" , "engaged"];
 
 list lab_key_words = ["follow", "understand the purpose", "observe", "results"];   
 list spill_key_words = ["absorb"];
-list spill_spec_key_words = ["safety", "baking soda", "sodium bicarbonate", "neutralize"];
+list spill_spec_key_words = ["vinegar", "baking soda", "cold water", "neutralize"];
 
                             
 // NPC Animations                  
@@ -693,7 +692,7 @@ state S1R
                 reset_all();
                 // llSay(facil_action_control_channel, currentdirective); // not supported.
                 // let auto_facil know the current question has been completed
-                osNpcSay(npc, "All right.");
+                osNpcSay(npc, "Great. Thank you.");
                 if (myid == 0) 
                 {
                     llSay(npc_state_control_base_channel+3, "S1:3");
@@ -799,7 +798,7 @@ state S2R
                 llSetTimerEvent(repeat_interval);
                 reset_all();
                 // llSay(facil_action_control_channel, currentdirective); // no automatic facil yet
-                osNpcSay(npc, "Alright. I'll try that.");
+                osNpcSay(npc, "Thanks! I'll try that.");
                 state Idle;
             }
 

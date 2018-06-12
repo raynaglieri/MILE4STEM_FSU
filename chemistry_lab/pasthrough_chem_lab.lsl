@@ -8,7 +8,7 @@ integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
-integer facil_beg_guide_channel = 10104
+integer facil_beg_guide_channel = 10106;
 integer facil_capture_channel = -33156;
 integer board_control_channel = 36000;
 integer interact_with_lab_channel = 101;
@@ -40,17 +40,18 @@ reset_to_start()
     for (i=0; i<num_npc; i++)
        llSay(base_npc_control_channel+i, "-reset");
     llSay(facil_control_channel, "-reset");  
-    llSay(facil_capture_channel, "-reset");  
+    llSay(facil_capture_channel, "-reset"); 
+    llSay(facil_beg_guide_channel, "-reset");  
     reset_lab_items();
 
 } 
 
-multi_command(string command, list ignore)
+multi_command(string command, list npcs)
 {
     integer i;
     for (i=0; i<num_npc; i++)
     {
-        if(~llListFindList(ignore, (list)i))
+        if(~llListFindList(npcs, (list)i))
             llSay(base_npc_control_channel+i, command);
     }
 }
@@ -92,11 +93,11 @@ default
             interrupt();
             llSay(facil_control_channel, "-d2");
         }
-        else if(message == "-d_idlemonitor")
-        {
-            interrupt();
-            llSay(facil_control_channel, "-d2");
-        }
+        // else if(message == "-d_idlemonitor")
+        // {
+        //     interrupt();
+        //     llSay(facil_control_channel, "-d3");
+        // }
         else if(message == "-d_nomonitor")
         {
             interrupt();
@@ -205,12 +206,13 @@ default
         else if(message == "-a_spill")
         {
             interrupt();
+            llSay(interact_with_lab_channel, "-spill");
             llSay(base_npc_control_channel+2, "ask_s2:1");
         }
-        else if(message == "-nc_")
+        else if(message == "-nc_acid")
         {
             interrupt();
-            llSay(facil_control_channel, "-d20");
+            llSay(facil_control_channel, "-nc2");
         }        
         else if(message == "-d_cont2fire")
         {
@@ -220,7 +222,7 @@ default
         else if(message == "-d_yes2fire")
         {
             interrupt();
-            llSay(facil_control_channel, "-d18");
+            llSay(facil_control_channel, "-d19");
         }
         else if(message == "-d_no2fire")
         {
@@ -230,13 +232,13 @@ default
         else if(message == "-a_fire")
         {
             interrupt();
-            //add fire
+            llSay(interact_with_lab_channel, "-fire");
             llSay(base_npc_control_channel, "ask_s3:1");
         }
         else if(message == "-a_allleave")
         {
             interrupt();
-            llSay(base_npc_control_channel, "leave_s3:1");
+            multi_command("leave_s3:1", [0,1,2,3,4,5,6,7]);
         }
         else if(message == "-d_fireout")
         {

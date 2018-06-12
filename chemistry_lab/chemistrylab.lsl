@@ -1066,7 +1066,7 @@ state RespondFireS3
             if (llSubStringIndex(lower_msg, "leave") != -1) 
             {
                 osNpcSay(npc, "Okay we'll exit the classroom");
-                llSay(backdoor_channel, "-npcs3left");
+                llSay(backdoor_channel, "-a_allleave");
                 NPC_ACTION_TAKEN = TRUE;
             } 
             
