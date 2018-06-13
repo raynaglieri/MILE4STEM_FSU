@@ -235,6 +235,11 @@ default
             llSay(interact_with_lab_channel, "-fire");
             llSay(base_npc_control_channel, "ask_s3:1");
         }
+        else if(message == "-nc_fire")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-nc3");
+        }
         else if(message == "-a_allleave")
         {
             interrupt();

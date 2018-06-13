@@ -1875,3 +1875,29 @@ state NC2
         process_common_listen_port_msg (c, n, ID, msg);         
     } 
 } 
+
+state NC3
+{
+    state_entry()
+    {
+        llGiveInventory(trainee, "lab_fire");
+        register_common_channel_timer(reminder_interval);
+        state Idle;
+    }    
+
+    touch_start(integer num_detected) 
+    {
+        llSay(0, "State: NC3");
+    }
+  
+    timer()
+    {
+        if(debug_level)
+            llSay(0, "State: NC3");
+    }
+    
+    listen(integer c, string n, key ID, string msg)
+    {
+        process_common_listen_port_msg (c, n, ID, msg);         
+    } 
+} 

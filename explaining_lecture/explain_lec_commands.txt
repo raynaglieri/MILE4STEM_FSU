@@ -1,0 +1,28 @@
+ 
+
+        G4: -ad_drawmap
+
+        G7: -ad_promoteunder
+
+        H7: -d_promoteunder!
+
+        G5: -a_conceptmap
+
+        I7: -anc_cont
+  
+        G6: -ad_lost
+  
+        H6: -d_lost!
+               
+        G8: -d_analyze
+
+        H8: -d_analyze!
+
+        G9: -d_anotherway
+
+        H9: -d_anotherway!
+
+        G10: -d_final
+  
+  Other Commabds:
+         -npcr :- provide feedback up to 30 seconds  after action

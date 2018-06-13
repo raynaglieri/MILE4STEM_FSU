@@ -103,7 +103,7 @@ default
             llSay(facil_control_channel, "-d3");
             llSay(npc_action_control_base_channel+4, "@Speak-I'm still lost. Can you give us an example?");  
         }
-        else if (message == "-a_lost")
+        else if (message == "-a_conceptmap")
         {
             interrupt();
             llSay(npc_action_control_base_channel+0, "@Speak-Now, with a concept map I understand it better.");
@@ -124,9 +124,10 @@ default
             interrupt();
             llSay(facil_control_channel, "-d1!");
         }
-        else if(message == "-d_lost")
+        else if(message == "-ad_lost")
         {
             interrupt();
+            llSay(npc_action_control_base_channel+4, "@Speak-I'm lost with all these multiple parts you have drawn, that are related to the main concept!");
             llSay(facil_control_channel, "-d2");
         }   
         else if(message == "-d_lost!")
