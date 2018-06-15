@@ -1,6 +1,7 @@
 //  CREATED BY: Raymond Naglieri on 06/01/2018 
 // DESCRIPTION: Facilitator pop-up control. 
 //         LOG: 06/01/2018 - Updated for chemistry lab.
+//              06/14/2018 - Added descriptions for Faciltator instant messaging.
 //
 
 // variables whose value can be changed during the execution of the script
@@ -372,13 +373,13 @@ dialog_dialog_with_timer(string msg1, list button1, string msg2, list button2, i
   llSetTimerEvent(t);
   if (internal_state == 0) {
     if(facilitator != NULL_KEY)
-        llInstantMessage(facilitator,"Trainee response: " + msg1);   
+        llInstantMessage(facilitator,"Text Box Prompt: " + msg1);   
     if (button1 == [])
         llTextBox(trainee, msg1, local_dialog_channel); 
     else llDialog(trainee, msg1, button1, local_dialog_channel);    
   } else if (internal_state == 1) {
         if(facilitator != NULL_KEY)
-            llInstantMessage(facilitator,"Trainee response: " + msg2);   
+            llInstantMessage(facilitator,"Text Box Prompt: " + msg2);   
         if (button2 == []) 
             llTextBox(trainee, msg2, local_dialog_channel);
         else llDialog(trainee, msg2, button2, local_dialog_channel);
@@ -390,7 +391,7 @@ common_state_entry(string n, string s, list l, integer t)
     internal_state = 0;
     state_name = n;
     if(facilitator != NULL_KEY)
-        llInstantMessage(facilitator,"Trainee response: " + s);   
+        llInstantMessage(facilitator,"Text Box Prompt: " + s);   
      if (l == [])
         llTextBox(trainee, s, local_dialog_channel);
     else llDialog(trainee, s, l, local_dialog_channel);
@@ -450,9 +451,7 @@ default
             list key_package = llParseString2List(msg, [":"], []);
             trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
             facilitator = llList2String(key_package, 1);
-            llSay(0,trainee);
-            llSay(0,facilitator)
-            ;llDialog(trainee, "Now you are going to teach a Lecture to the students. Click start when you are ready.", ["Start"] , local_dialog_channel);   
+            llDialog(trainee, "Now you are going to teach a Lecture to the students. Click start when you are ready.", ["Start"] , local_dialog_channel);   
         } 
         else 
         {
