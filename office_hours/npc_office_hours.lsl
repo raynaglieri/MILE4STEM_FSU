@@ -59,6 +59,9 @@ integer reminder_interval = 180;
 integer localcount;
 
 //DO NOT MODIFY, these are the constants used for all scripts
+
+integer scenario_offset = 100000;
+
 integer facil_state_control_channel = 10101;
 integer auto_facil_control_channel = 10102;
 
@@ -604,7 +607,16 @@ do_response_action(string msg)
         }
     }
 }
-
+OfficeEntry()
+{
+    osNpcStand(npc);
+    return;
+}
+OfficeMovment()
+{
+    osNpcStand(npc);
+    return;
+}
 
 run_routine(string s)
 {
@@ -704,11 +716,37 @@ process_common_state_control_msg(integer c, string n, key ID, string msg)
   }
 }
 
+set_offset()
+{
+    facil_state_control_channel = 10101 + scenario_offset;
+    auto_facil_control_channel = 10102 + scenario_offset;
+
+    npc_state_control_base_channel = 31000 + scenario_offset;
+    npc_para_control_base_channel = 32000 + scenario_offset;
+    npc_action_control_base_channel = 33000 + scenario_offset;
+    scenario_send_base_channel = 41000 + scenario_offset;
+    scenario_recieve_base_channel = 42000 + scenario_offset;
+
+    npc_state_control_channel + scenario_offset; 
+    npc_para_control_channel + scenario_offset;   
+    npc_action_control_channel + scenario_offset; 
+    scenario_to_npc + scenario_offset;
+
+    alert_message_channel = 0 + scenario_offset;
+    green_button_channel = 11500 + scenario_offset;  
+    fire_alarm_channel = 101 + scenario_offset;
+    backdoor_channel = 20001 + scenario_offset;   
+    relay_msg_channel = 29000 + scenario_offset;
+    local_dialog_channel = 11001 + scenario_offset; 
+    interact_with_lab_channel = 101 + scenario_offset;
+}
+
 default 
 {
     state_entry() 
     {
         state_name = "default";
+        set_offset();
         npc_state_control_channel = npc_state_control_base_channel + myid;
         npc_para_control_channel = npc_para_control_base_channel + myid;
         npc_action_control_channel = npc_action_control_base_channel + myid;

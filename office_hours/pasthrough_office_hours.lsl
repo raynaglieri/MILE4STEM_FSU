@@ -1,8 +1,9 @@
 //  CREATED BY: Raymond Naglieri on 06/01/2018 
 // DESCRIPTION: Command passthrough for faciltators and NPC signals. 
-//         LOG: 06/01/2018 - Updated for chemistry lab.
+//         LOG: 06/22/2018 - Updated for Office Hours
 
 integer num_npc = 8;
+integer scenario_offset = 100000;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
@@ -56,10 +57,24 @@ multi_command(string command, list npcs)
     }
 }
 
+set_offset()
+{
+    base_npc_control_channel = 31000 + scenario_offset;
+    npc_para_control_base_channel = 32000 + scenario_offset;
+    npc_action_control_base_channel = 33000 + scenario_offset;
+    backdoor_channel=20001 + scenario_offset;
+    facil_control_channel = 10101 + scenario_offset;
+    facil_beg_guide_channel = 10106 + scenario_offset;
+    facil_capture_channel = -33156 + scenario_offset;
+    board_control_channel = 36000 + scenario_offset;
+    interact_with_lab_channel = 101 + scenario_offset;
+}
+
 default
 {
     state_entry()
     {
+        set_offset();
         llListen(backdoor_channel, "", NULL_KEY, "");
     }  
 
@@ -90,7 +105,7 @@ default
             llSay(base_npc_control_channel+1, "entry_s:1");
             llSay(base_npc_control_channel+2, "entry_s:1");
             llSay(base_npc_control_channel+3, "entry_s:1");
-            llSay(base_npc_control_channel+4, "entry_s:1";
+            llSay(base_npc_control_channel+4, "entry_s:1");
             llSay(base_npc_control_channel+5, "entry_s:1");
             llSay(facil_control_channel, "-d1");
 

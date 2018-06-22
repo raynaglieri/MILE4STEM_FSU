@@ -1,7 +1,7 @@
 //  CREATED BY: Raymond Naglieri on 06/01/2018 
 // DESCRIPTION: Facilitator pop-up control. 
-//         LOG: 06/01/2018 - Updated for chemistry lab.
-//              06/14/2018 - Added descriptions for Faciltator instant messaging.
+//         LOG: 06/20/2018 - Updated for Office Hours.
+//              06/20/2018 - Added scenario offset.
 //
 
 // variables whose value can be changed during the execution of the script
@@ -27,6 +27,8 @@ integer dialog_box_interact_interval = 60;
                            
 //DO NOT MODIFY
 // these are the constants used for all scripts for the chemistry lab
+
+integer scenario_offset = 100000;
 
 integer facil_state_control_channel = 10101;  // chat channel for human control shared by all scripts
 integer facil_para_control_channel = 10102;
@@ -398,10 +400,22 @@ common_state_entry(string n, string s, list l, integer t)
     register_common_channel_timer(t);
 }
 
+set_offset()
+{
+    facil_state_control_channel = 10101 + scenario_offset;  
+    facil_para_control_channel = 10102 + scenario_offset;
+    facil_action_control_channel = 10103 + scenario_offset;
+
+    button_to_facil_channel = 11501 + scenario_offset;   
+    backdoor_channel = 20001 + scenario_offset;   
+    local_dialog_channel = 11001 + scenario_offset; 
+}
+
 default
 {
     state_entry()
     {
+        set_offset();
         internal_state = 0;
         state_name = "default";
         llSay(0, "Lecture session default; push press the computer to begin.");
