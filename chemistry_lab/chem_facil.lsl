@@ -23,7 +23,7 @@ integer internal_state;    // working storage to store the status within a state
 // Utility variables
 integer reminder_interval = 120; // interval to send a reminder chat message to 
                                 // tell the trainee what to do, or where is the session.
-integer dialog_box_interact_interval = 15;
+integer dialog_box_interact_interval = 60;
                            
 //DO NOT MODIFY
 // these are the constants used for all scripts for the chemistry lab
