@@ -59,102 +59,50 @@ list   d3_button1 = ["Okay"];
 string d3_msg2 = "Empty";
 list   d3_button2 = ["Okay"];
 
-string d4_msg1 = "Great, you can try it.";
+string d4_msg1 = "You might want to suggest to the rude student to step out of your office and return when he/she is ready to follow proper communication protocols. Besides, office hour is on a first-come-first-serve basis, everybody should wait for their turn";
 list   d4_button1 = ["Okay"];
 string d4_msg2 = "Empty";
 list   d4_button2 = ["Okay"];
 
-string d5_msg1 = "A common way to monitor a lab is you walk around and go to each table to see how students are doing or if they have questions.";
+string d5_msg1 = "You might want to suggest to the rude student to step out of your office and return when he/she is ready to follow proper communication protocols.";
 list   d5_button1 = ["Okay"];
 string d5_msg2 = "Empty";
 list   d5_button2 = ["Okay"];
 
-string d6_msg1 = "Maybe I can help you with this. First, help the students to find out if they followed all the steps of the experiment procedures correctly. Then you may help them understand the purpose of doing a lab, for example, is to observe and understand what happens.";
+string d6_msg1 = "You might also want to suggest that office hour is on a first-come-first-serve basis and everybody should wait for their turn";
 list   d6_button1 = ["Okay"];
 string d6_msg2 = "Empty";
 list   d6_button2 = ["Okay"];
 
-string d7_msg1 = ", did you notice the 3 questions asked by students were very similar? What would you do if more students have the same question?";
+string d7_msg1 = "Are you sure you want to do this? You don't want to take a closer look at it and find out the reason?";
 list   d7_button1 = ["Okay"];
 string d7_msg2 = "Empty";
 list   d7_button2 = ["Okay"];
 
-string d8_msg1 = " You may also think about making an announcement to the whole class about this point because this may be a common question for all students. Talking to the whole class will help more students pay attention to it and it also saves your time answering it repeatedly.";
+string d8_msg1 = "If there is no scoring problem you might want to explain the score to the student.";
 list   d8_button1 = ["Okay"];
 string d8_msg2 = "Empty";
 list   d8_button2 = ["Okay"];
 
-string d9_msg1 = "Great! It's definitely a good strategy to help more students pay attention to this point. It also keep you from answering the same question repeatedly.";
+string d9_msg1 = "If there is something wrong with the scoring, you might want to apologize to the student after correcting the score." ;
 list   d9_button1 = ["Okay"];
 string d9_msg2 = "Empty";
 list   d9_button2 = ["Okay"];
 
-string d10_msg1 = "Great job! What you did not only helps other students who may have concerns, but also saves your time for answering more similar questions.";
+string d10_msg1 = "You might want to suggest using other problem solving strategies, such as simplifying the problem by solving one part at a time.";
 list   d10_button1 = ["Okay"];
 string d10_msg2 = "You might want to suggest an alternative learning activity to a student, for example, having a handout from the table.";
 list   d10_button2 = ["Okay"];
 
-string d11_msg1 = "If you teach this lab again, what would you do to prevent students similar situation happen again?";
+string d11_msg1 = "You might need to use the other wording or other modes of representation, like whiteboard.";
 list   d11_button1 = [];
 string d11_msg2 = "Empty";
 list   d11_button2 = ["Okay"];
 
-string d12_msg1 = "You may also think about pointing this out to the whole class when you explain or demonstrate the procedures at the beginning of the lab.";
+string d12_msg1 = "You CANNOT leak any information regarding the exam.";
 list   d12_button1 = ["Okay"];
 string d12_msg2 = "Empty";
 list   d12_button2 = ["Okay"];
-
-string d13_msg1 = "Right, pointing this point out ahead of time is a great way to get students pay attention to it.";
-list   d13_button1 = ["Okay"];
-string d13_msg2 = "Empty";
-list   d13_button2 = ["Okay"];
-
-string d14_msg1 = "Great, now the lab session is over. Is there anything you would do differently if you teach this lab again? What would you do differently to make sure all students complete on time?";
-list   d14_button1 = [];
-string d14_msg2 = "Empty";
-list   d14_button2 = ["Okay"];
-
-string d15_msg1 = "What would you do differently to make sure all students complete on time?";
-list   d15_button1 = [];
-string d15_msg2 = "Empty";
-list   d15_button2 = ["Okay"];
-
-string d16_msg1 = "Do you want to continue with lab emergency challenge?";
-list   d16_button1 = ["Yes", "No"];
-string d16_msg2 = "Empty";
-list   d16_button2 = ["Okay"];
-
-string d17_msg1 = "Great! Your students are doing the Acids and Bases lab now. Help them as needed.";
-list   d17_button1 = ["Okay"];
-string d17_msg2 = "Empty";
-list   d17_button2 = ["Okay"];
-
-string d18_msg1 = "OK, you may leave the lab now.";
-list   d18_button1 = ["Okay"];
-string d18_msg2 = "Empty";
-list   d18_button2 = ["Okay"];
-
-string d19_msg1 = "Great! Let's get started!";
-list   d19_button1 = ["Okay"];
-string d19_msg2 = "Empty";
-list   d19_button2 = ["Okay"];
-
-string d20_msg1 = "Do you want to try a more challenging lab emergency task?";
-list   d20_button1 = ["Yes", "No"];
-string d20_msg2 = "Empty";
-list   d20_button2 = ["Okay"];
-
-string d21_msg1 = "Great! Now the fire is out. Good job!";
-list   d21_button1 = ["Okay"];
-string d21_msg2 = "Empty";
-list   d21_button2 = ["Okay"];
-
-string d22_msg1 = "Congratulations, you have completed all lab tasks!";
-list   d22_button1 = ["Okay"];
-string d22_msg2 = "Empty";
-list   d22_button2 = ["Okay"];
-
-
 
 //reset the changeable variables to the original mode
 reset_glob(){
@@ -227,113 +175,36 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         } else if (msg == "-d2"){     
             llSetTimerEvent(0);  
             state D2;    
-        } else if (msg == "-d2!"){     
-            llSetTimerEvent(0);    
-            state D2W;    
         } else if (msg == "-d3"){     
             llSetTimerEvent(0);    
             state D3;        
-        // } else if (msg == "-d3!"){     
-        //     llSetTimerEvent(0);    
-        //     state D3W;    
-        // } else if (msg == "-d4"){     
-        //     llSetTimerEvent(0);    
-        //     state D4;    
-        // } else if (msg == "-d4!"){     
-        //     llSetTimerEvent(0);    
-        //     state D4W;    
-        // } else if (msg == "-d5"){     
-        //     llSetTimerEvent(0);    
-        //     state D5;    
-        // } else if (msg == "-d5!"){     
-        //     llSetTimerEvent(0);    
-        //     state D5W;    
-        // } else if (msg == "-d6"){     
-        //     llSetTimerEvent(0); 
-        //     state D6;    
-        // } else if (msg == "-d6!"){     
-        //     llSetTimerEvent(0);    
-        //     state D6W;    
-        // } else if (msg == "-d7"){     
-        //     llSetTimerEvent(0);    
-        //     state D7;    
-        // } else if (msg == "-d7!"){     
-        //     llSetTimerEvent(0);    
-        //     state D7W;    
-        // } else if (msg == "-d8"){     
-        //     llSetTimerEvent(0);    
-        //     state D8;    
-        // } else if (msg == "-d8!"){     
-        //     llSetTimerEvent(0);    
-        //     state D8W;    
-        // } else if (msg == "-d9"){     
-        //     llSetTimerEvent(0);    
-        //     state D9;    
-        // } else if (msg == "-d9!"){     
-        //     llSetTimerEvent(0);    
-        //     state D9W;    
-        // } else if (msg == "-d10"){     
-        //     llSetTimerEvent(0);    
-        //     state D10;    
-        // } else if (msg == "-d10!"){     
-        //     llSetTimerEvent(0);    
-        //     state D10W;       
-        // } else if (msg == "-d11"){     
-        //     llSetTimerEvent(0);    
-        //     state D11;    
-        // } else if (msg == "-d11!"){     
-        //     llSetTimerEvent(0);    
-        //     state D11W;    
-        // } else if (msg == "-d12"){     
-        //     llSetTimerEvent(0);    
-        //     state D12;    
-        // } else if (msg == "-d12!"){     
-        //     llSetTimerEvent(0);    
-        //     state D12W;    
-        // } else if (msg == "-d13"){     
-        //     llSetTimerEvent(0);    
-        //     state D13;    
-        // } else if (msg == "-d13!"){     
-        //     llSetTimerEvent(0);    
-        //     state D13W;    
-        // } else if (msg == "-d14"){     
-        //     llSetTimerEvent(0);    
-        //     state D14;    
-        // } else if (msg == "-d14!"){     
-        //     llSetTimerEvent(0);    
-        //     state D14W;    
-        // } else if (msg == "-d15"){     
-        //     llSetTimerEvent(0);    
-        //     state D15;    
-        // } else if (msg == "-d16"){     
-        //     llSetTimerEvent(0);    
-        //     state D16;    
-        // } else if (msg == "-d17"){     
-        //     llSetTimerEvent(0);    
-        //     state D17;    
-        // } else if (msg == "-d18"){     
-        //     llSetTimerEvent(0);    
-        //     state D18;    
-        // } else if (msg == "-d19"){     
-        //     llSetTimerEvent(0);    
-        //     state D19;    
-        // } else if (msg == "-d20"){     
-        //     llSetTimerEvent(0);    
-        //     state D20;    
-        // } else if (msg == "-d21"){     
-        //     llSetTimerEvent(0);    
-        //     state D21;    
-        // } else if (msg == "-d22"){     
-        //     llSetTimerEvent(0);    
-        //     state D22;    
-        // } else if(msg == "-nc1"){
-        //    state NC1;
-        } else if(msg == "-nc2"){
-            state NC2;
-        } else if(msg == "-nc3"){
-            state NC3;
-        } else if(msg == "-nc4"){
-            state NC4;
+        } else if (msg == "-d4"){     
+            llSetTimerEvent(0);    
+            state D4;    
+        } else if (msg == "-d5"){     
+            llSetTimerEvent(0);    
+            state D5;    
+        } else if (msg == "-d6"){     
+            llSetTimerEvent(0); 
+            state D6;    
+        } else if (msg == "-d7"){     
+            llSetTimerEvent(0);    
+            state D7;    
+        } else if (msg == "-d8"){     
+            llSetTimerEvent(0);    
+            state D8;    
+        } else if (msg == "-d9"){     
+            llSetTimerEvent(0);    
+            state D9;    
+        } else if (msg == "-d10"){     
+            llSetTimerEvent(0);    
+            state D10;    
+        } else if (msg == "-d11"){     
+            llSetTimerEvent(0);    
+            state D11;    
+        } else if (msg == "-d12"){     
+            llSetTimerEvent(0);    
+            state D12;          
         } else if (msg == "-if"){     
             llSetTimerEvent(0);
             state Intro_fin;           

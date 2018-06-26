@@ -133,10 +133,91 @@ default
             llSay(base_npc_control_channel+3, "action_s:2");
 
         }
+        else if(message == "-a_npcnotclear")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+2, "action_s:2:a");
+
+        }
         else if(message == "-d_notclear!")
         {
             interrupt();
             llSay(facil_control_channel, "-d3");
+        }
+        else if(message == "-a_toolong")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+6, "action_s:3");
+
+        }
+        else if(message == "-d_toolong1")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d4");
+        }
+        else if(message == "-d_toolong2")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d5");
+        }
+        else if(message == "d_toolong3")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d6");
+        }
+        else if(message == "-a_higherscore")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+5, "action_s:4");
+
+        }
+        else if(message == "-d_higherscore1")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d7");
+        }
+        else if(message == "-d_higherscore2")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d8");
+        }
+        else if(message == "-d_higherscore3")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d9");
+        }
+        else if(message == "-a_gotlost")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+4, "action_s:5");
+
+        }
+        else if(message == "-d_gotlost!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d10");
+        }
+        else if(message == "-a_understand")
+        {
+            interrupt();
+            llSay(base_npc_control_channel, "action_s:6");
+
+        }
+        else if(message == "-d_understand!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d11");
+        }
+        else if(message == "-a_onexam")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+3, "action_s:7");
+
+        }
+        else if(message == "-d_onexam!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d12");
         }
     }
 }
