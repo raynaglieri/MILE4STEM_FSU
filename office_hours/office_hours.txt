@@ -1,43 +1,27 @@
 /* 
  * Created: 06/20/2018 by Raymond Naglieri
- * About  : NPC decription test for office hours
- * 
+ *   About: NPC decription test for office hours.
+ *     LOG: 06/26/2018 - Updated all askaction to actions.
  */
 
 NPC ProblemSolvingLecture begin
 	state default begin
 		channel -1 "action_s:1":
-			askaction(say "I find it a little hard to understand the last question of last assignment. Could you please explain it to me?");
-			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
-			rend
+			action(say "I find it a little hard to understand the last question of last assignment. Could you please explain it to me?");
 		channel -1  "action_s:2":
-			askaction(say "I'm not very clear about 'the last question of last assignment? Could you explain it?");
-			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
-			rend
+			action(say "I'm not very clear about 'the last question of last assignment? Could you explain it?");
 		channel -1  "action_s:2:a":
-			askaction(say  "Custom Response");
-			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
-			rend		
+			action(say  "Custom Response");		
 		channel -1  "action_s:3":
-			askaction(say "I waited enough. What do you think you are, a professor? I did everything right, why  didn't you give me an 'A'?");
-			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
-			rend	
+			action(say "I waited enough. What do you think you are, a professor? I did everything right, why  didn't you give me an 'A'?");	
 		channel -1  "action_s:4":
-			askaction(say "I think my last assignment deserves a higher score.");
-			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
-			rend
+			action(say "I think my last assignment deserves a higher score.");
 		channel -1  "action_s:5":
-			askaction(say "I got lost with one of the problems you have given us. I tried to solve it working backwards but it didn't work?");
-			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
-			rend
+			action(say "I got lost with one of the problems you have given us. I tried to solve it working backwards but it didn't work?");
 		channel -1  "action_s:6":
-			askaction(animation Okay_nodding, say "I don't understand this part of feedback, what additional explanations do you want me to provide here?");
-			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
-			rend
+			action(animation Okay_nodding, say "I don't understand this part of feedback, what additional explanations do you want me to provide here?");
 		channel -1  "action_s:7":
-			askaction(say  "Will these things be on exam?");
-			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
-			rend
+			action(say  "Will these things be on exam?");
 		channel -1  "entry_s:1":
 			action (userdefine OfficeEntry);
 		channel -1  "movment_s:1":

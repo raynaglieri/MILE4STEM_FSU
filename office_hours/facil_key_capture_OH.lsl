@@ -9,7 +9,7 @@ key facil_key = NULL_KEY;
 key facil_candidate = NULL_KEY;
 string passphrase = "pass";
 
-integer scenario_offset = 0;
+integer scenario_offset = 100000;
 integer local_dialog_channel = -1000;
 integer facil_capture_channel = -33156;
 integer facil_key_channel = -33157;
@@ -31,10 +31,18 @@ command_interface(string command)
     }
 }
 
+set_offset()
+{
+    local_dialog_channel = -1000 + scenario_offset;
+    facil_capture_channel = -33156 + scenario_offset;
+    facil_key_channel = -33157 + scenario_offset; 
+}
+
 default
 {
     state_entry()
     {
+        set_offset();
         llListen(local_dialog_channel , "", NULL_KEY, "");
     }
 

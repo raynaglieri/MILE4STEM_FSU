@@ -95,7 +95,7 @@ string d10_msg2 = "You might want to suggest an alternative learning activity to
 list   d10_button2 = ["Okay"];
 
 string d11_msg1 = "You might need to use the other wording or other modes of representation, like whiteboard.";
-list   d11_button1 = [];
+list   d11_button1 = ["Okay"];
 string d11_msg2 = "Empty";
 list   d11_button2 = ["Okay"];
 
@@ -447,20 +447,20 @@ state D1W
 {
     state_entry()
     {
-        common_state_entry("d1w", d1_msg1, d1_button1, dialog_box_interact_interval);
+        common_state_entry("d1w", dw1_msg1, dw1_button1, dialog_box_interact_interval);
     }  
 
     touch_start(integer num_detected) 
     {
-        dialog_dialog_with_timer(d1_msg1, d1_button1,
-                                 d1_msg2, d1_button2, dialog_box_interact_interval); 
+        dialog_dialog_with_timer(dw1_msg1, dw1_button1,
+                                 dw1_msg2, d1w_button2, dialog_box_interact_interval); 
     }
   
     timer()
     {
         //internal_state = 1;
-        dialog_dialog_with_timer(d1_msg1, d1_button1,
-                                 d1_msg2, d1_button2, dialog_box_interact_interval);
+        dialog_dialog_with_timer(dw1_msg1, dw1_button1,
+                                 dw1_msg2, dw1_button2, dialog_box_interact_interval);
     }
     
     listen(integer c, string n, key ID, string msg)
@@ -520,19 +520,19 @@ state D3
     state_entry()
     {
 
-        common_state_entry("d3",  (string)llKey2Name(trainee) + d3_msg1, d3_button1, dialog_box_interact_interval);
+        common_state_entry("d3", d3_msg1, d3_button1, dialog_box_interact_interval);
     }  
 
     touch_start(integer num_detected) 
     {
-        dialog_dialog_with_timer( (string)llKey2Name(trainee) + d3_msg1, d3_button1,
+        dialog_dialog_with_timer(d3_msg1, d3_button1,
                                  d3_msg2, d3_button2, dialog_box_interact_interval); 
     }
   
     timer()
     {
         //internal_state = 1;
-        dialog_dialog_with_timer( llKey2Name(trainee) + d3_msg1, d3_button1,
+        dialog_dialog_with_timer(d3_msg1, d3_button1,
                                  d3_msg2, d3_button2, dialog_box_interact_interval);
     }
     
@@ -664,19 +664,19 @@ state D7
 {
     state_entry()
     {
-        common_state_entry("d7",  llKey2Name(trainee) + d7_msg1, d7_button1, dialog_box_interact_interval);
+        common_state_entry("d7", d7_msg1, d7_button1, dialog_box_interact_interval);
     }  
 
     touch_start(integer num_detected) 
     {
-        dialog_dialog_with_timer( llKey2Name(trainee) + d7_msg1, d7_button1,
+        dialog_dialog_with_timer(d7_msg1, d7_button1,
                                  d7_msg2, d7_button2, dialog_box_interact_interval); 
     }
   
     timer()
     {
         //internal_state = 1;
-        dialog_dialog_with_timer( llKey2Name(trainee) + d7_msg1, d7_button1,
+        dialog_dialog_with_timer(d7_msg1, d7_button1,
                                  d7_msg2, d7_button2, dialog_box_interact_interval);
     }
     

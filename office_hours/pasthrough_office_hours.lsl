@@ -102,11 +102,11 @@ default
         {
             interrupt();
             llSay(base_npc_control_channel, "entry_s:1");
-            llSay(base_npc_control_channel+1, "entry_s:1");
             llSay(base_npc_control_channel+2, "entry_s:1");
             llSay(base_npc_control_channel+3, "entry_s:1");
             llSay(base_npc_control_channel+4, "entry_s:1");
             llSay(base_npc_control_channel+5, "entry_s:1");
+            llSay(base_npc_control_channel+6, "entry_s:1");
             llSay(facil_control_channel, "-d1");
 
         }
@@ -160,7 +160,7 @@ default
             interrupt();
             llSay(facil_control_channel, "-d5");
         }
-        else if(message == "d_toolong3")
+        else if(message == "-d_toolong3") // not working
         {
             interrupt();
             llSay(facil_control_channel, "-d6");
@@ -206,7 +206,7 @@ default
         else if(message == "-d_understand!")
         {
             interrupt();
-            llSay(facil_control_channel, "-d11");
+            llSay(facil_control_channel, "-d11"); // not response
         }
         else if(message == "-a_onexam")
         {

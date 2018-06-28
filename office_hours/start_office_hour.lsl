@@ -56,7 +56,7 @@ default{
                 string key_package = trainee + ":" + facilitator; 
                 llSay(0, key_package);
                 llSay(button_to_facil_channel, key_package);
-                llSay(green_button_channel, trainee);
+                llShout(green_button_channel, trainee);
                 if(facilitator == NULL_KEY)
                     llSetText("Press to begin Office Hours: facil not set", <1,0,0>, 1); 
                 else 
