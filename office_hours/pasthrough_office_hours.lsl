@@ -18,6 +18,7 @@ string delayed_command = "NULL";
 integer dc_is_action = 0;
 integer dc_npc_offset = 0;
 
+
 interrupt()
 {
     delayed_command = "NULL";
@@ -28,6 +29,13 @@ interrupt()
     //     llSay(base_npc_control_channel+i, "-interrupt");
     //llSleep(2.0); 
 }  
+
+delay(string command, integer isAction, integer offset, float time){
+    delayed_command = command;
+    dc_is_action = isAction;
+    dc_npc_offset = offset; 
+    llSetTimerEvent(time);
+}
 
 reset_lab_items()
 {
@@ -101,7 +109,6 @@ default
         else if(message == "-ad_begin")
         {
             interrupt();
-            llSay(base_npc_control_channel, "entry_s:1");
             llSay(base_npc_control_channel+2, "entry_s:1");
             llSay(base_npc_control_channel+3, "entry_s:1");
             llSay(base_npc_control_channel+4, "entry_s:1");
@@ -116,10 +123,12 @@ default
             llSay(facil_control_channel, "-d1!");
 
         }
-        else if(message == "-a_hard")
+        else if(message == "-am_hard")
         {
             interrupt();
-            llSay(base_npc_control_channel+2, "action_s:1");
+            llSay(base_npc_control_channel+2, "movment_s:1");
+            delay("action_s:1", 0, 2, 3);
+            //llSay(base_npc_control_channel+2, "action_s:1");
 
         }
         else if(message == "-d_hard!")
@@ -127,28 +136,34 @@ default
             interrupt();
             llSay(facil_control_channel, "-d2");
         }
-        else if(message == "-a_notclear")
+        else if(message == "-m_hard")
         {
             interrupt();
-            llSay(base_npc_control_channel+3, "action_s:2");
+            llSay(base_npc_control_channel+2, "exit_s:1");
+            //llSay(base_npc_control_channel+2, "action_s:1");
 
         }
-        else if(message == "-a_npcnotclear")
+        else if(message == "-am_notclear")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+3, "movment_s:1");
+            delay("action_s:2", 0, 3, 3);
+        }
+        else if(message == "-am_npcnotclear")
         {
             interrupt();
             llSay(base_npc_control_channel+2, "action_s:2:a");
-
         }
         else if(message == "-d_notclear!")
         {
             interrupt();
             llSay(facil_control_channel, "-d3");
         }
-        else if(message == "-a_toolong")
+        else if(message == "-am_toolong")
         {
             interrupt();
-            llSay(base_npc_control_channel+6, "action_s:3");
-
+            llSay(base_npc_control_channel+6, "movment_s:1");
+            delay("action_s:3", 0, 6, 3);
         }
         else if(message == "-d_toolong1")
         {
@@ -165,10 +180,11 @@ default
             interrupt();
             llSay(facil_control_channel, "-d6");
         }
-        else if(message == "-a_higherscore")
+        else if(message == "-am_higherscore")
         {
             interrupt();
-            llSay(base_npc_control_channel+5, "action_s:4");
+            llSay(base_npc_control_channel+5, "movment_s:1");
+            delay("action_s:4", 0, 5, 3);
 
         }
         else if(message == "-d_higherscore1")
@@ -186,33 +202,33 @@ default
             interrupt();
             llSay(facil_control_channel, "-d9");
         }
-        else if(message == "-a_gotlost")
+        else if(message == "-am_gotlost")
         {
             interrupt();
-            llSay(base_npc_control_channel+4, "action_s:5");
-
+            llSay(base_npc_control_channel+4, "movment_s:1");
+            delay("action_s:5", 0, 4, 3);
         }
         else if(message == "-d_gotlost!")
         {
             interrupt();
             llSay(facil_control_channel, "-d10");
         }
-        else if(message == "-a_understand")
+        else if(message == "-am_understand")
         {
             interrupt();
-            llSay(base_npc_control_channel, "action_s:6");
-
+            llSay(base_npc_control_channel, "movment_s:1");
+            delay("action_s:6", 0, 0, 3);
         }
         else if(message == "-d_understand!")
         {
             interrupt();
-            llSay(facil_control_channel, "-d11"); // not response
+            llSay(facil_control_channel, "-d11");
         }
-        else if(message == "-a_onexam")
+        else if(message == "-am_onexam")
         {
             interrupt();
-            llSay(base_npc_control_channel+3, "action_s:7");
-
+            llSay(base_npc_control_channel+3, "movment_s:1");
+            delay("action_s:7", 0, 3, 3);
         }
         else if(message == "-d_onexam!")
         {

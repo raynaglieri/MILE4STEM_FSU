@@ -30,23 +30,61 @@ list currentNPCkeys;
 string say_this = "";
 
 //also add dynamic path wait times
-list npc_0_OE_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_1_OE_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_2_OE_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_3_OE_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_4_OE_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_5_OE_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_6_OE_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_7_OE_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_0_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-7.5,0.0>"];
+list npc_1_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-7.0,0.0>"];
+list npc_2_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-6.5,0.0>"];
+list npc_3_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-6.0,0.0>"];
+list npc_4_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-5.5,0.0>"];
+list npc_5_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-5.0,0.0>"];
+list npc_6_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-4.5,0.0>", "<2.0,0.0,0.0>"];
+list npc_7_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-4.0,0.0>"];
 
-list npc_0_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_1_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_2_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_3_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_4_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_5_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_6_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_7_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_0_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>", "<0.0,0.0,0.0>"];
+list npc_1_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>", "<0.0,0.0,0.0>"];
+list npc_2_OM_path = ["<0.0,0.0,0.0>" , "<4.5,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_3_OM_path = ["<0.0,0.0,0.0>" , "<5.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_4_OM_path = ["<0.0,0.0,0.0>" , "<5.5,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_5_OM_path = ["<0.0,0.0,0.0>" , "<6.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_6_OM_path = ["<0.0,0.0,0.0>" , "<0.0,10.0,0.0>", "<2.0,0.0,0.0>"];
+list npc_7_OM_path = ["<0.0,0.0,0.0>" , "<7.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
+
+list npc_0_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_1_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_2_OEX_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
+list npc_3_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_4_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_5_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_6_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_7_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+
+list npc_0_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-7.5,0.0>"];
+list npc_1_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-7.0,0.0>"];
+list npc_2_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-6.5,0.0>"];
+list npc_3_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-6.0,0.0>"];
+list npc_4_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-5.5,0.0>"];
+list npc_5_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-5.0,0.0>"];
+list npc_6_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-4.5,0.0>", "<2.0,0.0,0.0>"];
+list npc_7_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-4.0,0.0>"];
+
+list npc_0_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>", "<0.0,0.0,0.0>"];
+list npc_1_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>", "<0.0,0.0,0.0>"];
+list npc_2_OM_path = ["<0.0,0.0,0.0>" , "<4.5,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_3_OM_path = ["<0.0,0.0,0.0>" , "<5.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_4_OM_path = ["<0.0,0.0,0.0>" , "<5.5,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_5_OM_path = ["<0.0,0.0,0.0>" , "<6.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_6_OM_path = ["<0.0,0.0,0.0>" , "<0.0,10.0,0.0>", "<2.0,0.0,0.0>"];
+list npc_7_OM_path = ["<0.0,0.0,0.0>" , "<7.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
+
+list npc_0_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_1_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_2_OMM_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
+list npc_3_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_4_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_5_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_6_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_7_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,4.0,0.0>"];
+
+osnpc
 
 list firstname = ["John", "Michael", "Kevin", "Robert", "Linda", "Thomas",
                    "Steven", "Karen", 
@@ -144,14 +182,19 @@ list I_default_A8 = [1, 3, 14,
 list I_default_A9 = [1, 3, 14,
 0, 1, "", 0, 1, "", 1, "", 1, "", "OfficeMovment", 
 0];
+list I_default_A10 = [1, 3, 14,
+0, 1, "", 0, 1, "", 1, "", 1, "", "OfficeExit", 
+0];
+list I_default_A11 = [1, 3, 14,
+0, 1, "", 0, 1, "", 1, "", 1, "", "OfficeMoreMovement"
+0];
 list I_default_T = [1, 3, 15, 0, 1, "", 0, 1, "", 1, "", 1, "", ""];
 //helper functions
 reset_all() 
 {  // resets all globals  
     llSetRot(myrotation);
     attention_span = 40; 
-    currentquestion = "";
-    
+    currentquestion = "";  
 }
 
 backdoor_reset() 
@@ -624,32 +667,38 @@ to_destination(list path, integer longest_wait) // add "dynamic" wait times
 
 OfficeEntry()
 {
+    key chair =  "61818be6-7bf9-4d5e-8063-8555d1b1c71f";
     if(myid == 2)
     {
-        to_destination(npc_1_OE_path, 5); // make default_wait_time variable
+        to_destination(npc_2_OEN_path, 5); // make default_wait_time variable
     }
     else if(myid == 3)
     {
-        to_destination(npc_3_OE_path, 5);
+        to_destination(npc_3_OEN_path, 5);
     }
     else if(myid == 4)
     {
-        to_destination(npc_4_OE_path, 5);
+        to_destination(npc_4_OEN_path, 5);
     }
     else if(myid == 5)
     {
-        to_destination(npc_5_OE_path, 5);
+        to_destination(npc_5_OEN_path, 5);
     }
     else if(myid == 6)
     {
-        to_destination(npc_6_OE_path, 5);
+        to_destination(npc_6_OEN_path, 5);
+        osNpcSit(npc, chair, OS_NPC_SIT_NOW);
     }
     return;
 }
 
 OfficeMovment()
 {
-    if(myid == 2)
+    if(myid == 0)
+    {
+        osNpcStand(npc);
+    }
+    else if(myid == 2)
     {
         to_destination(npc_2_OM_path, 5);
     }
@@ -671,6 +720,31 @@ OfficeMovment()
     }
     return;
 }
+
+OfficeExit()
+{
+    if(myid == 2)
+    {
+        to_destination(npc_2_OEX_path, 5); // make default_wait_time variable
+    }
+    else if(myid == 3)
+    {
+        to_destination(npc_3_OEX_path, 5);
+    }
+    else if(myid == 4)
+    {
+        to_destination(npc_4_OEX_path, 5);
+    }
+    else if(myid == 5)
+    {
+        to_destination(npc_5_OEX_path, 5);
+    }
+    else if(myid == 6)
+    {
+        to_destination(npc_6_OEX_path, 5);
+    }
+    return;
+}
 // <cust/>
 
 run_routine(string s)
@@ -678,6 +752,8 @@ run_routine(string s)
   if (s=="reset_all") reset_all();
   else if (s == "OfficeEntry") OfficeEntry();
   else if (s == "OfficeMovment") OfficeMovment();
+  else if (s == "OfficeExit") OfficeExit();
+  else if (s == "OfficeExit") OfficeMoreMovement();
   else osNpcSay(npc, "routine "+ s + " is not supported.");
 }
 
@@ -766,6 +842,21 @@ process_state_specific_msg_default(integer c, string n, key ID, string msg)
     }
     else if (msg == "movment_s:1") {
       current_interaction = I_default_A9;
+      curr_int_index = do_ask_action(3);
+      ii = llList2Integer(current_interaction, curr_int_index);
+      if (ii == 0) state Idle_default;
+      else state Respond_default;
+    }
+    else if (msg == "exit_s:1") {
+      current_interaction = I_default_A10;
+      curr_int_index = do_ask_action(3);
+      ii = llList2Integer(current_interaction, curr_int_index);
+      if (ii == 0) state Idle_default;
+      else state Respond_default;
+    }
+
+    else if (msg == "movment_s:2") {
+      current_interaction = I_default_A11;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
