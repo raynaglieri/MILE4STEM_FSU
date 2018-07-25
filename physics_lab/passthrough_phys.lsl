@@ -9,6 +9,8 @@ integer npc_action_control_base_channel = 33000;
 integer board_control_channel = 36000;
 integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
+integer facil_beg_guide_state_channel = 10001;
+integer facil_capture_channel = -33156;
 integer auto_facil_control_channel = 10102;
 integer physics_dialogue_state_control_channel = 10001; 
 integer npc_scenario_control_channel = 41000;
@@ -35,6 +37,8 @@ reset_to_start()
     llSay(physics_dialogue_state_control_channel, "-reset");   
     llSay(auto_facil_control_channel, "-reset");
     llSay(npc_scenario_control_channel , "-reset");
+    llSay(facil_capture_channel, "-reset"); 
+    llSay(facil_beg_guide_channel, "-reset"); 
 } 
 
 npc_group_speak() 
@@ -149,7 +153,7 @@ default
             interrupt();
             llSay(facil_control_channel, "-d0");
         } 
-        else if(message == "-d_studentexperiments") 
+        else if(message == "-d_studentexperiments") ///
         {
             interrupt();
             llSay(facil_control_channel, "-d1");
@@ -162,7 +166,7 @@ default
             interrupt();
             llSay(facil_control_channel, "-d2");
         }  
-        else if(message == "-d_lookatboard!") 
+        else if(message == "-d_lookatboard!") ///
         {
             interrupt();
             llSay(facil_control_channel, "-d2!");
@@ -172,7 +176,7 @@ default
             interrupt();
             llSay(facil_control_channel, "-d3");
         }
-        else if(message == "-d_samequestion") 
+        else if(message == "-d_samequestion") ///
         {
             interrupt();
             llSay(facil_control_channel, "-d4");
@@ -197,7 +201,7 @@ default
             interrupt();
             llSay(facil_control_channel, "-d6");
         } 
-        else if(message == "-d_tokirchoffsrules") 
+        else if(message == "-d_tokirchoffsrules") ///
         {
             interrupt();
             llSay(facil_control_channel, "-d8");

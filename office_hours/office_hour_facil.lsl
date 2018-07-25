@@ -289,7 +289,7 @@ default
         set_offset();
         internal_state = 0;
         state_name = "default";
-        llSay(0, "Lecture session default; push press the computer to begin.");
+        llSay(0, "Office session default; push press the computer to begin.");
         llListen(button_to_facil_channel, "", NULL_KEY, "");
         register_common_channel_timer(reminder_interval);
     }   
@@ -336,7 +336,7 @@ default
             list key_package = llParseString2List(msg, [":"], []);
             trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
             facilitator = llList2String(key_package, 1);
-            llDialog(trainee, "Now you are going to teach a Lecture to the students. Click start when you are ready.", ["Start"] , local_dialog_channel);   
+            llDialog(trainee, "Now you are going to have Office Hours for the students. Click start when you are ready.", ["Start"] , local_dialog_channel);   
         } 
         else 
         {
@@ -453,7 +453,7 @@ state D1W
     touch_start(integer num_detected) 
     {
         dialog_dialog_with_timer(dw1_msg1, dw1_button1,
-                                 dw1_msg2, d1w_button2, dialog_box_interact_interval); 
+                                 dw1_msg2, dw1_button2, dialog_box_interact_interval); 
     }
   
     timer()

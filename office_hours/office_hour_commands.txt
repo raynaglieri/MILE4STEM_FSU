@@ -1,21 +1,30 @@
-3G: -ad_begin
+NOTE: use -m_ commands after each -am_ command scenerio is completed 
+
+3G: -dm_begin
 3H: -d_begin!
-4G: -a_hard
+4G: -am_hard
+4G: -m_hard 
 4H: -d_hard!
-5G: -a_notclear
-5H: -a_npcnotclear
+5G: -am_notclear
+5G: -m_notclear
+5H: -am_npcnotclear
 5H: -d_notclear!
-6G: -a_toolong
+6G: -am_toolong
+6G: -m_toolong
 6H Line 1: -d_toolong1
 6H Line 2: -d_toolong2
 6H Line 3: -d_toolong3
-7H: -a_higherscore
+7H: -am_higherscore
+7H: -m_higherscore
 7G Line 1 & 4: -d_higherscore1
 7G Line 2: -d_higherscore2
 7G Line 3: -d_higherscore3
-8H: -a_gotlost
+8H: -am_gotlost
+8H: -m_gotlost
 8G: -d_gotlost!
-9H: -a_understand
+9H: -am_understand
+9H: -m_understand
 9G: -d_understand!
-10H: -a_onexam
+10H: -am_onexam
+10H: -m_onexam
 10G: -d_onexam!

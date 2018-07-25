@@ -72,7 +72,7 @@ list group_two_metaphors = ["metaphor1", "metaphor2", "metaphor3", "metaphor4"];
 
 list keywords_multimeter = ["$%&", "wire", "connect", "wires" , "connected"];
 list keywords_series = ["$%&", "series", "one after another"];
-list keywords_resistors = ["parallel", "simultaneous", "repeat the formula" ];
+list keywords_resistors = ["parallel", "simultaneous", "repeat the formula", "kirchoff's rules"];
 list keywords_kirchoff = ["loop", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_polarity = ["polarity", "ampere", "current", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_extratime = ["you", "can", "have"];
@@ -110,7 +110,7 @@ list animation_LL = ["avatar_angry_tantrum", "avatar_fist_pump", "avatar_stretch
                       "avatar_laugh_short"];
 list animation_LLL = ["avatar_sleep"];  
 
-list lab_animations = ["writing_at_desk", "Well"];
+list lab_animations = ["writing_at_desk", "Well", "doing_experiment", "thinking"];
 
 list npc_lab_sounds = ["you_did_something_wrong_male","talking_too_fast_female", "what's_wrong_male", 
                         "what's_wrong_female", "is_it_correct_male", "extra_time_male", 
@@ -552,7 +552,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         else if (directive == "5" && myid == 2)
         {
             currentquestion = "I have measured the voltage on the second resistor and it's 1.67 V. How do I know this is correct?";
-            keywords_current = ["yes", "no"];
+            keywords_current = ["yes", "no", "maybe", "direct"];
             correct_response = "All right.";
             gen_response = "I've tried that!";
             say_this = llList2String(npc_lab_sounds, 3);
@@ -563,7 +563,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         else if (directive == "6" && myid == 7)
         {
             currentquestion = "I have measured current on the first resistor and it's 0.05 A.  Is it correct?";
-            keywords_current = ["yes" , "no"];
+            keywords_current = ["yes", "no", "maybe", "direct"];
             correct_response = "Thanks.";
             gen_response = "Fine";
             say_this = llList2String(npc_lab_sounds, 6);
@@ -574,7 +574,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         else if (directive == "7" && myid == 2)
         {
             currentquestion = "How do I connect the multimeter to measure the voltage across each resistor?";
-            keywords_current = ["connecting the voltmeter"]; 
+            keywords_current = ["connecting the voltmeter", "series", "lab manual"]; 
             correct_response = "Got it!";
             gen_response = "I've tried that!";
             say_this = llList2String(npc_lab_sounds, 3);
@@ -585,7 +585,7 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
         else if (directive == "8" && myid == 7)
         {
             currentquestion = "Can you explain to me how to connect the digital multimeter to measure the current passing through each of the resistors in the parallel circuit?";
-            keywords_current = ["break the circuit"]; 
+            keywords_current = ["break the circuit", "parallel"]; 
             correct_response = "Oh, yes, fine.";
             gen_response = "I've tried that!";
             say_this = llList2String(npc_lab_sounds, 6);
@@ -1041,7 +1041,8 @@ default
     listen(integer channel, string name, key id, string message) 
     {
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
-        {                                   //need to find exactly what is causing it.
+        {      
+            TA_trainee = message;                             //need to find exactly what is causing it.
             spawn_npc(); 
             state Idle; 
         }

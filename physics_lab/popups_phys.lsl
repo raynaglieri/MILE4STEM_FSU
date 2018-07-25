@@ -1,5 +1,6 @@
 // variables whose value can be changed during the execution of the script
 key trainee = NULL_KEY;      // the key for the TA being trained
+key facilitator = NULL_KEY;
                              // the person who push the start button is the TA                            
 integer auto_facil = TRUE;  // TRUE: automatic mode, FALSE: manual mode
 integer base_NPCID = -200;   // No use in this file
@@ -25,7 +26,7 @@ integer facil_state_control_channel = 10101;  // chat channel for human control 
 integer facil_para_control_channel = 10102;
 integer facil_action_control_channel = 10103;
 
-integer button_to_facil_channel = 11500;   // chat channel from green button to facil
+integer button_to_facil_channel = 11501;   // chat channel from green button to facil
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11009; // chat channel for feedbacks from the dialog box
 
@@ -327,28 +328,47 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
 
 // common functions for states
 // prompt trainee with dialog box or text box
+
+send_response_to_facil(string trainee_response)
+{
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator,"Trainee response: " + trainee_response); 
+}
+
+send_promt_to_facil(string trainee_prompt)
+{
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator,"Text Box Prompt: " + trainee_prompt); 
+}
+
 dialog_dialog_with_timer(string msg1, list button1, string msg2, list button2, integer t)
 {
   llSetTimerEvent(t);
   if (internal_state == 0) {
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator,"Text Box Prompt: " + msg1);   
     if (button1 == [])
-          llTextBox(trainee, msg1, local_dialog_channel);
-    else llDialog(trainee, msg1, button1, local_dialog_channel);
+        llTextBox(trainee, msg1, local_dialog_channel); 
+    else llDialog(trainee, msg1, button1, local_dialog_channel);    
   } else if (internal_state == 1) {
-    if (button2 == []) 
-        llTextBox(trainee, msg2, local_dialog_channel);
-    else llDialog(trainee, msg2, button2, local_dialog_channel);
+        if(facilitator != NULL_KEY)
+            llInstantMessage(facilitator,"Text Box Prompt: " + msg2);   
+        if (button2 == []) 
+            llTextBox(trainee, msg2, local_dialog_channel);
+        else llDialog(trainee, msg2, button2, local_dialog_channel);
   }
 }
 
 common_state_entry(string n, string s, list l, integer t)
 {
-   internal_state = 0;
-   state_name = n;
-   if (l == [])
-     llTextBox(trainee, s, local_dialog_channel);
-   else llDialog(trainee, s, l, local_dialog_channel);
-   register_common_channel_timer(t);
+    internal_state = 0;
+    state_name = n;
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator,"Text Box Prompt: " + s);   
+     if (l == [])
+        llTextBox(trainee, s, local_dialog_channel);
+    else llDialog(trainee, s, l, local_dialog_channel);
+    register_common_channel_timer(t);
 }
 
 default
@@ -401,7 +421,9 @@ default
         } 
         else if (c == button_to_facil_channel) 
         {                   // sent from the green button
-            trainee = msg;  // here the green button passes the trainee ID to facil
+            list key_package = llParseString2List(msg, [":"], []);
+            trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);
             llDialog(trainee, "Now you are going to lead a lab to the students. Click start when you are ready.", ["Start"] , local_dialog_channel);   
         } 
         else 
@@ -479,6 +501,7 @@ state D0
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -510,11 +533,13 @@ state D1
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+           send_response_to_facil(msg);
            if(msg == "Yes")
            {
                internal_state = 1;
+               send_promt_to_facil(d1_msg2);
                llDialog(trainee, d1_msg2, d1_button2, local_dialog_channel);
-               state Idle;
+               //state Idle;
            } 
            else if (msg == "No") 
            {
@@ -552,6 +577,7 @@ state D2
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+           send_response_to_facil(msg);
            if(msg == "Yes"){
                internal_state = 1;
                state Idle;
@@ -589,9 +615,11 @@ state D2W
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+           send_response_to_facil(msg);
            if(msg && internal_state != 1)
            {
                internal_state = 1;
+                send_promt_to_facil(dw2_msg2);
                llDialog(trainee, dw2_msg2, dw2_button2, local_dialog_channel);
            } 
            else if (msg == "Okay") 
@@ -626,9 +654,11 @@ state D3
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+           send_response_to_facil(msg);
            if(msg && internal_state != 1)
            {
                internal_state = 1;
+                send_promt_to_facil(d3_msg2);
                llDialog(trainee, d3_msg2, d3_button2, local_dialog_channel);
            } 
            else if (msg == "Okay") 
@@ -663,6 +693,7 @@ state D4
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg)
             {
                 state Idle;
@@ -694,6 +725,7 @@ state D5
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -725,6 +757,7 @@ state D6
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -756,6 +789,7 @@ state D7
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -787,14 +821,17 @@ state D8
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+           send_response_to_facil(msg);
            if(msg == "Yes")
            {
                internal_state = 1;
+               send_promt_to_facil(d8_msg2);
                llDialog(trainee, d8_msg2, d8_button2, local_dialog_channel);
            } 
            else if (msg == "No") 
            {
                internal_state = 1;
+               send_promt_to_facil(d8_msg3);
                llDialog(trainee, d8_msg3, d8_button2, local_dialog_channel);
            } 
            else if (msg == "Okay") 
@@ -828,6 +865,7 @@ state D9
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -859,6 +897,7 @@ state D10
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -890,6 +929,7 @@ state D11
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -921,6 +961,7 @@ state D12
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg)
             {
                 state Idle;
@@ -952,6 +993,7 @@ state D13
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg)
             {
                 state Idle;
@@ -983,6 +1025,7 @@ state D14
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -1015,6 +1058,7 @@ state D15
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -1046,6 +1090,7 @@ state D16
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -1077,6 +1122,7 @@ state D17
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -1108,6 +1154,7 @@ state D18
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;
@@ -1139,6 +1186,7 @@ state D19
     listen(integer c, string n, key ID, string msg){
         llSetTimerEvent(dialog_box_interact_interval);        
         if (c == local_dialog_channel){
+            send_response_to_facil(msg);
             if(msg == "Okay")
             {
                 state Idle;

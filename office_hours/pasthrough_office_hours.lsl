@@ -106,7 +106,7 @@ default
             interrupt();
             multi_command("-goto:default", [0,1,2,3,4,5,6,7]);
         }
-        else if(message == "-ad_begin")
+        else if(message == "-dm_begin")
         {
             interrupt();
             llSay(base_npc_control_channel+2, "entry_s:1");
@@ -159,6 +159,13 @@ default
             interrupt();
             llSay(facil_control_channel, "-d3");
         }
+        else if(message == "-m_notclear")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+3, "exit_s:1");
+            //llSay(base_npc_control_channel+2, "action_s:1");
+
+        }
         else if(message == "-am_toolong")
         {
             interrupt();
@@ -180,11 +187,18 @@ default
             interrupt();
             llSay(facil_control_channel, "-d6");
         }
+        else if(message == "-m_toolong")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+6, "-reset");
+            //llSay(base_npc_control_channel+2, "action_s:1");
+
+        }
         else if(message == "-am_higherscore")
         {
             interrupt();
-            llSay(base_npc_control_channel+5, "movment_s:1");
-            delay("action_s:4", 0, 5, 3);
+            llSay(base_npc_control_channel+4, "movment_s:1");
+            delay("action_s:4", 0, 4, 3);
 
         }
         else if(message == "-d_higherscore1")
@@ -202,21 +216,35 @@ default
             interrupt();
             llSay(facil_control_channel, "-d9");
         }
+        else if(message == "-m_higherscore")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+4, "exit_s:1");
+            //llSay(base_npc_control_channel+2, "action_s:1");
+
+        }
         else if(message == "-am_gotlost")
         {
             interrupt();
-            llSay(base_npc_control_channel+4, "movment_s:1");
-            delay("action_s:5", 0, 4, 3);
+            llSay(base_npc_control_channel+5, "movment_s:1");
+            delay("action_s:5", 0, 5, 3);
         }
         else if(message == "-d_gotlost!")
         {
             interrupt();
             llSay(facil_control_channel, "-d10");
         }
+        else if(message == "-m_gotlost")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+5, "exit_s:1");
+            //llSay(base_npc_control_channel+2, "action_s:1");
+
+        }
         else if(message == "-am_understand")
         {
             interrupt();
-            llSay(base_npc_control_channel, "movment_s:1");
+            llSay(base_npc_control_channel, "movment_s:2");
             delay("action_s:6", 0, 0, 3);
         }
         else if(message == "-d_understand!")
@@ -224,16 +252,30 @@ default
             interrupt();
             llSay(facil_control_channel, "-d11");
         }
-        else if(message == "-am_onexam")
+        else if(message == "-m_understand") //  mm
         {
             interrupt();
-            llSay(base_npc_control_channel+3, "movment_s:1");
+            llSay(base_npc_control_channel, "exit_s:1");
+            //llSay(base_npc_control_channel+2, "action_s:1");
+
+        }
+        else if(message == "-am_onexam") // mm
+        {
+            interrupt();
+            llSay(base_npc_control_channel+3, "movment_s:2");
             delay("action_s:7", 0, 3, 3);
         }
         else if(message == "-d_onexam!")
         {
             interrupt();
             llSay(facil_control_channel, "-d12");
+        }
+        else if(message == "-m_onexam") //  mm
+        {
+            interrupt();
+            llSay(base_npc_control_channel+3, "movment_s:2");
+            //llSay(base_npc_control_channel+2, "action_s:1");
+
         }
     }
 }

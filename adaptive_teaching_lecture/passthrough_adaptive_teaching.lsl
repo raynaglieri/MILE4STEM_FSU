@@ -98,7 +98,7 @@ npc_hand_animation()
 npc_ask_animation()
 {
     integer i;
-    for (i=0; i<num_npc; i++)
+    for (i=0; i<num_npc-6; i++)
     {
         if(random_integer(0,1))
             llSay(base_npc_control_channel+i, "-npcask3"); // ask(temp)

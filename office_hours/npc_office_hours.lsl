@@ -43,48 +43,28 @@ list npc_0_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>", "<0.0,0.0,0.0>"];
 list npc_1_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>", "<0.0,0.0,0.0>"];
 list npc_2_OM_path = ["<0.0,0.0,0.0>" , "<4.5,0.0,0.0>", "<0.0,-4.0,0.0>"];
 list npc_3_OM_path = ["<0.0,0.0,0.0>" , "<5.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
-list npc_4_OM_path = ["<0.0,0.0,0.0>" , "<5.5,0.0,0.0>", "<0.0,-4.0,0.0>"];
-list npc_5_OM_path = ["<0.0,0.0,0.0>" , "<6.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
+list npc_4_OM_path = ["<0.0,0.0,0.0>" , "<5.5,0.0,0.0>", "<0.0,-5.0,0.0>"];
+list npc_5_OM_path = ["<0.0,0.0,0.0>" , "<6.0,0.0,0.0>", "<0.0,-6.0,0.0>"];
 list npc_6_OM_path = ["<0.0,0.0,0.0>" , "<0.0,10.0,0.0>", "<2.0,0.0,0.0>"];
 list npc_7_OM_path = ["<0.0,0.0,0.0>" , "<7.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
 
-list npc_0_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_1_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_0_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,-4.0,0.0>"];
+list npc_1_OEX_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
 list npc_2_OEX_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
-list npc_3_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_4_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_5_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_6_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
-list npc_7_OEX_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_3_OEX_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
+list npc_4_OEX_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
+list npc_5_OEX_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
+list npc_6_OEX_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
+list npc_7_OEX_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
 
-list npc_0_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-7.5,0.0>"];
-list npc_1_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-7.0,0.0>"];
-list npc_2_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-6.5,0.0>"];
-list npc_3_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-6.0,0.0>"];
-list npc_4_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-5.5,0.0>"];
-list npc_5_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-5.0,0.0>"];
-list npc_6_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-4.5,0.0>", "<2.0,0.0,0.0>"];
-list npc_7_OEN_path = ["<0.0,0.0,0.0>" , "<0.0,-4.0,0.0>"];
-
-list npc_0_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>", "<0.0,0.0,0.0>"];
-list npc_1_OM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>", "<0.0,0.0,0.0>"];
-list npc_2_OM_path = ["<0.0,0.0,0.0>" , "<4.5,0.0,0.0>", "<0.0,-4.0,0.0>"];
-list npc_3_OM_path = ["<0.0,0.0,0.0>" , "<5.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
-list npc_4_OM_path = ["<0.0,0.0,0.0>" , "<5.5,0.0,0.0>", "<0.0,-4.0,0.0>"];
-list npc_5_OM_path = ["<0.0,0.0,0.0>" , "<6.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
-list npc_6_OM_path = ["<0.0,0.0,0.0>" , "<0.0,10.0,0.0>", "<2.0,0.0,0.0>"];
-list npc_7_OM_path = ["<0.0,0.0,0.0>" , "<7.0,0.0,0.0>", "<0.0,-4.0,0.0>"];
-
-list npc_0_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_0_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,2.5,0.0>"];
 list npc_1_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
 list npc_2_OMM_path = ["<0.0,0.0,0.0>" , "<4.0,0.0,0.0>"];
-list npc_3_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
+list npc_3_OMM_path = ["<-4.0,0.0,0.0>"];
 list npc_4_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
 list npc_5_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
 list npc_6_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,0.0,0.0>"];
 list npc_7_OMM_path = ["<0.0,0.0,0.0>" , "<0.0,4.0,0.0>"];
-
-osnpc
 
 list firstname = ["John", "Michael", "Kevin", "Robert", "Linda", "Thomas",
                    "Steven", "Karen", 
@@ -159,7 +139,7 @@ list I_default_A1 = [1, 3, 14,
 0, 1, "I'm not very clear about 'the last question of last assignment? Could you explain it?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A2 = [1, 3, 14,
-0, 1, "Custom Response", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "Well, TA said.....", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A3 = [1, 3, 14,
 0, 1, "I waited enough. What do you think you are, a professor? I did everything right, why  didn't you give me an 'A'?", 0, 1, "", 1, "", 1, "", "", 
@@ -186,7 +166,7 @@ list I_default_A10 = [1, 3, 14,
 0, 1, "", 0, 1, "", 1, "", 1, "", "OfficeExit", 
 0];
 list I_default_A11 = [1, 3, 14,
-0, 1, "", 0, 1, "", 1, "", 1, "", "OfficeMoreMovement"
+0, 1, "", 0, 1, "", 1, "", 1, "", "OfficeMoreMovement",
 0];
 list I_default_T = [1, 3, 15, 0, 1, "", 0, 1, "", 1, "", 1, "", ""];
 //helper functions
@@ -653,6 +633,15 @@ do_response_action(string msg)
 }
 
 // <cust>
+
+look_at_trainee()
+{
+    list a = llGetObjectDetails(TA_trainee, [OBJECT_POS]);
+    llStopLookAt();
+    //osNpcSetRot(npc,llRotBetween( <1.0,0.0,0.0>, llVecNorm( llList2Vector(a, 0) - llGetPos() ) )); 
+    llRotLookAt( llRotBetween( <1.0,0.0,0.0>, llVecNorm( llList2Vector(a, 0) - llGetPos() ) ), 1.0, 0.4 ); 
+}
+
 to_destination(list path, integer longest_wait) // add "dynamic" wait times
 {   
     osNpcStand(npc);
@@ -663,6 +652,7 @@ to_destination(list path, integer longest_wait) // add "dynamic" wait times
         osNpcMoveToTarget(npc,osNpcGetPos(npc) + (vector)llList2String(path, i)*rot,OS_NPC_NO_FLY);
         llSleep(longest_wait);
     }
+    //look_at_trainee();
 }
 
 OfficeEntry()
@@ -723,7 +713,11 @@ OfficeMovment()
 
 OfficeExit()
 {
-    if(myid == 2)
+    if(myid == 0)
+    {
+        to_destination(npc_0_OEX_path, 5); // make default_wait_time variable
+    }
+    else if(myid == 2)
     {
         to_destination(npc_2_OEX_path, 5); // make default_wait_time variable
     }
@@ -745,6 +739,14 @@ OfficeExit()
     }
     return;
 }
+
+OfficeMoreMovement()
+{
+    if(myid == 3)
+        to_destination(npc_3_OMM_path,5);
+    else if(myid == 0)  
+        to_destination(npc_0_OMM_path,5);  
+}
 // <cust/>
 
 run_routine(string s)
@@ -753,7 +755,7 @@ run_routine(string s)
   else if (s == "OfficeEntry") OfficeEntry();
   else if (s == "OfficeMovment") OfficeMovment();
   else if (s == "OfficeExit") OfficeExit();
-  else if (s == "OfficeExit") OfficeMoreMovement();
+  else if (s == "OfficeMoreMovement") OfficeMoreMovement();
   else osNpcSay(npc, "routine "+ s + " is not supported.");
 }
 
