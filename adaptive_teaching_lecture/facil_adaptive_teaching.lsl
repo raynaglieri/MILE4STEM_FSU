@@ -1,4 +1,5 @@
 // variables whose value can be changed during the execution of the script
+//
 key trainee = NULL_KEY;      // the key for the TA being trained
 key facilitator = NULL_KEY;
                              // the person who push the start button is the TA                            
