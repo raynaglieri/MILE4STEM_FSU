@@ -3,6 +3,7 @@
 //         LOG: 06/01/2018 - Updated for chemistry lab.
 
 integer num_npc = 8;
+integer scenario_offset = 300000;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
@@ -16,6 +17,19 @@ integer interact_with_lab_channel = 101;
 string delayed_command = "NULL";
 integer dc_is_action = 0;
 integer dc_npc_offset = 0;
+
+set_offset()
+{
+    base_npc_control_channel = 31000 + scenario_offset;
+    npc_para_control_base_channel = 32000 + scenario_offset;
+    npc_action_control_base_channel = 33000 + scenario_offset;
+    backdoor_channel=20001 + scenario_offset;
+    facil_control_channel = 10101 + scenario_offset;
+    facil_beg_guide_channel = 10106 + scenario_offset;
+    facil_capture_channel = -33156 + scenario_offset;
+    board_control_channel = 36000 + scenario_offset;
+    interact_with_lab_channel = 101 + scenario_offset;   
+}
 
 interrupt()
 {
@@ -60,6 +74,7 @@ default
 {
     state_entry()
     {
+        set_offset();
         llListen(backdoor_channel, "", NULL_KEY, "");
     }  
 

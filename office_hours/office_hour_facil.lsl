@@ -104,6 +104,11 @@ list   d12_button1 = ["Okay"];
 string d12_msg2 = "Empty";
 list   d12_button2 = ["Okay"];
 
+string d13_msg1 = "Thank you for your help. Office hour is over!";
+list   d13_button1 = ["Okay"];
+string d13_msg2 = "Empty";
+list   d13_button2 = ["Okay"];
+
 //reset the changeable variables to the original mode
 reset_glob(){
     auto_facil = TRUE;
@@ -205,6 +210,9 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         } else if (msg == "-d12"){     
             llSetTimerEvent(0);    
             state D12;          
+        } else if (msg == "-d13"){     
+            llSetTimerEvent(0);    
+            state D13;          
         } else if (msg == "-if"){     
             llSetTimerEvent(0);
             state Intro_fin;           
@@ -857,6 +865,42 @@ state D12
         //internal_state = 1;
         dialog_dialog_with_timer(d12_msg1, d12_button1,
                                  d12_msg2, d12_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg)
+    {
+        llSetTimerEvent(dialog_box_interact_interval);
+        if (c == local_dialog_channel)
+        {
+            if (msg == "Okay") 
+            {
+                llSetTimerEvent(0);
+                if(facilitator != NULL_KEY)
+                    llInstantMessage(facilitator,"Trainee response: " + msg); 
+                state Idle;
+            }    
+        } else process_common_listen_port_msg (c, n, ID, msg);         
+    }    
+}
+
+state D13
+{
+    state_entry()
+    {
+        common_state_entry("d13", d13_msg1, d13_button1, dialog_box_interact_interval);
+    }  
+
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d13_msg1, d13_button1,
+                                 d13_msg2, d13_button2, dialog_box_interact_interval); 
+    }
+  
+    timer()
+    {
+        //internal_state = 1;
+        dialog_dialog_with_timer(d13_msg1, d13_button1,
+                                 d13_msg2, d13_button2, dialog_box_interact_interval);
     }
     
     listen(integer c, string n, key ID, string msg)

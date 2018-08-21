@@ -12,6 +12,7 @@ float  OPAQUE = 1.0;
 
 
 // constants used acrosss all scripts
+integer scenario_offset = 300000;
 integer facil_beg_guide_channel = 10104;
 integer green_button_channel = 11500;
 integer facil_capture_channel = -33157;  // input from this channel contains the faciltators key
@@ -19,9 +20,20 @@ integer button_to_facil_channel = 11501; // chat channel from green button to fa
 integer button_to_npc_channel = -35145;  // button to npc_channel
 integer local_dialog_channel = 11003;    // this number should be different for 
                                          // different scripts 
+
+set_offset()
+{
+    facil_beg_guide_channel = 10104 + scenario_offset;
+    green_button_channel = 11500 + scenario_offset;
+    facil_capture_channel = -33157 + scenario_offset;
+    button_to_facil_channel = 11501 + scenario_offset;
+    button_to_npc_channel = -35145 + scenario_offset;
+    local_dialog_channel = 11003 + scenario_offset;   
+}
                                          
 default{    
     state_entry(){  
+        set_offset();
         llSetText("Press to begin lab: facil not set", COLOR_RED, OPAQUE); 
         llListen(local_dialog_channel, "", NULL_KEY, "");
         llListen(facil_capture_channel, "", NULL_KEY, "");

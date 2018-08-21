@@ -4,6 +4,7 @@
 //      05/05/18 - modified for problem solving lecture
 //  
 integer num_npc = 8;
+integer scenario_offset = 400000;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
@@ -11,6 +12,17 @@ integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
 integer facil_capture_channel = -33156;
 integer board_control_channel = 36000;
+
+set_offset()
+{
+    base_npc_control_channel = 31000 + scenario_offset;
+    npc_para_control_base_channel = 32000 + scenario_offset;
+    npc_action_control_base_channel = 33000 + scenario_offset;
+    backdoor_channel= 20001 + scenario_offset;
+    facil_control_channel = 10101 + scenario_offset;
+    facil_capture_channel = -33156 + scenario_offset;
+    board_control_channel = 36000 + scenario_offset;  
+}
 
 string delayed_command = "NULL";
 integer dc_is_action = 0;
@@ -79,6 +91,7 @@ default
 {
     state_entry()
     {
+        set_offset();
         llListen(backdoor_channel, "", NULL_KEY, "");
     }  
 

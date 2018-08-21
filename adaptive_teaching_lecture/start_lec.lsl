@@ -15,24 +15,25 @@ float  OPAQUE = 1.0;
 
 
 // constants used acrosss all scripts
-
 integer scenario_offset = 200000;
 integer facil_capture_channel = -33157;  // input from this channel contains the faciltators key
 integer button_to_facil_channel = 11500; // chat channel from green button to facil
 integer button_to_npc_channel = -35145;  // button to npc_channel
 integer local_dialog_channel = 11003;    // this number should be different for 
                                          // different scripts 
-               
-set_offset()
-{
-    facil_capture_channel = -33157 + scenario_offset;  // input from this channel contains the faciltators key
-    button_to_facil_channel = 11500 + scenario_offset; // chat channel from green button to facil
-    button_to_npc_channel = -35145 + scenario_offset;  // button to npc_channel
-    local_dialog_channel = 11003 + scenario_offset;
+
+
+set_offset(){
+    facil_capture_channel = -33157 + scenario_offset;  
+    button_to_facil_channel = 11500 + scenario_offset;
+    button_to_npc_channel = -35145 + scenario_offset;  
+    local_dialog_channel = 11003 + scenario_offset;    
 }
 
+                                         
 default{    
     state_entry(){  
+        set_offset();
         llSetText("Press to begin lecture: facil not set", COLOR_RED, OPAQUE); 
         llListen(local_dialog_channel, "", NULL_KEY, "");
         llListen(facil_capture_channel, "", NULL_KEY, "");

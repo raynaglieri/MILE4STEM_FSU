@@ -122,6 +122,7 @@ integer DEFAULT_AMOUNT = 100;
 
 //DO NOT MODIFY
 // these are the constants used for all scripts for the lecture
+integer scenario_offset = 200000;
 integer facil_state_control_channel = 10101;
 
 integer npc_state_control_base_channel = 31000;
@@ -146,6 +147,24 @@ integer debug_level = 0;  // debug_level to control messages
 string state_name;         // name of the current state
 integer state_id;          // id of the state   
 integer internal_state;    // working storage to store the status within a state
+
+
+set_offset()
+{
+    facil_state_control_channel = 10101 + scenario_offset;
+    npc_state_control_base_channel = 31000 + scenario_offset;
+    npc_para_control_base_channel = 32000 + scenario_offset;
+    npc_action_control_base_channel = 33000 + scenario_offset;
+    npc_state_control_channel = npc_state_control_base_channel + myid;  
+    npc_para_control_channel =  npc_para_control_base_channel + myid;   
+    npc_action_control_channel = npc_action_control_base_channel + myid;
+    alert_message_channel = 0 + scenario_offset;
+    green_button_channel = 11500 + scenario_offset;   
+    fire_alarm_channel = 101 + scenario_offset;
+    backdoor_channel = 20001 + scenario_offset;    
+    local_dialog_channel = 11001 + scenario_offset; 
+    interact_with_lab_channel = 101 + scenario_offset; 
+}
 
 //helper functions
 reset_all() 
@@ -1029,11 +1048,9 @@ default
 {
     state_entry() 
     {
+        set_offset();
         state_name = "default";
         mymood = "neutral";
-        npc_state_control_channel = npc_state_control_base_channel + myid;
-        npc_para_control_channel = npc_para_control_base_channel + myid;
-        npc_action_control_channel = npc_action_control_base_channel + myid;
         llListen(green_button_channel, "", NULL_KEY, "");
     }
     

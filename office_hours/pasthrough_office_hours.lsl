@@ -273,7 +273,7 @@ default
         else if(message == "-m_onexam") //  mm
         {
             interrupt();
-            llSay(base_npc_control_channel+3, "movment_s:2");
+            llSay(base_npc_control_channel+3, "-reset");
             //llSay(base_npc_control_channel+2, "action_s:1");
 
         }

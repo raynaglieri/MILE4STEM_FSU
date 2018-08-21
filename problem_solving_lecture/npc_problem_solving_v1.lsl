@@ -10,6 +10,7 @@
 integer tc = 0; 
 key npc;         // the key for the NPC 
 key TA_trainee;
+key facilitator;
 integer myid = 0;  // myid 0 from 7
 integer num_npcs = 8;  // total number of npcs in this lab.
 string myname; 
@@ -56,6 +57,7 @@ integer reminder_interval = 180;
 integer localcount;
 
 //DO NOT MODIFY, these are the constants used for all scripts
+integer scenario_offset = 400000;
 integer facil_state_control_channel = 10101;
 integer auto_facil_control_channel = 10102;
 
@@ -164,6 +166,31 @@ list I_default_A18 = [1, 3, 14,
 
 list I_default_T = [1, 3, 15, 0, 1, "", 0, 1, "", 1, "", 1, "", ""];
 //helper functions
+set_offset()
+{
+    facil_state_control_channel = 10101 + scenario_offset;
+    auto_facil_control_channel = 10102 + scenario_offset;
+
+    npc_state_control_base_channel = 31000 + scenario_offset;
+    npc_para_control_base_channel = 32000 + scenario_offset;
+    npc_action_control_base_channel = 33000 + scenario_offset;
+    scenario_send_base_channel = 41000 + scenario_offset;
+    scenario_recieve_base_channel = 42000 + scenario_offset;
+
+    npc_state_control_channel = 31000 + myid + scenario_offset;
+    npc_para_control_channel = 32000 + myid + scenario_offset;
+    npc_action_control_channel = 33000 + myid + scenario_offset;
+    scenario_to_npc = 42000 + myid + scenario_offset;
+
+    alert_message_channel = 0 + scenario_offset;
+    green_button_channel = -35145 + scenario_offset;
+    fire_alarm_channel = 101 + scenario_offset;
+    backdoor_channel = 20001 + scenario_offset;
+    relay_msg_channel = 29000 + scenario_offset;
+    local_dialog_channel = 11001 + scenario_offset; 
+    interact_with_lab_channel = 101 + scenario_offset;
+}
+
 reset_all() 
 {  // resets all globals  
     llSetRot(myrotation);
@@ -817,18 +844,16 @@ default
     state_entry() 
     {
         state_name = "default";
-        npc_state_control_channel = npc_state_control_base_channel + myid;
-        npc_para_control_channel = npc_para_control_base_channel + myid;
-        npc_action_control_channel = npc_action_control_base_channel + myid;
-        scenario_to_npc = scenario_recieve_base_channel + myid;
+        set_offset();
         llListen(green_button_channel, "", NULL_KEY, "");
     }
     
     touch_start( integer num) 
     {
-        spawn_npc();
         TA_trainee = llDetectedKey(0);
-        state Idle_default;  
+        myrotation = llGetRot();
+        spawn_npc();
+        state Idle_default;   
     }
     
     listen(integer channel, string name, key id, string message) 
@@ -836,7 +861,10 @@ default
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
         {                        
             osNpcSay(npc, message);           //need to find exactly what is causing it.
-            TA_trainee = message;
+            //TA_trainee = message;
+            list key_package = llParseString2List(message, [":"], []);
+            TA_trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);
             myrotation = llGetRot();
             spawn_npc(); 
             state Idle_default; 
@@ -860,7 +888,8 @@ state Idle_default
     
     touch_start(integer num_detected) 
     {
-        backdoor_reset();
+        if(llDetectedKey(0)==facilitator)
+            backdoor_reset();
     }
   
     timer()
@@ -896,7 +925,8 @@ state Ask_default
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        if(llDetectedKey(0)==facilitator)
+            backdoor_reset();
     }
 
     timer()
@@ -943,7 +973,8 @@ state Respond_default
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        if(llDetectedKey(0)==facilitator)
+            backdoor_reset();
     }
 
     timer()
@@ -988,7 +1019,8 @@ state Respond1_default
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        if(llDetectedKey(0)==facilitator)
+            backdoor_reset();
     }
 
     timer()

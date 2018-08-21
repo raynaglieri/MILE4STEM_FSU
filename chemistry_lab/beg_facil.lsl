@@ -30,11 +30,21 @@ integer dialog_box_interact_interval = 60;
 
 // chat channel for human control shared by all scripts
 
+integer scenario_offset = 300000;
 integer facil_beg_guide_channel = 10104;
 integer facil_para_control_channel = 10105;
 integer facil_action_control_channel = 10106;
 integer button_to_facil_channel = 11500;   // chat channel from green button to facil
 integer local_dialog_channel = 11002; // chat channel for feedbacks from the dialog box
+
+set_offset()
+{
+    facil_beg_guide_channel = 10104 + scenario_offset;
+    facil_para_control_channel = 10105 + scenario_offset;
+    facil_action_control_channel = 10106 + scenario_offset;
+    button_to_facil_channel = 11500 + scenario_offset;
+    local_dialog_channel = 11002 + scenario_offset;
+}
 
 // Message for the dialog and textboxes in the conversation
 string d1_msg1 = "Did you talk about learning objectives? Please click on Yes or No.";
@@ -291,6 +301,7 @@ common_state_entry(string n, string s, list l, integer t)
 default{
   
     state_entry(){
+        set_offset();
         llListen(facil_beg_guide_channel, "", NULL_KEY, "");
         llListen(local_dialog_channel, "", NULL_KEY, "");
     }   

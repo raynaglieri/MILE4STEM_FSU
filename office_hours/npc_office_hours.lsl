@@ -13,6 +13,7 @@
 integer tc = 0; 
 key npc;         // the key for the NPC 
 key TA_trainee;
+key facilitator;
 integer myid = 0;  // myid 0 from 7
 integer num_npcs = 8;  // total number of npcs in this lab.
 string myname; 
@@ -132,11 +133,15 @@ integer saved_curr_int_index;
 integer curr_action_index;
 integer next_action_index;
 
-list I_default_A0 = [1, 3, 14,
-0, 1, "I find it a little hard to understand the last question of last assignment. Could you please explain it to me?", 0, 1, "", 1, "", 1, "", "", 
+list I_default_A0 = [1, 3, 31,
+0, 1, "I find it a little hard to understand the last question of last assignment. Could you please explain it to me?", 0, 1, "", 1, "", 1, "", "",
+1, 17, 31,
+0, 0, 0, 0, 1, "Ok. Gotcha.", 0, 1, "", 1, "", 1, "", "", 
 0];
-list I_default_A1 = [1, 3, 14,
-0, 1, "I'm not very clear about 'the last question of last assignment? Could you explain it?", 0, 1, "", 1, "", 1, "", "", 
+list I_default_A1 = [1, 3, 31,
+0, 1, "I'm not very clear about 'the last question of last assignment? Could you explain it?", 0, 1, "", 1, "", 1, "", "",
+1, 17, 31,
+0, 0, 0, 0, 1, "Cool.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A2 = [1, 3, 14,
 0, 1, "Well, TA said.....", 0, 1, "", 1, "", 1, "", "", 
@@ -144,14 +149,20 @@ list I_default_A2 = [1, 3, 14,
 list I_default_A3 = [1, 3, 14,
 0, 1, "I waited enough. What do you think you are, a professor? I did everything right, why  didn't you give me an 'A'?", 0, 1, "", 1, "", 1, "", "", 
 0];
-list I_default_A4 = [1, 3, 14,
-0, 1, "I think my last assignment deserves a higher score.", 0, 1, "", 1, "", 1, "", "", 
+list I_default_A4 = [1, 3, 31,
+0, 1, "I think my last assignment deserves a higher score.", 0, 1, "", 1, "", 1, "", "",
+1, 17, 31,
+0, 0, 0, 0, 1, "Ok. I could deal with it.", 0, 1, "", 1, "", 1, "", "", 
 0];
-list I_default_A5 = [1, 3, 14,
-0, 1, "I got lost with one of the problems you have given us. I tried to solve it working backwards but it didn't work?", 0, 1, "", 1, "", 1, "", "", 
+list I_default_A5 = [1, 3, 31,
+0, 1, "I got lost with one of the problems you have given us. I tried to solve it working backwards but it didn't work?", 0, 1, "", 1, "", 1, "", "",
+1, 17, 31,
+0, 0, 0, 0, 1, "I'll use some other strategies", 0, 1, "", 1, "", 1, "", "", 
 0];
-list I_default_A6 = [1, 3, 14,
-0, 1, "I don't understand this part of feedback, what additional explanations do you want me to provide here?", 0, 1, "", 1, "", 1, "Okay_nodding", "", 
+list I_default_A6 = [1, 3, 31,
+0, 1, "I don't understand this part of feedback, what additional explanations do you want me to provide here?", 0, 1, "", 1, "", 1, "Okay_nodding", "",
+1, 17, 31,
+0, 0, 0, 0, 1, "Fine", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A7 = [1, 3, 14,
 0, 1, "Will these things be on exam?", 0, 1, "", 1, "", 1, "", "", 
@@ -928,8 +939,9 @@ default
     
     touch_start( integer num) 
     {
-        spawn_npc();
         TA_trainee = llDetectedKey(0);
+        myrotation = llGetRot();
+        spawn_npc();
         state Idle_default;  
     }
     
@@ -937,7 +949,10 @@ default
     {
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
         {                                   //need to find exactly what is causing it.
-            TA_trainee = message;
+            //TA_trainee = message;
+            list key_package = llParseString2List(message, [":"], []);
+            TA_trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);
             myrotation = llGetRot();
             spawn_npc(); 
             state Idle_default; 
@@ -961,7 +976,8 @@ state Idle_default
     
     touch_start(integer num_detected) 
     {
-        backdoor_reset();
+        if(llDetectedKey(0)==facilitator)
+            backdoor_reset();
     }
   
     timer()
@@ -997,7 +1013,8 @@ state Ask_default
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        if(llDetectedKey(0)==facilitator)
+            backdoor_reset();
     }
 
     timer()
@@ -1044,7 +1061,8 @@ state Respond_default
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        if(llDetectedKey(0)==facilitator)
+            backdoor_reset();
     }
 
     timer()
@@ -1089,7 +1107,8 @@ state Respond1_default
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        if(llDetectedKey(0)==facilitator)
+            backdoor_reset();
     }
 
     timer()

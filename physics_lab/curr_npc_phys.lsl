@@ -25,6 +25,7 @@
 integer tc = 0; 
 key npc;         // the key for the NPC 
 key TA_trainee;
+key facilitator;
 integer myid = 0;  // myid 0 from 7
 integer mygroup = 1;
 integer num_npcs = 8;  // total number of npcs in this lab.
@@ -70,9 +71,9 @@ list group_two = ["group2", "group 2", "grouptwo", "group two", "second group", 
 list group_one_metaphors = ["metaphor1", "metaphor2", "metaphor3", "metaphor4"];
 list group_two_metaphors = ["metaphor1", "metaphor2", "metaphor3", "metaphor4"];
 
-list keywords_multimeter = ["$%&", "wire", "connect", "wires" , "connected"];
-list keywords_series = ["$%&", "series", "one after another"];
-list keywords_resistors = ["parallel", "simultaneous", "repeat the formula", "kirchoff's rules"];
+list keywords_multimeter = ["wire", "connect", "wires" , "connected", "connecting"];
+list keywords_series = ["series"];
+list keywords_resistors = ["parallel", "kirchoff's rules"];
 list keywords_kirchoff = ["loop", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_polarity = ["polarity", "ampere", "current", "kirchoff's rules", "kirchoffs rules", "repeat the rules"];
 list keywords_extratime = ["you", "can", "have"];
@@ -110,7 +111,7 @@ list animation_LL = ["avatar_angry_tantrum", "avatar_fist_pump", "avatar_stretch
                       "avatar_laugh_short"];
 list animation_LLL = ["avatar_sleep"];  
 
-list lab_animations = ["writing_at_desk", "Well", "doing_experiment", "thinking"];
+list lab_animations = ["writing_at_desk", "Well"];
 
 list npc_lab_sounds = ["you_did_something_wrong_male","talking_too_fast_female", "what's_wrong_male", 
                         "what's_wrong_female", "is_it_correct_male", "extra_time_male", 
@@ -263,6 +264,17 @@ backdoor_reset()
     llResetScript();
     return;   
 }  
+
+secure_reset(key id) 
+{   // delete npc and reset script
+
+    if(id == facilitator)
+    {
+        remove_npc();
+        llResetScript();
+    }
+    return;   
+} 
 
 ask_question() 
 {   // standard ask question animation sequence  
@@ -1042,7 +1054,10 @@ default
     {
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
         {      
-            TA_trainee = message;                             //need to find exactly what is causing it.
+            // TA_trainee = message;                             //need to find exactly what is causing it.
+            list key_package = llParseString2List(message, [":"], []);
+            TA_trainee = llList2String(key_package, 0);  
+            facilitator = llList2String(key_package, 1);
             spawn_npc(); 
             state Idle; 
         }
@@ -1081,7 +1096,7 @@ state Idle
     
     touch_start(integer num_detected) 
     {
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
   
     timer()
@@ -1110,7 +1125,7 @@ state Ask
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1161,7 +1176,7 @@ state WaitSignal
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -1185,7 +1200,7 @@ state Respond
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -1252,7 +1267,7 @@ state Respond2NpcQuestion
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1381,7 +1396,7 @@ state Wait
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1407,7 +1422,7 @@ state DelayAction
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1436,7 +1451,7 @@ state SpeakAnimation
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1462,7 +1477,7 @@ state Wait2Speak
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1493,7 +1508,7 @@ state Wait2SpeakList
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 

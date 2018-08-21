@@ -13,7 +13,7 @@ float  OPAQUE = 1.0;
 
 
 // constants used acrosss all scripts
-integer scenario_offset = 100000;
+integer scenario_offset = 0;
 integer facil_beg_guide_channel = 10104;
 integer green_button_channel = 11500;
 integer facil_capture_control_channel = -33156; 
@@ -24,6 +24,7 @@ integer local_dialog_channel = 11003;    // this number should be different for
                                          // different scripts 
 
 set_offset(){
+    facil_beg_guide_channel = 10104 + scenario_offset;
     green_button_channel = 11500 + scenario_offset;
     facil_key_channel = -33157 + scenario_offset;  
     button_to_facil_channel = 11501 + scenario_offset; 
@@ -65,7 +66,7 @@ default{
                 string key_package = trainee + ":" + facilitator; 
                 llSay(0, key_package);
                 llSay(button_to_facil_channel, key_package);
-                llShout(green_button_channel, trainee);
+                llShout(green_button_channel, key_package);
                 display_floating_message();
                 llSay(button_to_npc_channel, trainee);
             }

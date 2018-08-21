@@ -28,6 +28,7 @@ integer dialog_box_interact_interval = 60;
 //DO NOT MODIFY
 // these are the constants used for all scripts for the chemistry lab
 
+integer scenario_offset = 300000;
 integer facil_state_control_channel = 10101;  // chat channel for human control shared by all scripts
 integer facil_para_control_channel = 10102;
 integer facil_action_control_channel = 10103;
@@ -35,6 +36,16 @@ integer facil_action_control_channel = 10103;
 integer button_to_facil_channel = 11501;   // chat channel from green button to facil
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
+
+set_offset()
+{
+    facil_state_control_channel = 10101 + scenario_offset;  // chat channel for human control shared by all scripts
+    facil_para_control_channel = 10102 + scenario_offset;
+    facil_action_control_channel = 10103 + scenario_offset;
+    button_to_facil_channel = 11501 + scenario_offset;
+    backdoor_channel = 20001 + scenario_offset;
+    local_dialog_channel = 11001 + scenario_offset;
+}
 
 // Message for the dialog and textboxes in the conversation
 string d1_msg1 = "The students are conducting experiments. Now it’s your time to monitor their progress";
@@ -402,6 +413,7 @@ default
 {
     state_entry()
     {
+        set_offset();
         internal_state = 0;
         state_name = "default";
         llSay(0, "Lecture session default; push press the computer to begin.");

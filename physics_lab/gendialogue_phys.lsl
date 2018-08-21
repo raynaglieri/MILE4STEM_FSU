@@ -9,12 +9,13 @@
 
 
 key dialog_target = NULL_KEY; // key of the person to talk to
+key facilitator = NULL_KEY;
 string state_name;            // name of the current state 
 integer timer_count;          // counter of timer
 integer dialog_box_interact_interval = 20; // time in second when dialog is expected
 integer state_control_channel = 10001; // state_control channel
 integer local_dialog_channel = 11001; // channel used by dialog box
-integer button_to_lab_dialogue_channel = 11501;   // chat channel from physicslab script
+integer button_to_lab_dialogue_channel = 11502;   // chat channel from physicslab script
 integer button_to_facil_channel = 11500;
 
 integer debug_level = 0;
@@ -109,9 +110,22 @@ register_common_channel_timer(integer t)
   llSetTimerEvent(t);
 }
 
+send_response_to_facil(string trainee_response)
+{
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator,"Trainee response: " + trainee_response); 
+}
+
+send_promt_to_facil(string trainee_prompt)
+{
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator,"Text Box Prompt: " + trainee_prompt); 
+}
+
 common_state_entry(string n, string s, list l, integer t)
 {
   state_name = n; timer_count = 0;
+  send_promt_to_facil(s);
   if (l == [])
     llTextBox(dialog_target, s, local_dialog_channel);
   else llDialog(dialog_target, s, l, local_dialog_channel);
@@ -121,6 +135,7 @@ common_state_entry(string n, string s, list l, integer t)
 dialog_with_timer(string msg, list button, integer t)
 {
   llSetTimerEvent(t);
+  send_promt_to_facil(msg);
   if (button == [])
     llTextBox(dialog_target, msg, local_dialog_channel);
   else llDialog(dialog_target, msg, button, local_dialog_channel);
@@ -131,6 +146,7 @@ dialog_with_timer_count(string msg, list button, integer t)
   timer_count ++;
   if (timer_count >= 3) {llSetTimerEvent(0); llSay(0, "timeout too many times, back to initial (idle) state"); state default;}
   llSetTimerEvent(t);
+  send_promt_to_facil(msg);
   if (button == [])
     llTextBox(dialog_target, msg, local_dialog_channel);
   else llDialog(dialog_target, msg, button, local_dialog_channel);
@@ -241,7 +257,9 @@ default {
     
       if (c == button_to_lab_dialogue_channel)
       {
-          dialog_target = msg;
+        list key_package = llParseString2List(msg, [":"], []);
+        dialog_target = llList2String(key_package, 0); 
+        facilitator = llList2String(key_package, 1);
       }  
       else   
         process_state_control_msg(c, n, ID, msg);
@@ -259,6 +277,7 @@ state s0 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Yes") { llSetTimerEvent(0); state s1;}
       if (msg == "No") { llSetTimerEvent(0); state default;}
     } else {process_state_control_msg(c, n, ID, msg);}
@@ -276,6 +295,7 @@ state s1 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Yes") { llSetTimerEvent(0); state s3;}
       if (msg == "No") { llSetTimerEvent(0); state s2;}
     } else {process_state_control_msg(c, n, ID, msg);}
@@ -293,6 +313,7 @@ state s2 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       llSetTimerEvent(0); state s3;
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -309,6 +330,7 @@ state s3 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Continue") { llSetTimerEvent(0); state s4;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -325,6 +347,7 @@ state s4 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Yes") { llSetTimerEvent(0); state s5;}
       if (msg == "No") { llSetTimerEvent(0); state s6;}
     } else {process_state_control_msg(c, n, ID, msg);}
@@ -342,6 +365,7 @@ state s5 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Continue") { llSetTimerEvent(0); state s7;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -358,6 +382,7 @@ state s6 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       llSetTimerEvent(0); state s5;
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -374,6 +399,7 @@ state s7 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       llSetTimerEvent(0); state s8;
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -390,6 +416,7 @@ state s8 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Yes") { llSetTimerEvent(0); state s9;}
       if (msg == "No") { llSetTimerEvent(0); state s10;}
     } else {process_state_control_msg(c, n, ID, msg);}
@@ -407,6 +434,7 @@ state s9 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Continue") { llSetTimerEvent(0); state s11;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -423,6 +451,7 @@ state s10 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       llSetTimerEvent(0); state s9;
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -439,6 +468,7 @@ state s11 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Yes") { llSetTimerEvent(0); state s12;}
       if (msg == "No") { llSetTimerEvent(0); state s13;}
     } else {process_state_control_msg(c, n, ID, msg);}
@@ -456,6 +486,7 @@ state s12 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Continue") { llSetTimerEvent(0); state s18;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -472,6 +503,7 @@ state s13 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Yes") { llSetTimerEvent(0); state s14;}
       if (msg == "No") { llSetTimerEvent(0); state s15;}
     } else {process_state_control_msg(c, n, ID, msg);}
@@ -489,6 +521,7 @@ state s14 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       llSetTimerEvent(0); state s18;
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -505,6 +538,7 @@ state s15 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Yes") { llSetTimerEvent(0); state s16;}
       if (msg == "No") { llSetTimerEvent(0); state s17;}
     } else {process_state_control_msg(c, n, ID, msg);}
@@ -522,6 +556,7 @@ state s16 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Continue") { llSetTimerEvent(0); state s18;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -538,6 +573,7 @@ state s17 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Continue") { llSetTimerEvent(0); state s18;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -554,6 +590,7 @@ state s18 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Continue") { llSetTimerEvent(0); state s19;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -570,6 +607,7 @@ state s19 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Yes") { llSetTimerEvent(0); state s20;}
       if (msg == "No") { llSetTimerEvent(0); state s21;}
     } else {process_state_control_msg(c, n, ID, msg);}
@@ -587,6 +625,7 @@ state s20 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       llSetTimerEvent(0); state s21;
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -603,6 +642,7 @@ state s21 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       llSetTimerEvent(0); state s22;
     } else {process_state_control_msg(c, n, ID, msg);}
 }
@@ -619,6 +659,7 @@ state s22 {
   listen(integer c, string n, key ID, string msg) {
     llSetTimerEvent(dialog_box_interact_interval);
     if (c == local_dialog_channel) {
+      send_response_to_facil(msg);
       if (msg == "Okay") { llSetTimerEvent(0); state default;}
     } else {process_state_control_msg(c, n, ID, msg);}
 }

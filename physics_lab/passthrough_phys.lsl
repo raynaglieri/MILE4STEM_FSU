@@ -38,7 +38,7 @@ reset_to_start()
     llSay(auto_facil_control_channel, "-reset");
     llSay(npc_scenario_control_channel , "-reset");
     llSay(facil_capture_channel, "-reset"); 
-    llSay(facil_beg_guide_channel, "-reset"); 
+    llSay(facil_beg_guide_state_channel, "-reset"); 
 } 
 
 npc_group_speak() 
@@ -132,6 +132,11 @@ default
         if (message == "-reset")
         {
             reset_to_start();
+        }
+        else if(message == "-d_beg")
+        {
+            interrupt();
+            llSay(facil_beg_guide_state_channel, "-gotostate:s0");
         }
         else if(message == "-nc_wiresandfuse") 
         {

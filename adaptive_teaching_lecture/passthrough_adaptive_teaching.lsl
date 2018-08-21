@@ -12,6 +12,7 @@
 //    4/19/18: added interrupt command support. 
 
 integer num_npc = 8;
+integer scenario_offset = 200000;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
@@ -20,6 +21,18 @@ integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
 integer facil_capture_channel = -33156;
 integer wait = 10;
+
+set_offset()
+{
+    base_npc_control_channel = 31000 + scenario_offset;
+    npc_para_control_base_channel = 32000 + scenario_offset;
+    npc_action_control_base_channel = 33000 + scenario_offset;
+    room_control_base_channel = 35000 + scenario_offset;
+    backdoor_channel = 20001 + scenario_offset;
+    facil_control_channel = 10101 + scenario_offset;
+    facil_capture_channel = -33156 + scenario_offset;
+}
+
 
 integer random_integer(integer min, integer max)
 {
@@ -129,6 +142,7 @@ default
 {
     state_entry()
     {
+        set_offset();
         llListen(backdoor_channel, "", NULL_KEY, "");
     }   
     

@@ -22,6 +22,7 @@ integer dialog_box_interact_interval = 15;
 //DO NOT MODIFY
 // these are the constants used for all scripts for the chemistry lab
 
+integer scenario_offset = 200000;
 integer facil_state_control_channel = 10101;  // chat channel for human control shared by all scripts
 integer facil_para_control_channel = 10102;
 integer facil_action_control_channel = 10103;
@@ -146,6 +147,15 @@ string dw6_msg1 = "You need to understand where your learners are at.";
 list   dw6_button1 = ["Okay"];
 string dw6_msg2 = "Empty";
 list   dw6_button2 = ["Okay"];
+
+set_offset(){
+facil_state_control_channel = 10101 + scenario_offset;
+facil_para_control_channel = 10102 + scenario_offset;
+facil_action_control_channel = 10103 + scenario_offset;
+button_to_facil_channel = 11500 + scenario_offset;   
+backdoor_channel = 20001 + scenario_offset;   
+local_dialog_channel = 11001 + scenario_offset;
+}
 
 //reset the changeable variables to the original mode
 reset_glob(){
@@ -394,6 +404,7 @@ default
 {
     state_entry()
     {
+        set_offset();
         internal_state = 0;
         state_name = "default";
         llSay(0, "Lecture session default; push press the computer to begin.");

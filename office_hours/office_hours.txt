@@ -8,18 +8,28 @@ NPC ProblemSolvingLecture begin
 	state default begin
 		channel -1 "action_s:1":
 			action(say "I find it a little hard to understand the last question of last assignment. Could you please explain it to me?");
+			rbegin allothers : action(say "Ok. Gotcha.");
+			rend
 		channel -1  "action_s:2":
 			action(say "I'm not very clear about 'the last question of last assignment? Could you explain it?");
+			rbegin allothers : action(say "Cool.");
+			rend
 		channel -1  "action_s:2:a":
 			action(say  "Custom Response");		
 		channel -1  "action_s:3":
 			action(say "I waited enough. What do you think you are, a professor? I did everything right, why  didn't you give me an 'A'?");	
 		channel -1  "action_s:4":
 			action(say "I think my last assignment deserves a higher score.");
+			rbegin allothers : action(say "Ok. I could deal with it.");
+			rend
 		channel -1  "action_s:5":
 			action(say "I got lost with one of the problems you have given us. I tried to solve it working backwards but it didn't work?");
+			rbegin allothers : action(say "I'll use some other strategies");
+			rend
 		channel -1  "action_s:6":
 			action(animation Okay_nodding, say "I don't understand this part of feedback, what additional explanations do you want me to provide here?");
+			rbegin allothers : action(say "Fine");
+			rend
 		channel -1  "action_s:7":
 			action(say  "Will these things be on exam?");
 		channel -1  "entry_s:1":

@@ -22,6 +22,7 @@ integer dialog_box_interact_interval = 15;
 //DO NOT MODIFY
 // these are the constants used for all scripts for the chemistry lab
 
+integer scenario_offset = 400000;
 integer facil_state_control_channel = 10101;  // chat channel for human control shared by all scripts
 integer facil_para_control_channel = 10102;
 integer facil_action_control_channel = 10103;
@@ -170,9 +171,32 @@ string dw6_msg1 = "You need to understand where your learners are at.";
 list   dw6_button1 = ["Okay"];
 string dw6_msg2 = "Empty";
 list   dw6_button2 = ["Okay"];
+//
+set_offset()
+{
+    facil_state_control_channel = 10101 + scenario_offset; 
+    facil_para_control_channel = 10102 + scenario_offset;
+    facil_action_control_channel = 10103 + scenario_offset;
+    button_to_facil_channel = 11500 + scenario_offset;   
+    backdoor_channel = 20001 + scenario_offset;    
+    local_dialog_channel = 11001 + scenario_offset;
+}
+
+send_response_to_facil(string trainee_response)
+{
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator,"Trainee response: " + trainee_response); 
+}
+
+send_promt_to_facil(string trainee_prompt)
+{
+    if(facilitator != NULL_KEY)
+        llInstantMessage(facilitator,"Text Box Prompt: " + trainee_prompt); 
+}
 
 //reset the changeable variables to the original mode
-reset_glob(){
+reset_glob()
+{
     auto_facil = TRUE;
     trainee = NULL_KEY; 
     base_NPCID = -200;
@@ -411,18 +435,17 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
 // prompt trainee with dialog box or text box
 dialog_dialog_with_timer(string msg1, list button1, string msg2, list button2, integer t)
 {
-  llSetTimerEvent(t);
-  if (internal_state == 0) {
-    llInstantMessage(facilitator, msg1);   
-    if (button1 == [])
-        llTextBox(trainee, msg1, local_dialog_channel); 
+    llSetTimerEvent(t);
+    if (internal_state == 0) {
+        send_promt_to_facil(msg1);  
+        if (button1 == [])
+            llTextBox(trainee, msg1, local_dialog_channel); 
     else llDialog(trainee, msg1, button1, local_dialog_channel);    
-  } else if (internal_state == 1) {
-        llInstantMessage(facilitator, msg2);   
-    if (button2 == []) 
-        llTextBox(trainee, msg2, local_dialog_channel);
-
-    else llDialog(trainee, msg2, button2, local_dialog_channel);
+    } else if (internal_state == 1) {
+        send_promt_to_facil(msg2);   
+        if (button2 == []) 
+            llTextBox(trainee, msg2, local_dialog_channel);
+        else llDialog(trainee, msg2, button2, local_dialog_channel);
   }
 }
 
@@ -430,7 +453,7 @@ common_state_entry(string n, string s, list l, integer t)
 {
     internal_state = 0;
     state_name = n;
-    llInstantMessage(facilitator, s);   
+    send_promt_to_facil(s);   
      if (l == [])
         llTextBox(trainee, s, local_dialog_channel);
     else llDialog(trainee, s, l, local_dialog_channel);
@@ -443,6 +466,7 @@ default
     {
         internal_state = 0;
         state_name = "default";
+        set_offset();
         llSay(0, "Lecture session default; push press the computer to begin.");
         llListen(button_to_facil_channel, "", NULL_KEY, "");
         register_common_channel_timer(reminder_interval);
@@ -585,6 +609,7 @@ state D1
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -619,6 +644,7 @@ state D1W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -653,6 +679,7 @@ state D2
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -687,6 +714,7 @@ state D2W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -722,6 +750,7 @@ state D3
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -756,6 +785,7 @@ state D3W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -791,6 +821,7 @@ state D4
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -825,6 +856,7 @@ state D4W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -860,6 +892,7 @@ state D5
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -894,6 +927,7 @@ state D5W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -929,6 +963,7 @@ state D6
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -963,6 +998,7 @@ state D6W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -998,6 +1034,7 @@ state D7
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1032,6 +1069,7 @@ state D7W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1067,6 +1105,7 @@ state D8
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1101,6 +1140,7 @@ state D8W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1136,6 +1176,7 @@ state D9
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1170,6 +1211,7 @@ state D9W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1206,6 +1248,7 @@ state D10
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1240,6 +1283,7 @@ state D10W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1276,6 +1320,7 @@ state D11
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1310,6 +1355,7 @@ state D11W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1346,6 +1392,7 @@ state D12
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1380,6 +1427,7 @@ state D12W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1414,6 +1462,7 @@ state D13
     listen(integer c, string n, key ID, string msg)
     {
         llSetTimerEvent(dialog_box_interact_interval);
+        send_response_to_facil(msg);
         if (c == local_dialog_channel)
         {
             if (msg == "Okay") 
@@ -1450,6 +1499,7 @@ state D13W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1486,6 +1536,7 @@ state D14
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1520,6 +1571,7 @@ state D14W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1555,6 +1607,7 @@ state D15
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1590,6 +1643,7 @@ state D16
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1624,6 +1678,7 @@ state D17
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1658,6 +1713,7 @@ state D18
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1692,6 +1748,7 @@ state D19
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1726,6 +1783,7 @@ state A1
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1760,6 +1818,7 @@ state A1W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1794,6 +1853,7 @@ state A2
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1828,6 +1888,7 @@ state A3
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1862,6 +1923,7 @@ state A3W
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1896,6 +1958,7 @@ state DW1
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1930,6 +1993,7 @@ state DW2
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1964,6 +2028,7 @@ state DW3
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -1998,6 +2063,7 @@ state DW4
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -2032,6 +2098,7 @@ state DW5
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
@@ -2066,6 +2133,7 @@ state DW6
         llSetTimerEvent(dialog_box_interact_interval);
         if (c == local_dialog_channel)
         {
+            send_response_to_facil(msg);
             if (msg == "Okay") 
             {
                 llSetTimerEvent(0);
