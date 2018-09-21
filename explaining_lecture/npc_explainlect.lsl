@@ -2,6 +2,7 @@
 // 2/19/18 - Created by Raymond Naglieri
 // 3/15/18 - modified reponse state to add delay. 
 // 4/27/18 - completed interrupts and follow-up functions. Updated to mactch new design
+//         8/30/18: added secure_reset function that prevnts unauthorized users from spawning/despawning NPCs
 
 
 // Notes:
@@ -14,6 +15,7 @@
 integer tc = 0; 
 key npc;         // the key for the NPC 
 key TA_trainee;
+key facilitator;
 integer myid = 0;  // myid 0 from 7
 integer mygroup = 1;
 integer num_npcs = 8;  // total number of npcs in this lab.
@@ -159,7 +161,7 @@ integer npc_action_control_channel; // action control chaneel = base_channel + m
 integer npc_to_npc_signal;
 
 integer alert_message_channel = 0;
-integer green_button_channel = 11500;   // chat channel from green button to npc, to start the lab
+integer green_button_channel = -35145;   // chat channel from green button to npc, to start the lab
 integer fire_alarm_channel = 101;
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
@@ -230,6 +232,13 @@ backdoor_reset()
     llResetScript();
     return;   
 }  
+
+secure_reset(key id) 
+{   // delete npc and reset script
+    if(id == facilitator && facilitator != NULL_KEY)
+        backdoor_reset(); 
+    return;   
+}
 
 ask_question() 
 {   // standard ask question animation sequence  
@@ -408,6 +417,14 @@ integer spawn_npc()
         return 0;     
     }
 } 
+
+secure_spawn_npc(key id){
+    if(id == facilitator && facilitator != NULL_KEY){
+        spawn_npc();
+        state Idle;
+    }
+
+}
 
 // this routine only create npc, if npc is already there, do nothing.
 integer create_npc() 
@@ -883,14 +900,16 @@ default
     
     touch_start( integer num) 
     {
-        spawn_npc();
-        state Idle;  
+		secure_spawn_npc(llDetectedKey(0));  
     }
     
     listen(integer channel, string name, key id, string message) 
     {
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
-        {                                   //need to find exactly what is causing it.
+        {                       
+            list key_package = llParseString2List(message, [":"], []);
+            TA_trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);  
             spawn_npc(); 
             state Idle; 
         }
@@ -912,7 +931,7 @@ state Idle
     
     touch_start(integer num_detected) 
     {
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
   
     timer()
@@ -937,6 +956,11 @@ state FollowUp
         register_common_channel_timer(follow_up_time);
     }
 
+    touch_start(integer num_detected)
+    { 
+        secure_reset(llDetectedKey(0));
+    }
+    
     timer()
     {
         state Idle;
@@ -973,7 +997,7 @@ state Ask
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1024,7 +1048,7 @@ state WaitSignal
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -1049,7 +1073,7 @@ state Respond
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1129,7 +1153,7 @@ state Respond2NpcQuestion
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1175,7 +1199,7 @@ state GroupThink
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 

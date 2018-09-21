@@ -1,0 +1,24 @@
+
+        -d_explain :- 3G
+
+        -ad_drawarray :- 4G
+
+        -ad_drawarray! :- 4H
+
+        -ad_visual :- 5G
+
+        -ad_visual! :- 5H
+
+        -ad_understood :- 6G
+
+        -ad_understood! :-6H
+
+        -ad_pointers :- 7G
+
+        -ad_pointers! :- 7H
+
+        -ad_differ :- 8G
+
+        -ad_differ! :- 8H
+        
+        -ad_altrep :- 9G

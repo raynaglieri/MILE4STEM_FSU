@@ -189,7 +189,7 @@ integer internal_state;    // working storage to store the status within a state
 //helper functions
 reset_all() 
 {  // resets all globals 
-llSay(0,"r_a");
+//llSay(0,"r_a");
 mymood = "neutral";   
 recently_engaged = FALSE;
 wait_time = 5;
@@ -269,10 +269,7 @@ secure_reset(key id)
 {   // delete npc and reset script
 
     if(id == facilitator)
-    {
-        remove_npc();
-        llResetScript();
-    }
+        backdoor_reset(); 
     return;   
 } 
 
@@ -440,6 +437,14 @@ integer spawn_npc()
         return 0;     
     }
 } 
+
+secure_spawn_npc(key id){
+    if(id == facilitator && facilitator != NULL_KEY){
+        spawn_npc();
+        state Idle;
+    }
+
+}
 
 // this routine only create npc, if npc is already there, do nothing.
 integer create_npc() 
@@ -1046,8 +1051,7 @@ default
     
     touch_start( integer num) 
     {
-        spawn_npc();
-        state Idle;  
+        secure_spawn_npc(llDetectedKey(0));
     }
     
     listen(integer channel, string name, key id, string message) 
@@ -1176,7 +1180,7 @@ state WaitSignal
 
     touch_start(integer num_detected)
     { 
-        secure_reset(llDetectedKey(0));
+         
     }
 
     listen(integer c, string n, key ID, string msg)
@@ -1514,7 +1518,7 @@ state Wait2SpeakList
     timer() 
     {
         osNpcSay(npc, cur_sentence);
-        pending_convo_loc++;
+        pending_convo_loc++; 
         pending_convo_count --;
         if(pending_convo_count == 0)
         {

@@ -195,6 +195,13 @@ backdoor_reset()
     return;   
 }  
 
+secure_reset(key id) 
+{   // delete npc and reset script
+    if(id == facilitator && facilitator != NULL_KEY)
+        backdoor_reset(); 
+    return;   
+} 
+
 ask_question() 
 {   // standard ask question animation sequence  
     llSleep(5);
@@ -275,6 +282,15 @@ integer spawn_npc()
         return 0;     
     }
 } 
+
+secure_spawn_npc(key id){
+    if(id == facilitator && facilitator != NULL_KEY){
+        TA_trainee = llDetectedKey(0);
+        myrotation = llGetRot();
+        spawn_npc();
+        state Idle_default;  
+    }
+}
 
 // this routine only create npc, if npc is already there, do nothing.
 integer create_npc() 
@@ -939,10 +955,7 @@ default
     
     touch_start( integer num) 
     {
-        TA_trainee = llDetectedKey(0);
-        myrotation = llGetRot();
-        spawn_npc();
-        state Idle_default;  
+        secure_spawn_npc(llDetectedKey(0));
     }
     
     listen(integer channel, string name, key id, string message) 
@@ -976,8 +989,7 @@ state Idle_default
     
     touch_start(integer num_detected) 
     {
-        if(llDetectedKey(0)==facilitator)
-            backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
   
     timer()
@@ -1013,8 +1025,7 @@ state Ask_default
 
     touch_start(integer num_detected)
     { 
-        if(llDetectedKey(0)==facilitator)
-            backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1061,8 +1072,7 @@ state Respond_default
 
     touch_start(integer num_detected)
     { 
-        if(llDetectedKey(0)==facilitator)
-            backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1107,8 +1117,7 @@ state Respond1_default
 
     touch_start(integer num_detected)
     { 
-        if(llDetectedKey(0)==facilitator)
-            backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()

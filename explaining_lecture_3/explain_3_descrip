@@ -1,0 +1,47 @@
+/*
+ * 
+ *  
+ */
+
+NPC ExplainingLecture2 begin
+	state default begin
+		channel -1 "npcask0":
+			askaction(say "Can you draw an array?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask1":
+			askaction(say "I thought it will be better with a visualization, but instead I am quite lost. Can you give us an example?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask2":
+			askaction(say  "I think I understood an example but why do we mention \n several times?.");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask3":
+			askaction(say "I think I got a different example from my notes - and at least I understand where the pointers are in this one.");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask4":
+			askaction(say "Could you use something different, like a physical object or maybe something different on a media board to show where the pointers fit in these two examples.");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcsay0":
+			action (say "So you think you can draw me an array");
+		channel -1  "npcsay1":
+			action (say "Yes, easy, but why don't you ask a TA?");
+		channel -1  "npcsay2":
+			action (say "Oh, cool. I got it.");
+		channel -1  "npcsay3":
+			action (say "Oh, I see.");
+		channel -1  "npcsay4":
+			action (say "Super. I think I understand it now");
+		channel -1  "npcsay5":
+			action (say ".....");
+		channel -1  "npcanim0":
+			action (animation cust);
+		channel -1  "npcanim1":
+			action (animation cust);
+		channel -1  "npcanim2":
+			action (animation cust );
+	end
+end

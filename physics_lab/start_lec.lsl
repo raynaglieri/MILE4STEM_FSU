@@ -30,11 +30,18 @@ set_offset()
     button_to_npc_channel = -35145 + scenario_offset;  
     local_dialog_channel = 11003 + scenario_offset;
 }
+
+display_floating_message(){
+    if(facilitator == NULL_KEY)
+        llSetText("Press to begin the scenario: Faciltator not registered.", <1,0,0>, 1); 
+    else 
+        llSetText("Press to begin the scenario: Faciltator registered!", <0,1,0>, 1);
+}
                                          
 default{    
     state_entry(){  
         set_offset();
-        llSetText("Press to begin Office Hours: facil not set", COLOR_RED, OPAQUE); 
+        display_floating_message();
         llListen(local_dialog_channel, "", NULL_KEY, "");
         llListen(facil_capture_channel, "", NULL_KEY, "");
     }   
@@ -59,22 +66,43 @@ default{
                 llSay(button_to_facil_channel, key_package);
                 llSay(button_to_beg_facil_channel, key_package);
                 llSay(green_button_channel, key_package);
-                if(facilitator == NULL_KEY)
-                    llSetText("Press to begin The Lab: facil not set", <1,0,0>, 1); 
-                else 
-                    llSetText("Press to begin The Lab: facil set", <0,1,0>, 0);
-
+                display_floating_message();
                 llSay(button_to_npc_channel, trainee);
             }
         }
         else if(c == facil_capture_channel)
         {
-            facilitator = msg;
-            if(facilitator == NULL_KEY)
-                llSetText("Press to begin The Lab: facil not set", COLOR_RED, OPAQUE); 
-            else 
-                llSetText("Press to begin The Lab: facil set", COLOR_GREEN, OPAQUE);
-
+            list command_package = llParseString2List(msg, [":"], []);
+            if (llList2String(command_package, 0) == "key")  
+                facilitator = llList2String(command_package, 1);
+            else if (llList2String(command_package, 0) == "lock")
+                state Locked; 
+            else if (llList2String(command_package, 0) == "reset")
+                llResetScript();    
+            display_floating_message();
         }
     } 
+}
+
+state Locked{
+
+    state_entry(){  
+        llSetText("Locked", COLOR_RED, OPAQUE); 
+        llListen(facil_capture_channel, "", NULL_KEY, "");
+    }  
+
+    touch_start(integer num_detected){
+         llDialog(llDetectedKey(0), "Scenario locked. If you are the facilitator, you can unlock this scenario using the facilitator tool.", ["Okay"], local_dialog_channel);
+    } 
+
+     listen(integer c, string n, key ID, string msg){
+         if(c == facil_capture_channel) {
+            list command_package = llParseString2List(msg, [":"], []);  
+            if (llList2String(command_package, 0) == "unlock")
+                state default;  
+            else if (llList2String(command_package, 0) == "reset")
+                llResetScript();  
+            display_floating_message();
+        }
+     }
 }

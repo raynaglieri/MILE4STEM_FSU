@@ -1,0 +1,25 @@
+
+        -d_explain :- 3G
+
+        -ad_toocomplex :- 4G
+
+        -ad_toocomplex! :- 4H
+
+        -ad_conceptmap :- 5G
+
+        -ad_conceptmap! :- 5H
+
+        -ad_conceptual :- 6G
+
+        -ad_conceptual! :- 6H
+
+        -ad_link :- 7G
+
+        -ad_link! :- 7H
+        
+        -ad_differ :- 8G
+
+        -ad_differ! :- 8H
+
+        -ad_altrep :- 9G
+

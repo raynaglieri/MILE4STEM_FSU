@@ -4,7 +4,7 @@
 //      05/05/18 - modified for problem solving lecture
 //  
 integer num_npc = 8;
-integer scenario_offset = 400000;
+integer scenario_offset = 600000;
 integer base_npc_control_channel = 31000;
 integer npc_para_control_base_channel = 32000;
 integer npc_action_control_base_channel = 33000;
@@ -122,55 +122,90 @@ default
             interrupt();
             llSay(facil_control_channel, "-d1");
         }
-        else if (message == "-ad_toocomplex")
+        else if (message == "-ad_drawarray")
         {
             interrupt(); 
-            delay = 3.0;
-            llSay(base_npc_control_channel+0, "npcanim0"); 
-            llSay(base_npc_control_channel+4, "npcanim1"); 
-            llSay(base_npc_control_channel+5, "npcanim2"); 
+            delay = 1.0;
+            llSay(base_npc_control_channel+1, "npcsay5"); 
             llSleep(delay);
-            llSay(base_npc_control_channel+0, "npcask0");
+            llSay(base_npc_control_channel+2, "npcsay5"); 
+            llSleep(delay);
+            llSay(base_npc_control_channel+1, "npcsay0");
+            llSleep(delay);
+            llSay(base_npc_control_channel+2, "npcsay1");
+            llSleep(delay);
+            llSay(base_npc_control_channel+1, "npcask0");
             llSleep(delay);
             llSay(facil_control_channel, "-d2");
         } 
-        else if (message == "-ad_toocomplex!")
+        else if (message == "-ad_drawarray!")
         {
             interrupt(); 
             llSay(facil_control_channel, "-d2!");
         } 
-        else if (message == "-ad_toocomplex")
+        else if (message == "-ad_visual")
         {
             interrupt(); 
             delay = 3.0; 
-            llSay(base_npc_control_channel+0, "npcask1");
-            llSleep(delay);
-            llSay(facil_control_channel, "-d2");
-        }
-        else if (message == "-ad_conceptmap")
-        {
-            interrupt(); 
-            delay = 3.0; 
-            llSay(base_npc_control_channel+0, "npcask1");
+            llSay(base_npc_control_channel+1, "npcask1");
             llSleep(delay);
             llSay(facil_control_channel, "-d3");
         }
-        else if (message == "-ad_conceptmap!")
+        else if (message == "-ad_visual!")
         {
             interrupt(); 
             llSay(facil_control_channel, "-d3!");
         }
-        else if (message == "-ad_conceptual")
+        else if (message == "-ad_understood")
         {
             interrupt(); 
-            llSay(base_npc_control_channel+0, "npcsay0");
-            llSay(base_npc_control_channel+4, "npcsay1");
+            delay = 3.0;
+            llSay(base_npc_control_channel+1, "npcsay2");
+            llSleep(delay);
+            llSay(base_npc_control_channel+3, "npcask2");
+            llSleep(delay);
             llSay(facil_control_channel, "-d4");
         }
-        else if (message == "-ad_conceptual!")
+        else if (message == "-ad_understood!")
         {
             interrupt(); 
+            delay = 3.0;
             llSay(facil_control_channel, "-d4!");
+        }
+        else if (message == "-ad_pointers")
+        {
+            interrupt(); 
+            delay = 3.0;
+            llSay(base_npc_control_channel+5, "npcask3");
+            llSleep(delay);            
+            llSay(facil_control_channel, "-d5");
+        }
+        else if (message == "-ad_pointers!")
+        {
+            interrupt(); 
+            delay = 3.0;
+            llSay(facil_control_channel, "-d5!");
+        }
+        else if (message == "-ad_differ")
+        {
+            interrupt(); 
+            delay = 3.0;
+            llSay(base_npc_control_channel+5, "npcsay3");
+            llSleep(delay);
+            llSay(base_npc_control_channel+6, "npcask4");
+            llSleep(delay);
+            llSay(facil_control_channel, "-d6");
+        }
+        else if (message == "-ad_differ!")
+        {
+            interrupt(); 
+            llSay(facil_control_channel, "-d6!");
+        }
+        else if (message == "-ad_altrep")
+        {
+            interrupt(); 
+            llSay(base_npc_control_channel+5, "npcsay4");
+            llSay(facil_control_channel, "-d7");
         }
     }
 }

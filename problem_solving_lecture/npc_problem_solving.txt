@@ -1,9 +1,9 @@
 /*
- * NPC decription test for problem solving lecture - RN
- * 05/10/2018 - Added all NPC actions. Added a user defined routine. 
+ * 
+ *  
  */
 
-NPC ProblemSolvingLecture begin
+NPC  ProblemSolvingLecture begin
 	state default begin
 		channel -1 "npcask0":
 			askaction(say "I don't understand. Where are the restictions?");

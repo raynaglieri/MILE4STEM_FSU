@@ -1,0 +1,41 @@
+/*
+ * 
+ *  
+ */
+
+NPC ExplainingLecture2 begin
+	state default begin
+		channel -1 "npcask0":
+			askaction(say "Excuse me. I don't understand this concept, it is too complex. Besides, I'm a visual learner. Can you visualize it somehow?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask1":
+			askaction(say "I thought it will be better with a concept map, but instead I am quite lost. Why should I put all these Enter things up front?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask2":
+			askaction(say "I don't think it all links up very well and I don't recognize the language");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask3":
+			askaction(say "Could you use something different, like a physical object or maybe something different on a media board to show the top-down structures.");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask4":
+			askaction(say "I thought the solution for Problem 1 was similar to the solution for Problem 2");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcsay0":
+			action (say "Ok. Now I think I get it");
+		channel -1  "npcsay1":
+			action (say "Now, I'm lost. Can you give us an example?");
+		channel -1  "npcsay2":
+			action (say "Cool. I think I got it now");
+		channel -1  "npcanim0":
+			action (animation cust);
+		channel -1  "npcanim1":
+			action (animation cust);
+		channel -1  "npcanim2":
+			action (animation cust );
+	end
+end

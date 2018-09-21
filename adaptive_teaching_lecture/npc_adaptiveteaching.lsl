@@ -1,10 +1,11 @@
 // change history:
 //   September 2017: created by Raymond Naglieri in October 2017 
 //   December 2017: Wait2Speak and Wait2SpeakList functionality done. 
-//         2/15/17: added debug level
+//         2/15/18: added debug level
 //         2/28/18: completed AnimationHandle
 //         3/01/18: added 'M'(move) commands to work with animation handle
-//         4/19/19: added interrupts and follow-up question support 
+//         4/19/18: added interrupts and follow-up question support 
+//         8/30/18: added secure_reset function that prevnts unauthorized users from spawning/despawning NPCs
 
 // Notes:
 //  1. Please use the currentanimation variable when playing an animation.
@@ -13,6 +14,7 @@
 integer tc = 0; 
 key npc;         // the key for the NPC 
 key TA_trainee;
+key facilitator;
 integer myid = 0;  // myid 0 from 7
 integer mygroup = 1;
 integer num_npcs = 8;  // total number of npcs in this lab.
@@ -134,7 +136,7 @@ integer npc_para_control_channel;   // para control
 integer npc_action_control_channel; // action control chaneel = base_channel + myid;
 
 integer alert_message_channel = 0;
-integer green_button_channel = 11500;   // chat channel from green button to npc, to start the lab
+integer green_button_channel = -35145;   // chat channel from green button to npc, to start the lab
 integer fire_alarm_channel = 101;
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
@@ -159,7 +161,7 @@ set_offset()
     npc_para_control_channel =  npc_para_control_base_channel + myid;   
     npc_action_control_channel = npc_action_control_base_channel + myid;
     alert_message_channel = 0 + scenario_offset;
-    green_button_channel = 11500 + scenario_offset;   
+    green_button_channel = -35145 + scenario_offset;   
     fire_alarm_channel = 101 + scenario_offset;
     backdoor_channel = 20001 + scenario_offset;    
     local_dialog_channel = 11001 + scenario_offset; 
@@ -224,6 +226,13 @@ backdoor_reset()
 {   // delete npc and reset script
     remove_npc();
     llResetScript();
+    return;   
+} 
+
+secure_reset(key id) 
+{   // delete npc and reset script
+    if(id == facilitator && facilitator != NULL_KEY)
+        backdoor_reset(); 
     return;   
 }  
 
@@ -387,6 +396,13 @@ integer spawn_npc()
     }
 } 
 
+secure_spawn_npc(key id){
+    if(id == facilitator && facilitator != NULL_KEY){
+        spawn_npc();
+        state Idle;
+    }
+
+}
 // this routine only create npc, if npc is already there, do nothing.
 integer create_npc() 
 { // spawn procedure for NPC
@@ -1056,14 +1072,16 @@ default
     
     touch_start( integer num) 
     {
-        spawn_npc();
-        state Idle;  
+        secure_spawn_npc(llDetectedKey(0)); 
     }
     
     listen(integer channel, string name, key id, string message) 
     {
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
         {                                   //need to find exactly what is causing it.
+            list key_package = llParseString2List(message, [":"], []);
+            TA_trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);  
             spawn_npc(); 
             state Idle; 
         }
@@ -1084,7 +1102,7 @@ state Idle
     
     touch_start(integer num_detected) 
     {
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
   
     timer()
@@ -1106,6 +1124,11 @@ state FollowUp
     state_entry()
     {
         register_common_channel_timer(follow_up_time);
+    }
+
+    touch_start(integer num_detected) 
+    {
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1145,7 +1168,7 @@ state GroupThink
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1217,6 +1240,11 @@ state Show_focus
         }  
     }
 
+    touch_start(integer num_detected) 
+    {
+        secure_reset(llDetectedKey(0));
+    }
+
     listen(integer c, string n, key ID, string msg) 
     {
         if(c == PUBLIC_CHANNEL)
@@ -1245,6 +1273,11 @@ state Quiz
         register_common_channel_timer(reminder_interval);
         llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");
     }  
+
+    touch_start(integer num_detected) 
+    {
+        secure_reset(llDetectedKey(0));
+    }
 
     listen(integer c, string n, key ID, string msg)
     {
@@ -1288,7 +1321,7 @@ state Ask
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1328,7 +1361,7 @@ state Wait
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1361,7 +1394,7 @@ state AnimationHandle
 
     touch_start(integer num_detected)
     {
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer()
@@ -1498,7 +1531,7 @@ state DelayAction
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1530,7 +1563,7 @@ state SpeakAnimation
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1567,7 +1600,7 @@ state Wait2Speak
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
@@ -1600,7 +1633,7 @@ state Wait2SpeakList
 
     touch_start(integer num_detected)
     { 
-        backdoor_reset();
+        secure_reset(llDetectedKey(0));
     }
 
     timer() 
