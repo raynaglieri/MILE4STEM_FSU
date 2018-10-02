@@ -134,9 +134,9 @@ default
         else if(message == "-ad_engaged")
         {
             interrupt();
-            llSay(base_npc_control_channel+0, "npcanim0"); 
-            llSay(base_npc_control_channel+4, "npcanim0"); 
-            llSay(base_npc_control_channel+5, "npcanim0");
+            llSay(base_npc_control_channel+0, "npccustanim"); 
+            llSay(base_npc_control_channel+4, "npccustanim"); 
+            llSay(base_npc_control_channel+5, "npccustanim");
             llSay(facil_control_channel, "-d2");
         }
         else if(message == "-ad_engaged!")
@@ -145,6 +145,8 @@ default
         }
         else if(message == "-ad_interest")
         {
+            multi_command("-goto:default", [0,4,5]);
+            llSleep(1.0);
             llSay(base_npc_control_channel+4, "npcsay0");
             llSleep(2.0); 
             llSay(base_npc_control_channel+6, "npcsay1"); 
@@ -198,7 +200,6 @@ default
             llSleep(2.0);
             llSay(base_npc_control_channel+2, "npcsay7"); 
             llSleep(2.0);
-            llSay(base_npc_control_channel+6,"npcaction0");
             llSay(facil_control_channel, "-d7");
         }
         else if(message == "-ad_diff!") 
@@ -208,11 +209,9 @@ default
         else if(message == "-ad_speed") 
         {
             llSay(base_npc_control_channel+7,"npcask0");
-            llSay(facil_control_channel, "-nc1");
         }
         else if(message == "-ad_speed!") 
         {
-            llSay(base_npc_control_channel+7,"npcask0");
             llSay(facil_control_channel, "-d8!");
         }
         else if(message == "-ann_present") 
@@ -223,7 +222,7 @@ default
         {
             llSay(facil_control_channel, "-d9!");
         }
-        else if(message == "-a_example") 
+        else if(message == "-ad_example") 
         {
             llSay(base_npc_control_channel+4,"npcask1");
         }
@@ -246,7 +245,7 @@ default
         }
         else if(message == "-ad_similar") 
         {
-            llSay(base_npc_control_channel+0,"npcaction1");
+            multi_command("npcaction1", [0,1,2,3,5,6,7]);
             llSleep(2.0);
             llSay(facil_control_channel, "-d12");
         }
@@ -260,6 +259,7 @@ default
             llSleep(2.0);
             llSay(base_npc_control_channel+0,"npcsay11");
             llSay(facil_control_channel, "-d13");
+            llSleep(2.0);
             llSay(facil_control_channel, "-nc1");
         }
         else if(message == "-ad_visual") 
@@ -277,15 +277,14 @@ default
         {
             llSay(base_npc_control_channel+6,"npcsay14");
             llSleep(2.0);
-            llSay(base_npc_control_channel+6,"npcanim0");
+            llSay(base_npc_control_channel+6,"npccustanim");
             llSay(facil_control_channel, "-d15");
         }
         else if(message == "-ad_cultures!") 
         {
-            llSay(base_npc_control_channel+6, "-goto:default");
             llSay(facil_control_channel, "-d15!");
         }
-        else if(message == "-a_why") 
+        else if(message == "-ad_why") 
         {
             llSay(base_npc_control_channel+6, "-goto:default");
             llSay(base_npc_control_channel+4,"npcsay16");
@@ -322,9 +321,7 @@ default
         }
         else if(message == "-ad_hands") 
         {
-            llSay(base_npc_control_channel+2,"npcsay9");
-            llSleep(2.0);
-            llSay(base_npc_control_channel+3,"npcsay9");
+            llSay(base_npc_control_channel+2,"npcaction3");
             llSleep(2.0);
             llSay(base_npc_control_channel+3,"npcaction4");
         }
@@ -332,7 +329,7 @@ default
         {
             llSay(facil_control_channel, "-d21!");
         }
-        else if(message == "-a_complex") 
+        else if(message == "-ad_complex") 
         {
             llSay(base_npc_control_channel+2,"npcsay15");
         }
@@ -349,7 +346,7 @@ default
         }
         else if(message == "-ad_drop") 
         {
-            multi_command("-goto:default", [0,1,2,3,4,5,6,7]);
+            multi_command("-goto:default", [0,1,7]);
         }
 
     }

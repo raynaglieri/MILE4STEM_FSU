@@ -1,0 +1,67 @@
+channel: /720001
+
+3G: -d_explain
+3H: -d_explain!
+
+4G: -ad_engaged
+4H: -ad_engaged!
+
+5G: -ad_interest
+
+6G: -ad_cognitive
+6H: -ad_cognitive!
+
+7G: -ad_lost
+
+8G: -ad_confused
+
+9G: -ad_cues
+9H: -ad_cues!
+
+10G: -ad_diff
+10H: -ad_diff!
+
+11G: -ad_speed
+11H  -ad_speed!
+
+12G: -ann_present
+12H: -ann_present!
+
+13G: -ad_example
+13H: -ad_example!
+
+15G: -ad_prev
+15H: -ad_prev
+
+16G: -ad_similar
+16H: -ad_similar
+
+17G: -ad_alt
+
+18G: -ad_visual
+18H: -ad_visual!
+
+19G: -ad_cultures
+19H: -ad_cultures!
+
+20G: -a_why
+20H: -a_why!
+
+21G: -d_quiz, -ad_quiz
+
+22G: -ann_finish
+22G: -ann_finish!
+
+23G: -d_understand
+23H: -d_understand!
+
+24G: -ad_hands
+24H: -ad_hands!
+
+25G: ad_complex
+25H: ad_complex!
+
+26G: -ad_questions
+
+27G: -ad_drop
+

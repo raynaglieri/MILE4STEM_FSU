@@ -202,15 +202,13 @@ state R2
             {
                 correct();
                 llSetText(r2y, COLOR_BLUE, OPAQUE);
-                internal_state++;
             } 
             else
             {
                 wrong();
-                internal_state = 0;
-                state R2W;
+                llSetText(r2n, COLOR_BLUE, OPAQUE);
             }
-                
+            internal_state++;   
 
         }
         else 
@@ -224,40 +222,6 @@ state R2
     }
 }
 
-state R2W
-{
-    state_entry()
-    {
-        llListen(game_button_channel, "", NULL_KEY, "");
-        llSetText(r2n, COLOR_BLUE, OPAQUE);
-    }
-
-    touch_start(integer num_detected)
-    {
-        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(msg == "-reset")
-        {
-            llResetScript();
-        }
-        
-        if(!internal_state)
-        {
-            llSetText(r2y, COLOR_BLUE, OPAQUE);
-            internal_state++;
-        }
-        else 
-        {
-            internal_state = 0;
-            state R3;
-        }
-
-
-    }
-}
 
 
 state R3
@@ -286,49 +250,12 @@ state R3
             {
                 correct();
                 llSetText(r3y, COLOR_BLUE, OPAQUE);
-                internal_state++;
             } 
             else
             {
                 wrong();
-                internal_state = 0;
-                state R3W;
-            }
-                
-
-        }
-        else 
-        {
-            internal_state = 0;
-            state R4;
-        }
-        
-    }
-}
-
-state R3W
-{
-    state_entry()
-    {
-        llListen(game_button_channel, "", NULL_KEY, "");
-        llSetText(r3n, COLOR_BLUE, OPAQUE);
-    }
-
-    touch_start(integer num_detected)
-    {
-        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(msg == "-reset")
-        {
-            llResetScript();
-        }
-        
-        if(!internal_state)
-        {
-            llSetText(r3y, COLOR_BLUE, OPAQUE);
+                llSetText(r3n, COLOR_BLUE, OPAQUE);
+            }    
             internal_state++;
         }
         else 
@@ -336,10 +263,11 @@ state R3W
             internal_state = 0;
             state R4;
         }
-
-
+        
     }
 }
+
+
 
 state R4
 {
@@ -368,49 +296,12 @@ state R4
             {
                 correct();
                 llSetText(r4y, COLOR_BLUE, OPAQUE);
-                internal_state++;
             } 
             else
             {
                 wrong();
-                internal_state = 0;
-                state R4W;
-            }
-                
-
-        }
-        else 
-        {
-            internal_state = 0;
-            state R5;
-        }
-        
-    }
-}
-
-state R4W
-{
-    state_entry()
-    {
-        llListen(game_button_channel, "", NULL_KEY, "");
-        llSetText(r4n, COLOR_BLUE, OPAQUE);
-    }
-
-    touch_start(integer num_detected)
-    {
-        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(msg == "-reset")
-        {
-            llResetScript();
-        }
-        
-        if(!internal_state)
-        {
-            llSetText(r4y, COLOR_BLUE, OPAQUE);
+                llSetText(r4n, COLOR_BLUE, OPAQUE);
+            }    
             internal_state++;
         }
         else 
@@ -418,10 +309,11 @@ state R4W
             internal_state = 0;
             state R5;
         }
-
-
+        
     }
 }
+
+
 
 state R5
 {
@@ -449,50 +341,12 @@ state R5
             {
                 correct();
                 llSetText(r5y, COLOR_BLUE, OPAQUE);
-                internal_state++;
             } 
             else
             {
                 wrong();
-                internal_state = 0;
-                state R5W;
-            }
-                
-
-        }
-        else 
-        {
-            internal_state = 0;
-            state R6;
-        }
-        
-    }
-}
-
-state R5W
-{
-
-    state_entry()
-    {
-        llListen(game_button_channel, "", NULL_KEY, "");
-        llSetText(r5n, COLOR_BLUE, OPAQUE);
-    }
-
-    touch_start(integer num_detected)
-    {
-        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(msg == "-reset")
-        {
-            llResetScript();
-        }
-        
-        if(!internal_state)
-        {
-            llSetText(r5y, COLOR_BLUE, OPAQUE);
+                llSetText(r5n, COLOR_BLUE, OPAQUE);
+            }     
             internal_state++;
         }
         else 
@@ -500,10 +354,11 @@ state R5W
             internal_state = 0;
             state R6;
         }
-
-
+        
     }
 }
+
+
 
 state R6
 {
@@ -531,49 +386,13 @@ state R6
             {
                 correct();
                 llSetText(r6y, COLOR_BLUE, OPAQUE);
-                internal_state++;
             } 
             else
             {
                 wrong();
-                internal_state = 0;
-                state R6W;
+                llSetText(r6n, COLOR_BLUE, OPAQUE);
             }
                 
-
-        }
-        else 
-        {
-            internal_state = 0;
-            state Complete;
-        }
-        
-    }
-}
-
-state R6W
-{
-    state_entry()
-    {
-        llListen(game_button_channel, "", NULL_KEY, "");
-        llSetText(r6n, COLOR_BLUE, OPAQUE);
-    }
-
-    touch_start(integer num_detected)
-    {
-        llDialog(player, "Click the 'yes' or 'no' button to continue.", ["Okay"], game_text_channel);
-    }
-
-    listen(integer c, string n, key ID, string msg)
-    {
-        if(msg == "-reset")
-        {
-            llResetScript();
-        }
-        
-        if(!internal_state)
-        {
-            llSetText(r6y, COLOR_BLUE, OPAQUE);
             internal_state++;
         }
         else 
@@ -581,10 +400,10 @@ state R6W
             internal_state = 0;
             state Complete;
         }
-
-
+        
     }
 }
+
 
 state Complete
 {

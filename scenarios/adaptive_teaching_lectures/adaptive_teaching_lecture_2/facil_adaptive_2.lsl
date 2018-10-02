@@ -484,9 +484,10 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         } else if (msg == "-d23!"){     
             llSetTimerEvent(0); 
             state D23W;    
-        } else if (msg == "-nc1"){     
+        } else if (msg == "-nc1"){   
+            llSay(0, "nc"); 
             llSetTimerEvent(0); 
-            llGiveInventory(facilitator, "card_hold"); 
+            llGiveInventory(trainee, "situational_interest_nc"); 
             state Idle; 
         }  else if (msg == "-fhub") {
             llSetTimerEvent(0);

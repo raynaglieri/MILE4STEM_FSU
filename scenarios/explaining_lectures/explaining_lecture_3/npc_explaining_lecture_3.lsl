@@ -8,7 +8,7 @@
 // are exactly the same as the hand-coded NPC scripts for the MILE4STEM project
 // (mostly by Raymond Naglieri).
 
-// Updates by Raymond Naglieri have been flaged with ^^^^^(update#) in code
+// Updates by Raymond Naglieri have been commented out and flaged with ^^^^^(update#) in code.
 // UPDATE CONTENTS:
 // ^^^^^(1) :- Scenario offset number. Used as an offset value for all channels. Prevents multiple scenarios from clashing.
 // ^^^^^(2) :- set_offset(). Function that updates base channel values with the offset.
@@ -16,7 +16,8 @@
 // ^^^^^(4) :- secure_spawn_npc(key id). Prevents unauthroized users from spawning NPCs. Includes rotation bug fix.
 // ^^^^^(5) :- set_offset() is called when the script reaches the default state.
 // ^^^^^(6) :- secure_spawn_npc(key id) is called when a user attempts to press an NPC within the default state.
-// ^^^^^(7) :- secure_reset(key id) is called when a user attempts to click on an NPC.
+// ^^^^^(7) :- secure_reset(key id) is called when a us er attempts to click on an NPC.
+// ^^^^^(8) :- added llGetRot() to fix rotation bug.
 
 
 //      
