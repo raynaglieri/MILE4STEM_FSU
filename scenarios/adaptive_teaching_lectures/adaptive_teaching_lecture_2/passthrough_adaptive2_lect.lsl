@@ -246,6 +246,7 @@ default
         else if(message == "-ad_similar") 
         {
             multi_command("npcaction1", [0,1,2,3,5,6,7]);
+            llSay(base_npc_control_channel+4,"npcsay17");
             llSleep(2.0);
             llSay(facil_control_channel, "-d12");
         }
@@ -305,7 +306,7 @@ default
         }
         else if(message == "-ann_finish") 
         {  
-            llSay(0,"Ask your students if they have questions.");
+            llSay(0,"Lecture is finished, Ask your students if they have questions.");
         }
         else if(message == "-ann_finish!") 
         {  

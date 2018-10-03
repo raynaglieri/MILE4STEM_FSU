@@ -22,7 +22,7 @@ integer dialog_box_interact_interval = 15;
 //DO NOT MODIFY
 // these are the constants used for all scripts for the chemistry lab
 
-integer scenario_offset = 700000;
+integer scenario_offset = 800000;
 integer facil_state_control_channel = 10101;  // chat channel for human control shared by all scripts
 integer facil_para_control_channel = 10102;
 integer facil_action_control_channel = 10103;
@@ -32,7 +32,7 @@ integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
 
 // Message for the dialog and textboxes in the conversation
-string d1_msg1 = "You are to deliver a lecture on dynamic memory allocation / reallocation including use of pointers. You have 2 minutes to prepare";
+string d1_msg1 = "You are to deliver a lecture on concept of top-down processing of information. If it comes first - like a formula, it happens first. The user needs to ensure certain operations, like an input, happen first.You have 2 minutes to prepare";
 list   d1_button1 = ["Okay"];
 string d1_msg2 = "Empty";
 list   d1_button2 = ["Okay"];
@@ -42,7 +42,7 @@ list   dw1_button1 = ["Okay"];
 string dw1_msg2 = "null";
 list   dw1_button2 = ["Okay"];
 
-string d2_msg1 = "Are students engaged during your lecture? You may want to check their situational interest by asking how interested they are in the details of the topic or the task.";
+string d2_msg1 =  "These students seem to have a medium level of situational interest. If their level of situational interest falls down too low you might want to try other learning activities, so that they could regain their interest.";
 list   d2_button1 = ["Okay"];
 string d2_msg2 = "Empty";
 list   d2_button2 = ["Okay"];
@@ -52,7 +52,7 @@ list   dw2_button1 = ["Okay"];
 string dw2_msg2 = "null";
 list   dw2_button2 = ["Okay"];
 
-string d3_msg1 =  "Students are not engaged when they are in low situational interest state. You might want to try other learning activities can catch their interest.";
+string d3_msg1 =  "These students seem to have a medium level of situational interest. If their level of situational interest falls down too low you might want to try other learning activities, so that they could regain their interest.";
 list   d3_button1 = ["Okay"];
 string d3_msg2 = "Empty";
 list   d3_button2 = ["Okay"];
@@ -62,52 +62,52 @@ list   dw3_button1 = ["Okay"];
 string dw3_msg2 = "null";
 list   dw3_button2 = ["Okay"];
 
-string d4_msg1 = "It is also important to track learners’ cognitive states. Do they understand everything? You can find it out by asking some questions or give a quiz.";
+string d4_msg1 = "null";
 list   d4_button1 = ["Okay"];
 string d4_msg2 = "Empty";
 list   d4_button2 = ["Okay"];
 
-string dw4_msg1 = "You might want to ask students whether they understand the topic or not.";
+string dw4_msg1 = "It is also important to track learners’ cognitive states and ensure they understand everything.The next time you might want to ask them whether they understand everything or give a quiz";
 list   dw4_button1 = ["Okay"];
 string dw4_msg2 = "null";
 list   dw4_button2 = ["Okay"];
 
-string d5_msg1 = "Did you notice that some student are not paying attention? They might be confused about adding a space for null terminator or not motivated by some parts of your lecture. Can you ask students how they are going with your lecture?";
+string d5_msg1 = "As students have different goals in this course, you might want to ask them what are these goals.";
 list   d5_button1 = ["Okay"];
 string d5_msg2 = "Empty";
 list   d5_button2 = ["Okay"];
 
-string dw5_msg1 = "null";
+string dw5_msg1 =  "Ask students what are their goals in this course.";
 list   dw5_button1 = ["Okay"];
 string dw5_msg2 = "null";
 list   dw5_button2 = ["Okay"];
 
-string d6_msg1 = "You may also want to reflect whether the cues your students gave are emotional or cognitive. Now try to handle emotional cues by better engaging your students.";
+string d6_msg1 = "Keep in mind that students learn differently. You may use different forms of learning materials and activities to accommodate their learning styles. For example, remind them to use handouts from the course site.";
 list   d6_button1 = ["Okay"];
 string d6_msg2 = "Empty";
 list   d6_button2 = ["Okay"];
 
-string dw6_msg1 =  "If you are dealing with emotional cues you might want to try telling a joke or making some intentionally funny movement and asking if students noticed it to attract everybody’s attention.";
+string dw6_msg1 =  "You might remind students that handouts are availble at the course site";
 list   dw6_button1 = ["Okay"];
 string dw6_msg2 = "null";
 list   dw6_button2 = ["Okay"];
 
-string d7_msg1 = "Keep in mind that students learn differently. You may use different forms of learning materials and activities to accommodate their learning styles. For example, give them a graphic example or ask them to use a piece of paper to create their own example.";
+string d7_msg1 = "Did you notice that some student are not paying attention? You may want to reflect whether the cues your students gave are emotional or cognitive. ";
 list   d7_button1 = ["Okay"];
 string d7_msg2 = "Empty";
 list   d7_button2 = ["Okay"];
 
-string dw7_msg1 =  "You might give them a graphic example or ask them to use a piece of paper to create their own example..";
+string dw7_msg1 =  "null";
 list   dw7_button1 = ["Okay"];
 string dw7_msg2 = "null";
 list   dw7_button2 = ["Okay"];
 
-string d8_msg1 = "null";
+string d8_msg1 =  "Academic standards or \" cultures \" can be different between disciplines. It is important to let students understand the culture of your discipline, such as why something is done in a certain way.";
 list   d8_button1 = ["Okay"];
 string d8_msg2 = "null";
 list   d8_button2 = ["Okay"];
 
-string dw8_msg1 = "Make sure students are attuned to your speed";
+string dw8_msg1 =  "You might want to say how things are done in your discipline.";
 list   dw8_button1 = ["Okay"];
 string dw8_msg2 = "null";
 list   dw8_button2 = ["Okay"];
@@ -117,7 +117,7 @@ list   d9_button1 = ["Okay"];
 string d9_msg2 = "null";
 list   d9_button2 = ["Okay"];
 
-string dw9_msg1 = "You were supposed to prepare example of using malloc to present to students";
+string dw9_msg1 = "Make sure students are attuned to your speed";
 list   dw9_button1 = ["Okay"];
 string dw9_msg2 = "null";
 list   dw9_button2 = ["Okay"];
@@ -127,51 +127,51 @@ list   d10_button1 = ["Okay"];
 string d10_msg2 = "null";
 list   d10_button2 = ["Okay"];
 
-string dw10_msg1 = "Not all the students might understand your example. In this case give an additional explanation or choose another example.";
+string dw10_msg1 = "You might want to ask what students are discussing during the lecture";
 list   dw10_button1 = ["Okay"];
 string dw10_msg2 = "null";
 list   dw10_button2 = ["Okay"];
 
-string d11_msg1 = "lecture scope should be adapted to what students have already learned in their classes. You might what to ask the whole class whether they have already had this point covered in their previous lectures.";
+string d11_msg1 = "null";
 list   d11_button1 = ["Okay"];
 string d11_msg2 = "null";
 list   d11_button2 = ["Okay"];
 
-string dw11_msg1 = "You might want to asks students whether they have already talked about pointers in their previous lectures or not.";
+string dw11_msg1 =  "You might want to change an instructional sequence or repeat some points, depending on students’ understanding.";
 list   dw11_button1 = ["Okay"];
 string dw11_msg2 = "null";
 list   dw11_button2 = ["Okay"];
 
-string d12_msg1 = "you might want to suggest to the only student who answers “no”  some alternative learning activities - either from the course site or additional course materials. If there are several students with similar needs you might want to put them in a separate group and provide them with some alternative activities.";
+string d12_msg1 = "null";
 list   d12_button1 = ["Okay"];
 string d12_msg2 = "null";
 list   d12_button2 = ["Okay"];
 
-string dw12_msg1 = "You might want to suggest an alternative learning activity to a student.";
+string dw12_msg1 = "Sometimes you might need to adjust learning activities, involve students in group work or provide additional references depending on students' needs.";
 list   dw12_button1 = ["Okay"];
 string dw12_msg2 = "null";
 list   dw12_button2 = ["Okay"];
 
-string d13_msg1 = "You might want to suggest an alternative learning activity to a student.";
+string d13_msg1 = "you might want to draw the topic on whiteboard, use handouts, multimedia clips you have prepared or physical objects.";
 list   d13_button1 = ["Okay"];
 string d13_msg2 = "null";
 list   d13_button2 = ["Okay"];
 
-string dw13_msg1 = "null";
+string dw13_msg1 = "Use visual means of explaining, multimedia clips, physical objects...";
 list   dw13_button1 = ["Okay"];
 string dw13_msg2 = "null";
 list   dw13_button2 = ["Okay"];
 
-string d14_msg1 =  "you might want to draw the topic on whiteboard, use handouts, multimedia clips you have prepared or physical objects.";
+string d14_msg1 =  "null";
 list   d14_button1 = ["Okay"];
 string d14_msg2 = "null";
 list   d14_button2 = ["Okay"];
 
-string dw14_msg1 = "Use visual means of explaining,  multimedia clips, physical objects...";
+string dw14_msg1 = "You were supposed to prepare example of using top-down processing to present to students";
 list   dw14_button1 = ["Okay"];
 string dw14_msg2 = "null";
 list   dw14_button2 = ["Okay"];
-
+// 18
 string d15_msg1 = "Academic standards or \"cultures\" can be different between disciplines. It is important to let students understand the culture of your discipline, such as why something is done in a certain way.";
 list   d15_button1 = ["Okay"];
 string d15_msg2 = "null";

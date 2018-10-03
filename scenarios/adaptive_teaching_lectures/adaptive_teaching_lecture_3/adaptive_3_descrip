@@ -1,0 +1,71 @@
+/*
+ * 
+ *  
+ */
+
+NPC  ProblemSolvingLecture3 begin
+	state default begin
+		channel -1 "npcask0":
+			askaction(say  "I tried to follow the lecture but this piece of code doesn't work.");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask1":
+			askaction(say "you are talking too fast", sound sound_hold);
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask2":
+			askaction(say "I understood what you have said about functions but could we get some additional references on this topic?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcaction0":
+			action (animation raisingahand, say "I don’t understand your example.");
+		channel -1  "npcaction1":
+			action (animation avatar_away, say  "I knew, I always do so poor.");
+		channel -1  "npcaction4":
+			action (animation anim_hold, say "no, I don't remember hearing about it, where?");
+		channel -1  "npcanim0":
+			action (animation avatar_express_bored);
+		channel -1  "npcanim1":
+			action (animation avatar_stretch);
+		channel -1  "npcanim2":
+			action (animation anim_hold);
+		channel -1  "npcanim3":
+			action (animation raisingahand);
+		channel -1  "npcsay0":
+			action (say  "I am not sure I want to know all the details just now. I want to understand the main principle.");
+		channel -1  "npcsay1":
+			action (say "Same here.");
+		channel -1  "npcsay2":
+			action (say "I thought I got lost for a second on how many bytes char* allocates, but I'm ok now");
+		channel -1  "npcsay3":
+			action (say "I can see that you made exactely a mistake instructor is talking about - you included a function before the input.");
+		channel -1  "npcsay4":
+			action (say "I just want to try CS, I've always wanted to be a programmer.");
+		channel -1  "npcsay5":
+			action (say "I don't know what are my goals, I just want to have some fun in these classes.");
+		channel -1  "npcsay6":
+			action (say "I like the subject, but could you give us more handouts?");
+		channel -1  "npcsay7":
+			action (say "...");
+		channel -1  "npcsay8":
+			action (say  "I don't understand what we are doing and why the instructor is approaching it that way.");
+		channel -1  "npcsay9":
+			action (say "Hmm...what do you mean? do you want more hands-on?");
+		channel -1  "npcsay10":
+			action (say "No, I mean our approach to teaching is slightly different in chemistry.");
+		channel -1  "npcsay11":
+			action (say "instructor said an input goes first and then any function you need to use.");
+		channel -1  "npcsay12":
+			action (say "no, I don't remember hearing about it, where?");
+		channel -1  "npcsay13":
+			action (say "We got lost about what you have said in regard to the use of the functions.");
+		channel -1  "npcsay14":
+			action (say "I need more visuals");
+		channel -1  "npcsay15":
+			action (say "Yes, maybe a youtube tutorial?");	
+		channel -1  "npcsay16":
+			action (say "Now I understand, but why are we doing this?");		
+		channel -1  "npcsay17":
+			action (say  "Why? You are one of the best students and it's only a small quiz!");	
+	end
+end
