@@ -111,82 +111,91 @@ list I_default_A2 = [1, 3, 35,
 1, 17, 35,
 0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
 0];
-list I_default_A3 = [1, 3, 14,
-0, 1, "I don’t understand your example.", 0, 1, "", 1, "", 1, "raisingahand", "", 
+list I_default_A3 = [1, 3, 31,
+0, 1, "Thanks for the lecture", 0, 1, "", 1, "", 1, "", "",
+1, 17, 31,
+0, 0, 0, 0, 1, "", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A4 = [1, 3, 14,
-0, 1, "I knew, I always do so poor.", 0, 1, "", 1, "", 1, "avatar_away", "", 
+0, 1, "I donâ€™t understand your example.", 0, 1, "", 1, "", 1, "raisingahand", "", 
 0];
 list I_default_A5 = [1, 3, 14,
-0, 1, "no, I don't remember hearing about it, where?", 0, 1, "", 1, "", 1, "anim_hold", "", 
+0, 1, "I knew, I always do so poor.", 0, 1, "", 1, "", 1, "avatar_away", "", 
 0];
 list I_default_A6 = [1, 3, 14,
-0, 1, "", 0, 1, "", 1, "", 1, "avatar_express_bored", "", 
+0, 1, "no, I don't remember hearing about it, where?", 0, 1, "", 1, "", 1, "anim_hold", "", 
 0];
 list I_default_A7 = [1, 3, 14,
-0, 1, "", 0, 1, "", 1, "", 1, "avatar_stretch", "", 
+0, 1, "", 0, 1, "", 1, "", 1, "avatar_express_bored", "", 
 0];
 list I_default_A8 = [1, 3, 14,
-0, 1, "", 0, 1, "", 1, "", 1, "anim_hold", "", 
+0, 1, "", 0, 1, "", 1, "", 1, "avatar_stretch", "", 
 0];
 list I_default_A9 = [1, 3, 14,
-0, 1, "", 0, 1, "", 1, "", 1, "raisingahand", "", 
+0, 1, "", 0, 1, "", 1, "", 1, "anim_hold", "", 
 0];
 list I_default_A10 = [1, 3, 14,
-0, 1, "I am not sure I want to know all the details just now. I want to understand the main principle.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "", 0, 1, "", 1, "", 1, "raisingahand", "", 
 0];
 list I_default_A11 = [1, 3, 14,
-0, 1, "Same here.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "I am not sure I want to know all the details just now. I want to understand the main principle.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A12 = [1, 3, 14,
-0, 1, "I thought I got lost for a second on how many bytes char* allocates, but I'm ok now", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "Same here.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A13 = [1, 3, 14,
-0, 1, "I can see that you made exactely a mistake instructor is talking about - you included a function before the input.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "I thought I got lost for a second on how many bytes char* allocates, but I'm ok now", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A14 = [1, 3, 14,
-0, 1, "I just want to try CS, I've always wanted to be a programmer.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "I can see that you made exactely a mistake instructor is talking about - you included a function before the input.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A15 = [1, 3, 14,
-0, 1, "I don't know what are my goals, I just want to have some fun in these classes.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "I just want to try CS, I've always wanted to be a programmer.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A16 = [1, 3, 14,
-0, 1, "I like the subject, but could you give us more handouts?", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "I don't know what are my goals, I just want to have some fun in these classes.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A17 = [1, 3, 14,
-0, 1, "...", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "I like the subject, but could you give us more handouts?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A18 = [1, 3, 14,
-0, 1, "I don't understand what we are doing and why the instructor is approaching it that way.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "...", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A19 = [1, 3, 14,
-0, 1, "Hmm...what do you mean? do you want more hands-on?", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "I don't understand what we are doing and why the instructor is approaching it that way.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A20 = [1, 3, 14,
-0, 1, "No, I mean our approach to teaching is slightly different in chemistry.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "Hmm...what do you mean? do you want more hands-on?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A21 = [1, 3, 14,
-0, 1, "instructor said an input goes first and then any function you need to use.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "No, I mean our approach to teaching is slightly different in chemistry.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A22 = [1, 3, 14,
-0, 1, "no, I don't remember hearing about it, where?", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "instructor said an input goes first and then any function you need to use.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A23 = [1, 3, 14,
-0, 1, "We got lost about what you have said in regard to the use of the functions.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "no, I don't remember hearing about it, where?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A24 = [1, 3, 14,
-0, 1, "I need more visuals", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "We got lost about what you have said in regard to the use of the functions.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A25 = [1, 3, 14,
-0, 1, "Yes, maybe a youtube tutorial?", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "I need more visuals", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A26 = [1, 3, 14,
-0, 1, "Now I understand, but why are we doing this?", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "Yes, maybe a youtube tutorial?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A27 = [1, 3, 14,
+0, 1, "Now I understand, but why are we doing this?", 0, 1, "", 1, "", 1, "", "", 
+0];
+list I_default_A28 = [1, 3, 14,
 0, 1, "Why? You are one of the best students and it's only a small quiz!", 0, 1, "", 1, "", 1, "", "", 
 0];
+list I_default_A29 = [1, 3, 14,
+0, 1, "", 0, 1, "", 1, "", 1, "", "animation_cycle", 
+0];
 list I_default_T = [1, 3, 15, 0, 1, "", 0, 1, "", 1, "", 1, "", ""];
+
 //helper functions
 
 set_offset()
@@ -733,176 +742,187 @@ process_state_specific_msg_default(integer c, string n, key ID, string msg)
       current_interaction = I_default_A2;
       state Ask_default;
     }
-    else if (msg == "npcaction0") {
+    else if (msg == "npcask3") {
       current_interaction = I_default_A3;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
+      state Ask_default;
     }
-    else if (msg == "npcaction1") {
+    else if (msg == "npcaction0") {
       current_interaction = I_default_A4;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcaction4") {
+    else if (msg == "npcaction1") {
       current_interaction = I_default_A5;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcanim0") {
+    else if (msg == "npcaction4") {
       current_interaction = I_default_A6;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcanim1") {
+    else if (msg == "npcanim0") {
       current_interaction = I_default_A7;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcanim2") {
+    else if (msg == "npcanim1") {
       current_interaction = I_default_A8;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcanim3") {
+    else if (msg == "npcanim2") {
       current_interaction = I_default_A9;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay0") {
+    else if (msg == "npcanim3") {
       current_interaction = I_default_A10;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay1") {
+    else if (msg == "npcsay0") {
       current_interaction = I_default_A11;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay2") {
+    else if (msg == "npcsay1") {
       current_interaction = I_default_A12;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay3") {
+    else if (msg == "npcsay2") {
       current_interaction = I_default_A13;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay4") {
+    else if (msg == "npcsay3") {
       current_interaction = I_default_A14;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay5") {
+    else if (msg == "npcsay4") {
       current_interaction = I_default_A15;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay6") {
+    else if (msg == "npcsay5") {
       current_interaction = I_default_A16;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay7") {
+    else if (msg == "npcsay6") {
       current_interaction = I_default_A17;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay8") {
+    else if (msg == "npcsay7") {
       current_interaction = I_default_A18;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay9") {
+    else if (msg == "npcsay8") {
       current_interaction = I_default_A19;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay10") {
+    else if (msg == "npcsay9") {
       current_interaction = I_default_A20;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay11") {
+    else if (msg == "npcsay10") {
       current_interaction = I_default_A21;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay12") {
+    else if (msg == "npcsay11") {
       current_interaction = I_default_A22;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay13") {
+    else if (msg == "npcsay12") {
       current_interaction = I_default_A23;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay14") {
+    else if (msg == "npcsay13") {
       current_interaction = I_default_A24;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay15") {
+    else if (msg == "npcsay14") {
       current_interaction = I_default_A25;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay16") {
+    else if (msg == "npcsay15") {
       current_interaction = I_default_A26;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;
       else state Respond_default;
     }
-    else if (msg == "npcsay17") {
+    else if (msg == "npcsay16") {
       current_interaction = I_default_A27;
+      curr_int_index = do_ask_action(3);
+      ii = llList2Integer(current_interaction, curr_int_index);
+      if (ii == 0) state Idle_default;
+      else state Respond_default;
+    }
+    else if (msg == "npcsay17") {
+      current_interaction = I_default_A28;
+      curr_int_index = do_ask_action(3);
+      ii = llList2Integer(current_interaction, curr_int_index);
+      if (ii == 0) state Idle_default;
+      else state Respond_default;
+    }
+    else if (msg == "npccustanim") {
+      current_interaction = I_default_A29;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;

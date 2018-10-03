@@ -17,6 +17,10 @@ NPC  ProblemSolvingLecture3 begin
 			askaction(say "I understood what you have said about functions but could we get some additional references on this topic?");
 			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
 			rend
+		channel -1  "npcask3":
+			askaction(say "Thanks for the lecture");
+			rbegin allothers : action(say "");
+			rend
 		channel -1  "npcaction0":
 			action (animation raisingahand, say "I don’t understand your example.");
 		channel -1  "npcaction1":

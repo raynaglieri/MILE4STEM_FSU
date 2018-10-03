@@ -172,12 +172,12 @@ list   dw14_button1 = ["Okay"];
 string dw14_msg2 = "null";
 list   dw14_button2 = ["Okay"];
 // 18
-string d15_msg1 = "Academic standards or \"cultures\" can be different between disciplines. It is important to let students understand the culture of your discipline, such as why something is done in a certain way.";
+string d15_msg1 = "null";
 list   d15_button1 = ["Okay"];
 string d15_msg2 = "null";
 list   d15_button2 = ["Okay"];
 
-string dw15_msg1 = "You might want to say how things are done in your discipline.";
+string dw15_msg1 = "Not all the students might understand your example. In this case give an additional explanation or choose another example.";
 list   dw15_button1 = ["Okay"];
 string dw15_msg2 = "null";
 list   dw15_button2 = ["Okay"];
@@ -187,12 +187,12 @@ list   d16_button1 = ["Okay"];
 string d16_msg2 = "null";
 list   d16_button2 = ["Okay"];
 
-string dw16_msg1 = "depending on the learner you might want to use a disciplinary approach or explain the relation of the lecture topic to their potential upcoming internship or try to bargain your way out giving out one of the midterm questions (rewards).";
+string dw16_msg1 =  "depending on the learner you might want to use a disciplinary approach or try to bargain your way out giving out one of the midterm questions (rewards).";
 list   dw16_button1 = ["Okay"];
 string dw16_msg2 = "null";
 list   dw16_button2 = ["Okay"];
 
-string d17_msg1 = "Now, it's a time to talk about the results of their last quiz.";
+string d17_msg1 = "Now, you are talking about the results of their last quiz.";
 list   d17_button1 = ["Okay"];
 string d17_msg2 = "null";
 list   d17_button2 = ["Okay"];
@@ -207,7 +207,7 @@ list   d18_button1 = ["Okay"];
 string d18_msg2 = "null";
 list   d18_button2 = ["Okay"];
 
-string dw18_msg1 = "You might want to asks students whether they have already talked about pointers in their previous lectures or not.";
+string dw18_msg1 = "null";
 list   dw18_button1 = ["Okay"];
 string dw18_msg2 = "null";
 list   dw18_button2 = ["Okay"];
@@ -222,7 +222,7 @@ list   dw19_button1 = ["Okay"];
 string dw19_msg2 = "null";
 list   dw19_button2 = ["Okay"];
 
-string d20_msg1 = "sometimes learners have an impression they understood everything but later have difficulties completing homework or answering a quiz. One of the ways to understand where your learners are at in their progress is to probe them to ask questions by introducing an upcoming quiz and promising to answer some questions if they ask them now.";
+string d20_msg1 = : "sometimes learners have an impression they understood everything but later have difficulties completing homework or answering a quiz. One of the ways to understand where your learners are at in their progress is to probe them to ask questions by introducing an upcoming quiz and promising to answer some questions if they ask them now.";
 list   d20_button1 = ["Okay"];
 string d20_msg2 = "null";
 list   d20_button2 = ["Okay"];
@@ -232,12 +232,12 @@ list   dw20_button1 = ["Okay"];
 string dw20_msg2 = "null";
 list   dw20_button2 = ["Okay"];
 
-string d21_msg1 = "null";
+string d21_msg1 = "You might want to ask why students are not raising their hands to ask their questions";
 list   d21_button1 = ["Okay"];
 string d21_msg2 = "null";
 list   d21_button2 = ["Okay"];
 
-string dw21_msg1 = "You might want to ask why students are not raising their hands to ask their questions";
+string dw21_msg1 = "null";
 list   dw21_button1 = ["Okay"];
 string dw21_msg2 = "null";
 list   dw21_button2 = ["Okay"];
