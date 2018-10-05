@@ -42,7 +42,7 @@ list   dw1_button1 = ["Okay"];
 string dw1_msg2 = "null";
 list   dw1_button2 = ["Okay"];
 
-string d2_msg1 =  "These students seem to have a medium level of situational interest. If their level of situational interest falls down too low you might want to try other learning activities, so that they could regain their interest.";
+string d2_msg1 = "Are students engaged during your lecture? You may want to check their situational interest by asking whether they want to find out more about the topic, learn all the details.";
 list   d2_button1 = ["Okay"];
 string d2_msg2 = "Empty";
 list   d2_button2 = ["Okay"];
