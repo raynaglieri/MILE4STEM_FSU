@@ -220,5 +220,144 @@ default
             interrupt();
             llSay(facil_control_channel, "-d8!");
         }
+        else if(message == "-ad_fast")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+0, "npcask1"); 
+
+        }
+        else if(message == "-ad_fast!"
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d9!");
+        }
+        else if(message == "-ad_discuss")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+2, "npcsay7"); 
+            llSleep(1.0);
+            llSay(base_npc_control_channel+3, "npcsay7"); 
+            llSleep(1.0);
+            llSay(base_npc_control_channel+2, "npcsay11");
+            llSleep(1.0);
+            llSay(base_npc_control_channel+3, "npcaction4"); 
+        }
+        else if(message == "-ad_discuss!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d10!");            
+        }
+        else if(message == "-ad_lost")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+2, "npcsay13"); 
+        }
+        else if(message == "-ad_lost!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d11!");            
+        }
+        else if(message == "-ad_moreref")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+2, "npcask2"); 
+        }
+        else if(message == "-ad_moreref!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d12!");            
+        }
+        else if(message == "-ad_moreref")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+2, "npcask2"); 
+        }
+        else if(message == "-ad_moreref!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d12!");            
+        }
+        else if(message == "-ad_visual")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+0, "npcsay14"); 
+            llSleep(1.0);
+            llSay(base_npc_control_channel+6, "npcsay15"); 
+            llSay(base_npc_control_channel+0, "npcanim2"); 
+            llSay(base_npc_control_channel+6, "npcanim2"); 
+            llSleep(2.0);
+            llSay(facil_control_channel, "-d13"); 
+
+        }
+        else if(message == "-ad_visual!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d13!");            
+        }
+        else if(message == "-ann_example")
+        {
+            interrupt();
+            llSay(0, "it's a time to present your students with an example of a top-down processing");            
+        }
+        else if(message == "-ann_example!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d14!");            
+        }
+        else if(message == "-ad_understand")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+4, "npcaction0");
+        }
+        else if(message == "-ad_understand!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d15!");            
+        }
+        else if(message == "-ad_discip")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+4, "npcsay16");
+        }
+        else if(message == "-ad_discip!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d16!");            
+        }
+        else if(message == "-ad_confid")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+6, "npcaction1");
+            llSleep(1.0);
+            llSay(base_npc_control_channel+7, "npcsay17");
+            llSay(facil_control_channel, "-d18"); 
+        }
+        else if(message == "-ann_finish")
+        {
+            interrupt();
+            llSay(0, "Ask your students if they have questions.");            
+        }
+        else if(message == "-ann_finish!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d19!");            
+        }
+        else if(message == "-ad_impression")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d20"); 
+        }
+        else if(message == "-ad_impression!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d20!"); 
+        }
+      else if(message == "-ad_add")
+        {
+            interrupt();
+            multi_command("npcask3",[0,1,4]);
+            llSleep(2.0);
+            llSay(facil_control_channel, "-d23"); 
+        }
     }
 }

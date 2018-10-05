@@ -171,7 +171,7 @@ list I_default_A21 = [1, 3, 14,
 0, 1, "No, I mean our approach to teaching is slightly different in chemistry.", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A22 = [1, 3, 14,
-0, 1, "instructor said an input goes first and then any function you need to use.", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "instructor said an input goes first and then any function you need to use.", 0, 1, "", 1, "", 1, "anim_hold", "", 
 0];
 list I_default_A23 = [1, 3, 14,
 0, 1, "no, I don't remember hearing about it, where?", 0, 1, "", 1, "", 1, "", "", 
