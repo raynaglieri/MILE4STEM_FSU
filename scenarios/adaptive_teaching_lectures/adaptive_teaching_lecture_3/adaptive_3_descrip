@@ -3,7 +3,7 @@
  *  
  */
 
-NPC  ProblemSolvingLecture3 begin
+NPC  AdaptiveLecture3 begin
 	state default begin
 		channel -1 "npcask0":
 			askaction(say  "I tried to follow the lecture but this piece of code doesn't work.");

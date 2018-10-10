@@ -1,0 +1,57 @@
+/*
+ * 
+ *  
+ */
+
+NPC  ProblemSolvingLecture3 begin
+	state default begin
+		channel -1  "npcask0":
+			askaction(say "I didn’t understand where are the restrictions");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask1":
+			askaction(say "I didn’t understand where are the givens");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask2":
+			askaction(say "I thought use of pointers with print function and scan functions is similar but it seems to be different in problems on white board.");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcaction0":
+			action (animation raisingahand, say "I think difficult points are where we need to scan either %s or %s\n.");
+		channel -1  "npcaction1":
+			action (animation raisingahand, say "Ok, I think a correct number of spaces in char command is quite difficult to figure out."); 
+		channel -1  "npcanim0":
+			action (animation avatar_express_bored);
+		channel -1  "npcanim1":
+			action (animation avatar_stretch);
+		channel -1  "npcanim2":
+			action (animation anim_hold);
+		channel -1  "npcanim3":
+			action (animation raisingahand);
+		channel -1  "npcsay0":
+			action (say "but we are discussing pointers. So did you mean you forgot to include \n and print it?");
+		channel -1  "npcsay1":
+			action (say "But how do we know what is difficult if we didn't solve the problem yet?");
+		channel -1  "npcsay2":
+			action (say "Hmm...I don’t know...I guess…I should start with char and allocations");
+		channel -1  "npcsay3":
+			action (say "And I'm totally lost, can you tell us how to think aloud?");
+		channel -1  "npcsay4": 
+			action (say "Alright, it's easier than I thought");
+		channel -1  "npcsay5":
+			action (say "Great");
+		channel -1  "npcsay6":
+			action (say "I'm not sure, whats that?");
+		channel -1  "npcsay7":
+			action (say "I have no clue.");
+		channel -1  "npcsay8":
+			action (say  "Is there an example?");
+		channel -1  "npcsay9":
+			action (say "Cool, sounds easy.");
+		channel -1  "npcsay10":
+			action (say "Yes, now I know what they are.");
+		channel -1  "npcsay11":
+			action (say "Thanks for the lecture.");	
+	end
+end

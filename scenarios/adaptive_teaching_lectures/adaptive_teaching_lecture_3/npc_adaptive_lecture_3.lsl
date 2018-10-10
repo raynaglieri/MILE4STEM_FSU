@@ -358,6 +358,7 @@ integer remove_npc()
 { // spawn procedure for NPC
     if (tc == 1)
     { 
+        osNpcStopAnimation(npc, currentanimation);
         reset_all();
         tc = 0;
         osNpcRemove(npc);

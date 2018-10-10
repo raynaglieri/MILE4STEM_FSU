@@ -3,7 +3,7 @@
  *  
  */
 
-NPC  ProblemSolvingLecture2 begin
+NPC  AdaptiveLecture2 begin
 	state default begin
 		channel -1 "npcask0":
 			askaction(say "you are talking too fast", sound sound_hold);

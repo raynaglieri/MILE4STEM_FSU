@@ -135,7 +135,7 @@ default
             llSleep(2.0);
             llSay(facil_control_channel, "-d2");
         }
-        else if(message == "-ad_situation!"
+        else if(message == "-ad_situation!")
         {
             interrupt();
             llSay(facil_control_channel, "-d2!");
@@ -157,7 +157,7 @@ default
             llSleep(1.0);
             llSay(base_npc_control_channel+6, "npcsay3");
         }
-        else if(message == "-ad_cognitive!"
+        else if(message == "-ad_cognitive!")
         {
             interrupt();
             llSay(facil_control_channel, "-d4!");
@@ -171,7 +171,7 @@ default
             llSay(facil_control_channel, "-d5");
 
         }
-        else if(message == "-ad_goals!"
+        else if(message == "-ad_goals!")
         {
             interrupt();
             llSay(facil_control_channel, "-d5!");
@@ -188,7 +188,7 @@ default
             llSay(facil_control_channel, "-d6");
 
         }
-        else if(message == "-ad_diff!"
+        else if(message == "-ad_diff!")
         {
             interrupt();
             llSay(facil_control_channel, "-d6!");
@@ -215,7 +215,7 @@ default
             llSay(facil_control_channel, "-d8");
 
         }
-        else if(message == "-ad_culture!"
+        else if(message == "-ad_culture!")
         {
             interrupt();
             llSay(facil_control_channel, "-d8!");
@@ -226,7 +226,7 @@ default
             llSay(base_npc_control_channel+0, "npcask1"); 
 
         }
-        else if(message == "-ad_fast!"
+        else if(message == "-ad_fast!")
         {
             interrupt();
             llSay(facil_control_channel, "-d9!");

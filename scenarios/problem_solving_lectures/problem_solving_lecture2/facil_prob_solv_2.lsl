@@ -22,7 +22,7 @@ integer dialog_box_interact_interval = 15;
 //DO NOT MODIFY
 // these are the constants used for all scripts for the chemistry lab
 
-integer scenario_offset = 800000;
+integer scenario_offset = 900000;
 integer facil_state_control_channel = 10101;  // chat channel for human control shared by all scripts
 integer facil_para_control_channel = 10102;
 integer facil_action_control_channel = 10103;
@@ -32,7 +32,7 @@ integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
 
 // Message for the dialog and textboxes in the conversation
-string d1_msg1 = "You are to deliver a lecture on concept of top-down processing of information. If it comes first - like a formula, it happens first. The user needs to ensure certain operations, like an input, happen first.You have 2 minutes to prepare";
+string d1_msg1 = "You are to discuss with students the concept of pointers and how to resolve problems with the usage of pointers. Look at the problems on whiteboard to see which parts of these problems might be difficult for students.";
 list   d1_button1 = ["Okay"];
 string d1_msg2 = "Empty";
 list   d1_button2 = ["Okay"];
@@ -42,17 +42,17 @@ list   dw1_button1 = ["Okay"];
 string dw1_msg2 = "null";
 list   dw1_button2 = ["Okay"];
 
-string d2_msg1 = "Are students engaged during your lecture? You may want to check their situational interest by asking whether they want to find out more about the topic, learn all the details.";
+string d2_msg1 = "Now ask students which parts of the problems sound difficult for them.";
 list   d2_button1 = ["Okay"];
 string d2_msg2 = "Empty";
 list   d2_button2 = ["Okay"];
 
-string dw2_msg1 = "Check for your learners situational interest!";
+string dw2_msg1 = "You might want to ask students which parts of the problems are difficult for them as their assessment might be different from yours.";
 list   dw2_button1 = ["Okay"];
 string dw2_msg2 = "null";
 list   dw2_button2 = ["Okay"];
 
-string d3_msg1 =  "These students seem to have a medium level of situational interest. If their level of situational interest falls down too low you might want to try other learning activities, so that they could regain their interest.";
+string d3_msg1 = "Note that learners may pay more attention on surface features of the problem rather than on its solution path. For example, they would see all problems with arrays as difficult irrespective of what is required on the output.";
 list   d3_button1 = ["Okay"];
 string d3_msg2 = "Empty";
 list   d3_button2 = ["Okay"];
@@ -67,47 +67,47 @@ list   d4_button1 = ["Okay"];
 string d4_msg2 = "Empty";
 list   d4_button2 = ["Okay"];
 
-string dw4_msg1 = "It is also important to track learners’ cognitive states and ensure they understand everything.The next time you might want to ask them whether they understand everything or give a quiz";
+string dw4_msg1 = "You may want to mention that the topic of discussion is pointers and also give some details about scan command.";
 list   dw4_button1 = ["Okay"];
 string dw4_msg2 = "null";
 list   dw4_button2 = ["Okay"];
 
-string d5_msg1 = "As students have different goals in this course, you might want to ask them what are these goals.";
+string d5_msg1 = "You may want to explain one of the problems on the white board using the terms givens, restrictions etc.";
 list   d5_button1 = ["Okay"];
 string d5_msg2 = "Empty";
 list   d5_button2 = ["Okay"];
 
-string dw5_msg1 =  "Ask students what are their goals in this course.";
+string dw5_msg1 = "You may want to explain one of the problems on the white board using the terms givens, restrictions, operators.";
 list   dw5_button1 = ["Okay"];
 string dw5_msg2 = "null";
 list   dw5_button2 = ["Okay"];
 
-string d6_msg1 = "Keep in mind that students learn differently. You may use different forms of learning materials and activities to accommodate their learning styles. For example, remind them to use handouts from the course site.";
+string d6_msg1 = "null";
 list   d6_button1 = ["Okay"];
 string d6_msg2 = "Empty";
 list   d6_button2 = ["Okay"];
 
-string dw6_msg1 =  "You might remind students that handouts are availble at the course site";
+string dw6_msg1 =  "You may want to explain where are the restrictions in this problem again.";
 list   dw6_button1 = ["Okay"];
 string dw6_msg2 = "null";
 list   dw6_button2 = ["Okay"];
 
-string d7_msg1 = "Did you notice that some student are not paying attention? You may want to reflect whether the cues your students gave are emotional or cognitive. ";
+string d7_msg1 = "null";
 list   d7_button1 = ["Okay"];
 string d7_msg2 = "Empty";
 list   d7_button2 = ["Okay"];
 
-string dw7_msg1 =  "null";
+string dw7_msg1 =  "You may want to explain where are the givens in this problem again.";
 list   dw7_button1 = ["Okay"];
 string dw7_msg2 = "null";
 list   dw7_button2 = ["Okay"];
 
-string d8_msg1 =  "Academic standards or \" cultures \" can be different between disciplines. It is important to let students understand the culture of your discipline, such as why something is done in a certain way.";
+string d8_msg1 = "You may want to use the Aid for schema construction and start with the problem analysis, try to use visual representations";
 list   d8_button1 = ["Okay"];
 string d8_msg2 = "null";
 list   d8_button2 = ["Okay"];
 
-string dw8_msg1 =  "You might want to say how things are done in your discipline.";
+string dw8_msg1 =  "You may want to use the Aid for schema construction and start with the problem analysis, try to use visual representations";
 list   dw8_button1 = ["Okay"];
 string dw8_msg2 = "null";
 list   dw8_button2 = ["Okay"];
@@ -117,27 +117,27 @@ list   d9_button1 = ["Okay"];
 string d9_msg2 = "null";
 list   d9_button2 = ["Okay"];
 
-string dw9_msg1 = "Make sure students are attuned to your speed";
+string dw9_msg1 = "You may want to explain the differences between these problems and the use of pointers";
 list   dw9_button1 = ["Okay"];
 string dw9_msg2 = "null";
 list   dw9_button2 = ["Okay"];
 
-string d10_msg1 = "null";
+string d10_msg1 = "You could also mention some problem solving strategies such as simplifying the problem by solving one part at a time and name all different approaches that might be used for the whiteboard problems.";
 list   d10_button1 = ["Okay"];
 string d10_msg2 = "null";
 list   d10_button2 = ["Okay"];
 
-string dw10_msg1 = "You might want to ask what students are discussing during the lecture";
+string dw10_msg1 = "You may want to name all different approaches that might be used for the whiteboard problems";
 list   dw10_button1 = ["Okay"];
 string dw10_msg2 = "null";
 list   dw10_button2 = ["Okay"];
 
-string d11_msg1 = "null";
+string d11_msg1 = "See if your students could think aloud about their problem solving steps and use of operators (functions) in order to reach their goal and write a clean code that works. Choose any of the problem descriptions on white board.";
 list   d11_button1 = ["Okay"];
 string d11_msg2 = "null";
 list   d11_button2 = ["Okay"];
 
-string dw11_msg1 =  "You might want to change an instructional sequence or repeat some points, depending on students’ understanding.";
+string dw11_msg1 =  "You may want to ask your students to think aloud";
 list   dw11_button1 = ["Okay"];
 string dw11_msg2 = "null";
 list   dw11_button2 = ["Okay"];
@@ -147,37 +147,37 @@ list   d12_button1 = ["Okay"];
 string d12_msg2 = "null";
 list   d12_button2 = ["Okay"];
 
-string dw12_msg1 = "Sometimes you might need to adjust learning activities, involve students in group work or provide additional references depending on students' needs.";
+string dw12_msg1 = "Demonstrate an example of how to think aloud";
 list   dw12_button1 = ["Okay"];
 string dw12_msg2 = "null";
 list   dw12_button2 = ["Okay"];
-
-string d13_msg1 = "you might want to draw the topic on whiteboard, use handouts, multimedia clips you have prepared or physical objects.";
+////
+string d13_msg1 = "See if you can talk about one of the problem-solving approaches looking at the examples on white board";
 list   d13_button1 = ["Okay"];
 string d13_msg2 = "null";
 list   d13_button2 = ["Okay"];
 
-string dw13_msg1 = "Use visual means of explaining, multimedia clips, physical objects...";
+string dw13_msg1 = "You may want to talk about one of the problem-solving approaches";
 list   dw13_button1 = ["Okay"];
 string dw13_msg2 = "null";
 list   dw13_button2 = ["Okay"];
 
-string d14_msg1 =  "null";
+string d14_msg1 =  "Socratic questioning also helps with problem-solving. Do your students know about it?";
 list   d14_button1 = ["Okay"];
 string d14_msg2 = "null";
 list   d14_button2 = ["Okay"];
 
-string dw14_msg1 = "You were supposed to prepare example of using top-down processing to present to students";
+string dw14_msg1 =  "You may want to ask your students about Socratic questioning";
 list   dw14_button1 = ["Okay"];
 string dw14_msg2 = "null";
 list   dw14_button2 = ["Okay"];
 // 18
-string d15_msg1 = "null";
+string d15_msg1 = "You might want to describe a Socratic questionning for students";
 list   d15_button1 = ["Okay"];
 string d15_msg2 = "null";
 list   d15_button2 = ["Okay"];
 
-string dw15_msg1 = "Not all the students might understand your example. In this case give an additional explanation or choose another example.";
+string dw15_msg1 = "You may need to explain what constitutes Socratic questioning".;
 list   dw15_button1 = ["Okay"];
 string dw15_msg2 = "null";
 list   dw15_button2 = ["Okay"];
@@ -486,9 +486,17 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
             state D23W;    
         } else if (msg == "-nc1"){   
             llSetTimerEvent(0); 
-            llGiveInventory(trainee, "mastery_performance_nc"); 
+            llGiveInventory(trainee, "temp_nc"); 
             state Idle; 
-        }  else if (msg == "-fhub") {
+        } else if (msg == "-nc2"){   
+            llSetTimerEvent(0); 
+            llGiveInventory(trainee, "temp_nc"); 
+            state Idle; 
+        } else if (msg == "-nc3"){   
+            llSetTimerEvent(0); 
+            llGiveInventory(trainee, "temp_nc"); 
+            state Idle; 
+        } else if (msg == "-fhub") {
             llSetTimerEvent(0);
             state Facil_Hub;
         } else if ((msg == "-auto") && (state_name == "idle")) {
