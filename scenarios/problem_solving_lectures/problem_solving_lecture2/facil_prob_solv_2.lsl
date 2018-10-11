@@ -72,7 +72,7 @@ list   dw4_button1 = ["Okay"];
 string dw4_msg2 = "null";
 list   dw4_button2 = ["Okay"];
 
-string d5_msg1 = "You may want to explain one of the problems on the white board using the terms givens, restrictions etc.";
+string d5_msg1 = "You may want to mention that the topic of discussion is pointers, not the memory allocation.";
 list   d5_button1 = ["Okay"];
 string d5_msg2 = "Empty";
 list   d5_button2 = ["Okay"];
