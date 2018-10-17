@@ -102,7 +102,7 @@ list I_default_A0 = [1, 3, 35,
 0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A1 = [1, 3, 35,
-0, 1, "you are talking too fast", 0, 1, "", 1, "sound_hold", 1, "", "",
+0, 1, "you are talking too fast", 0, 1, "", 1, "talking_too_fast_female", 1, "", "",
 1, 17, 35,
 0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
 0];
@@ -117,7 +117,7 @@ list I_default_A3 = [1, 3, 31,
 0, 0, 0, 0, 1, "", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A4 = [1, 3, 14,
-0, 1, "I donâ€™t understand your example.", 0, 1, "", 1, "", 1, "raisingahand", "", 
+0, 1, "I don't understand your example.", 0, 1, "", 1, "", 1, "raisingahand", "", 
 0];
 list I_default_A5 = [1, 3, 14,
 0, 1, "I knew, I always do so poor.", 0, 1, "", 1, "", 1, "avatar_away", "", 
@@ -215,7 +215,7 @@ set_offset()
     scenario_to_npc = 42000 + myid + scenario_offset;
 
     alert_message_channel = 0 + scenario_offset;
-    green_button_channel = -35145 + scenario_offset;
+    green_button_channel = 11500 + scenario_offset;
     fire_alarm_channel = 101 + scenario_offset;
     backdoor_channel = 20001 + scenario_offset;
     relay_msg_channel = 29000 + scenario_offset;
@@ -971,7 +971,10 @@ default
     {
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
         {                                   //need to find exactly what is causing it.
-            TA_trainee = message;
+            //TA_trainee = message;
+            list key_package = llParseString2List(message, [":"], []);
+            TA_trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);   
             myrotation = llGetRot();
             spawn_npc(); 
             state Idle_default; 

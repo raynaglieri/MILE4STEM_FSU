@@ -1,11 +1,12 @@
 // change history:
 //   September 2017: created by Raymond Naglieri in October 2017 
 //   December 2017: Wait2Speak and Wait2SpeakList functionality done. 
-//         2/15/18: added debug level
-//         2/28/18: completed AnimationHandle
-//         3/01/18: added 'M'(move) commands to work with animation handle
-//         4/19/18: added interrupts and follow-up question support 
-//         8/30/18: added secure_reset function that prevnts unauthorized users from spawning/despawning NPCs
+//         02/15/18: added debug level
+//         02/28/18: completed AnimationHandle
+//         03/01/18: added 'M'(move) commands to work with animation handle
+//         04/19/18: added interrupts and follow-up question support 
+//         08/30/18: added secure_reset function that prevnts unauthorized users from spawning/despawning NPCs
+//         10/15/18: added npcmove14 command
 
 // Notes:
 //  1. Please use the currentanimation variable when playing an animation.
@@ -651,6 +652,16 @@ npc_state_handler(string transferstate, integer c, string n, key ID, string msg)
             perform_for_iter = 1;
             perform_iter_remaining = 3;
         }
+        else if(directive == "14") 
+        {
+            speak_with_question = 1;
+            currentphrase = "I had it!";
+            currentanimation = "raisingahand";
+            wait_time = 3;
+            perform_for_time = 1;
+            perform_for_iter = 1;
+            perform_iter_remaining = 3;
+        }
 
         osNpcPlayAnimation(npc, currentanimation);
         state AnimationHandle;
@@ -920,6 +931,10 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
         else if(msg == "-npcmove12")
         {
             npc_state_handler("M:12", c, n, ID, msg);
+        }
+        else if(msg == "-npcmove14")
+        {
+            npc_state_handler("M:14", c, n, ID, msg);
         }
         else if(msg == "-testcmdanim1")
         {

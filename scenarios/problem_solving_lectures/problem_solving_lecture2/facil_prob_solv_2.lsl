@@ -177,7 +177,7 @@ list   d15_button1 = ["Okay"];
 string d15_msg2 = "null";
 list   d15_button2 = ["Okay"];
 
-string dw15_msg1 = "You may need to explain what constitutes Socratic questioning".;
+string dw15_msg1 = "You may need to explain what constitutes Socratic questioning.";
 list   dw15_button1 = ["Okay"];
 string dw15_msg2 = "null";
 list   dw15_button2 = ["Okay"];

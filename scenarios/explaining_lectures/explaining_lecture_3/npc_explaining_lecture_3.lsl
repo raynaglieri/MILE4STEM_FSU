@@ -181,7 +181,7 @@ set_offset()
     scenario_to_npc = 42000 + myid + scenario_offset;
 
     alert_message_channel = 0 + scenario_offset;
-    green_button_channel = -35145 + scenario_offset;
+    green_button_channel = 11500 + scenario_offset;
     fire_alarm_channel = 101 + scenario_offset;
     backdoor_channel = 20001 + scenario_offset;
     relay_msg_channel = 29000 + scenario_offset;
@@ -824,7 +824,10 @@ default
     {
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
         {                                   //need to find exactly what is causing it.
-            TA_trainee = message;
+            //TA_trainee = message;
+            list key_package = llParseString2List(message, [":"], []);
+            TA_trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);   
             myrotation = llGetRot();
             spawn_npc(); 
             state Idle_default; 

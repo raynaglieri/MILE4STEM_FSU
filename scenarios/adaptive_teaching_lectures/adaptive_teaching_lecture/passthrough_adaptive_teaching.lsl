@@ -104,7 +104,10 @@ npc_hand_animation()
     for (i=0; i<num_npc; i++)
     {
         if(i != 4)
-            llSay(npc_action_control_base_channel+i, "@Hand_up");  
+        {
+            llSay(base_npc_control_channel+i, "-npcmove14");   
+        }
+        else llSay(npc_action_control_base_channel+i, "@Speak-no"); 
     }
 }
 

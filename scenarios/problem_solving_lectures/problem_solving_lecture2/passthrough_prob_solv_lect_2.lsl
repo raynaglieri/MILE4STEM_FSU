@@ -129,10 +129,6 @@ default
         else if(message == "-d_difficult")
         {
             interrupt();
-            llSay(base_npc_control_channel+0, "npccustanim"); 
-            llSay(base_npc_control_channel+4, "npcanim1"); 
-            llSay(base_npc_control_channel+5, "npccustanim");
-            llSleep(2.0);
             llSay(facil_control_channel, "-d2");
         }
         else if(message == "-d_difficult!")
@@ -157,7 +153,7 @@ default
             interrupt();
             llSay(facil_control_channel, "-d4!");
         }
-        else if(message == "-a_discusion")
+        else if(message == "-a_discussion")
         {
             interrupt();
             llSay(base_npc_control_channel+0, "npcaction1"); 
@@ -187,12 +183,12 @@ default
             llSay(facil_control_channel, "-d5!");
 
         }
-        else if(message == "-ad_restrict")
+        else if(message == "-a_restrict")
         {
             interrupt();
             llSay(base_npc_control_channel+3, "npcask0"); 
         }
-        else if(message == "-ad_restrict!")
+        else if(message == "-a_restrict!")
         {
             interrupt();
             llSay(facil_control_channel, "-d6!");

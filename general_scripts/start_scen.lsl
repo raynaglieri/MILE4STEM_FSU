@@ -68,7 +68,6 @@ default{
                 llSay(button_to_facil_channel, key_package);
                 llShout(green_button_channel, key_package);
                 display_floating_message();
-                llSay(button_to_npc_channel, trainee);
             }
         } else if(c == facil_key_channel) {
             list command_package = llParseString2List(msg, [":"], []);

@@ -60,7 +60,7 @@ integer reminder_interval = 180;
 integer localcount;
 
 //DO NOT MODIFY, these are the constants used for all scripts
-integer scenario_offset = 800000; 
+integer scenario_offset = 900000; 
 integer facil_state_control_channel = 10101;
 integer auto_facil_control_channel = 10102;
 
@@ -112,8 +112,7 @@ list I_default_A2 = [1, 3, 35,
 0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A3 = [1, 3, 14,
-0, 1, "I think difficult points are where we need to scan either %s or %s
-.", 0, 1, "", 1, "", 1, "raisingahand", "", 
+0, 1, "I think difficult points are where we need to scan either %s or %s.", 0, 1, "", 1, "", 1, "raisingahand", "", 
 0];
 list I_default_A4 = [1, 3, 14,
 0, 1, "Ok, I think a correct number of spaces in char command is quite difficult to figure out.", 0, 1, "", 1, "", 1, "raisingahand", "", 
@@ -188,7 +187,7 @@ set_offset()
     scenario_to_npc = 42000 + myid + scenario_offset;
 
     alert_message_channel = 0 + scenario_offset;
-    green_button_channel = -35145 + scenario_offset;
+    green_button_channel = 11500 + scenario_offset;
     fire_alarm_channel = 101 + scenario_offset;
     backdoor_channel = 20001 + scenario_offset;
     relay_msg_channel = 29000 + scenario_offset;
@@ -884,7 +883,10 @@ default
     {
         if(channel == green_button_channel) // talk between channels was causing an inital unwanted re-spawn.
         {                                   //need to find exactly what is causing it.
-            TA_trainee = message;
+            //TA_trainee = message;
+            list key_package = llParseString2List(message, [":"], []);
+            TA_trainee = llList2String(key_package, 0);  // here the green button passes the trainee ID to facil
+            facilitator = llList2String(key_package, 1);   
             myrotation = llGetRot();
             spawn_npc(); 
             state Idle_default; 

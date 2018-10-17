@@ -1,0 +1,53 @@
+3G: -d_discuss
+
+4G: -d_difficult
+4H: -d_difficult!
+
+5G: -d_surface
+
+6G: -a_topic
+6H: -a_topic!
+
+7G: -a_discussion
+7H: -a_discussion!
+
+8G: -anc_analysis
+
+9G: -d_whiteboard
+9H: -d_whiteboard!
+
+10G: -a_restrict
+10H: -a_restrict!
+
+11G: -a_givens
+11H: -a_givens!
+
+12G: -dnc_schema
+12H: -dnc_schema!
+
+13G: -a_difference
+13H: -a_difference!
+
+14G: -d_strat
+14H: -d_strat!
+
+15G: -d_steps
+15H: -d_steps!
+
+16G: -a_demonstrate
+16H: -a_demonstrate!
+
+17G: -adnc_approach
+17H: -adnc_approach!
+
+18G: -d_socratic
+18H: -d_socratic!
+
+19G: -adnc_constitute
+19H: -adnc_constitute!
+
+20G: -a_lectfin
+
+
+
+

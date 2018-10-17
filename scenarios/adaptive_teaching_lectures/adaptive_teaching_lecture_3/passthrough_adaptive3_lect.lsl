@@ -149,15 +149,19 @@ default
             llSleep(2.0);
             llSay(facil_control_channel, "-d3");
         }
-        else if(message == "-ad_cognitive")
+        else if(message == "-a_cognitive")
         {
             interrupt();
             multi_command("-goto:default", [0,5]);
-            llSay(base_npc_control_channel+4, "npcask0"); 
             llSleep(1.0);
-            llSay(base_npc_control_channel+6, "npcsay3");
+            llSay(base_npc_control_channel+3, "npcask0"); 
         }
-        else if(message == "-ad_cognitive!")
+        else if(message == "-a_cognitiveres")
+        {
+            interrupt();
+            llSay(base_npc_control_channel+2, "npcsay3");
+        }
+        else if(message == "-a_cognitive!")
         {
             interrupt();
             llSay(facil_control_channel, "-d4!");
@@ -223,7 +227,7 @@ default
         else if(message == "-ad_fast")
         {
             interrupt();
-            llSay(base_npc_control_channel+0, "npcask1"); 
+            llSay(base_npc_control_channel+7, "npcask1"); 
 
         }
         else if(message == "-ad_fast!")
@@ -267,16 +271,16 @@ default
             interrupt();
             llSay(facil_control_channel, "-d12!");            
         }
-        else if(message == "-ad_moreref")
-        {
-            interrupt();
-            llSay(base_npc_control_channel+2, "npcask2"); 
-        }
-        else if(message == "-ad_moreref!")
-        {
-            interrupt();
-            llSay(facil_control_channel, "-d12!");            
-        }
+        // else if(message == "-ad_moreref")
+        // {
+        //     interrupt();
+        //     llSay(base_npc_control_channel+2, "npcask2"); 
+        // }
+        // else if(message == "-ad_moreref!")
+        // {
+        //     interrupt();
+        //     llSay(facil_control_channel, "-d12!");            
+        // }
         else if(message == "-ad_visual")
         {
             interrupt();
@@ -304,28 +308,30 @@ default
             interrupt();
             llSay(facil_control_channel, "-d14!");            
         }
-        else if(message == "-ad_understand")
+        else if(message == "-a_understand")
         {
             interrupt();
             llSay(base_npc_control_channel+4, "npcaction0");
         }
-        else if(message == "-ad_understand!")
+        else if(message == "-a_understand!")
         {
             interrupt();
             llSay(facil_control_channel, "-d15!");            
         }
-        else if(message == "-ad_discip")
+        else if(message == "-a_discip")
         {
             interrupt();
             llSay(base_npc_control_channel+4, "npcsay16");
         }
-        else if(message == "-ad_discip!")
+        else if(message == "-a_discip!")
         {
             interrupt();
             llSay(facil_control_channel, "-d16!");            
         }
         else if(message == "-ad_confid")
         {
+            llSay(facil_control_channel, "-d17"); 
+            llSleep(2.0);
             interrupt();
             llSay(base_npc_control_channel+6, "npcaction1");
             llSleep(1.0);

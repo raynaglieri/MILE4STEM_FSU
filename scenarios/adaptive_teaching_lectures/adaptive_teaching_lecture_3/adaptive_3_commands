@@ -1,0 +1,57 @@
+3G: -d_deliver
+3H: -d_deliver!
+
+4G: -ad_situation
+4H: -ad_situation!
+
+5G: -ad_understand
+
+6G: -a_cognitive, -a_cognitiveres
+6H: -a_cognitive!
+
+7G: -ad_goals
+7H: -ad_goals!
+
+8G: -ad_diff
+8H: -ad_diff!
+
+9G: -ad_atten
+
+10G: -ad_culture
+10H: -ad_culture!
+
+12G: -ad_fast
+12H: -ad_fast!
+
+13G: -ad_discuss
+13H: -ad_discuss!
+
+14G: -ad_lost
+14H: -ad_lost!
+
+15G: -ad_moreref
+15H: -ad_moreref!
+
+16G: -ad_visual
+16H: -ad_visual!
+
+17G: -ann_example
+17H: -ann_example!
+
+18G: a_understand
+18H: a_understand!
+
+19G: -a_discip
+19H: -a_discip!
+
+20G: -ad_confid
+
+21G: -ann_finish
+21H: -ann_finish!
+
+22G: -ad_impression 
+22H: -ad_impression!
+
+23G: -ad_add 
+
+
