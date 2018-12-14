@@ -2,7 +2,7 @@
 //   November 2017: created by Raymond Naglieri
 //      04/27/18 - updated to support interrupts. Now supports the ability to delay a command.
 //      05/05/18 - modified for problem solving lecture
-//  
+//      11/06/18 - added sound_channel
 integer num_npc = 8;
 integer scenario_offset = 800000;
 integer base_npc_control_channel = 31000;
@@ -12,6 +12,8 @@ integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
 integer facil_capture_channel = -33156;
 integer board_control_channel = 36000;
+integer facil_scribe_channel = 17888; // scribe channel captures 
+integer sound_channel = -44;
 
 set_offset()
 {
@@ -22,6 +24,8 @@ set_offset()
     facil_control_channel = 10101 + scenario_offset;
     facil_capture_channel = -33156 + scenario_offset;
     board_control_channel = 36000 + scenario_offset;  
+    sound_channel = -44 + scenario_offset;
+    facil_scribe_channel = 17888 + scenario_offset;   
 }
 
 string delayed_command = "NULL";
@@ -46,7 +50,8 @@ reset_to_start()
     for (i=0; i<num_npc; i++)
        llSay(base_npc_control_channel+i, "-reset");
     llSay(facil_control_channel, "-reset");  
-    llSay(facil_capture_channel, "-reset");  
+    llSay(facil_capture_channel, "-reset");
+    llSay(facil_scribe_channel, "reset~*~");  
 
 } 
 
@@ -169,9 +174,10 @@ default
         else if(message == "-ad_goals")
         {
             interrupt();
-            llSay(base_npc_control_channel+0, "npccustanim"); 
-            llSay(base_npc_control_channel+4, "npcanim1"); 
-            llSay(base_npc_control_channel+5, "npccustanim");
+            llSay(base_npc_control_channel+0, "npcsay18");
+            // llSay(base_npc_control_channel+0, "npccustanim"); 
+            // llSay(base_npc_control_channel+4, "npcanim1"); 
+            // llSay(base_npc_control_channel+5, "npccustanim");
             llSay(facil_control_channel, "-d5");
 
         }
@@ -245,6 +251,7 @@ default
             llSay(base_npc_control_channel+2, "npcsay11");
             llSleep(1.0);
             llSay(base_npc_control_channel+3, "npcaction4"); 
+            llSay(sound_channel, "crowd_noise");
         }
         else if(message == "-ad_discuss!")
         {
@@ -254,6 +261,7 @@ default
         else if(message == "-ad_lost")
         {
             interrupt();
+            llSay(sound_channel, "stop");
             llSay(base_npc_control_channel+2, "npcsay13"); 
         }
         else if(message == "-ad_lost!")
@@ -330,12 +338,18 @@ default
         }
         else if(message == "-ad_confid")
         {
+            interrupt();
             llSay(facil_control_channel, "-d17"); 
             llSleep(2.0);
             interrupt();
             llSay(base_npc_control_channel+6, "npcaction1");
             llSleep(1.0);
             llSay(base_npc_control_channel+7, "npcsay17");
+            //llSay(facil_control_channel, "-d18"); 
+        }
+        else if(message == "-ad_confid!")
+        {
+            interrupt();
             llSay(facil_control_channel, "-d18"); 
         }
         else if(message == "-ann_finish")

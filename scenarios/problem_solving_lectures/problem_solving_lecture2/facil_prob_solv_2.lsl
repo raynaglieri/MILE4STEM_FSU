@@ -30,6 +30,9 @@ integer facil_action_control_channel = 10103;
 integer button_to_facil_channel = 11500;   // chat channel from green button to facil
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
+integer facil_scribe_channel = 17888; // scribe channel captures 
+
+string facil_scribe_string;
 
 // Message for the dialog and textboxes in the conversation
 string d1_msg1 = "You are to discuss with students the concept of pointers and how to resolve problems with the usage of pointers. Look at the problems on whiteboard to see which parts of these problems might be difficult for students.";
@@ -47,7 +50,7 @@ list   d2_button1 = ["Okay"];
 string d2_msg2 = "Empty";
 list   d2_button2 = ["Okay"];
 
-string dw2_msg1 = "You might want to ask students which parts of the problems are difficult for them as their assessment might be different from yours.";
+string dw2_msg1 = "You might want to ask students which parts of the problems are difficult for them as it might differ from what you think is difficult.";
 list   dw2_button1 = ["Okay"];
 string dw2_msg2 = "null";
 list   dw2_button2 = ["Okay"];
@@ -57,7 +60,7 @@ list   d3_button1 = ["Okay"];
 string d3_msg2 = "Empty";
 list   d3_button2 = ["Okay"];
 
-string dw3_msg1 =  "null";
+string dw3_msg1 =  "You might want to ask the rest of the students which parts of the problems are difficult for them.";
 list   dw3_button1 = ["Okay"];
 string dw3_msg2 = "null";
 list   dw3_button2 = ["Okay"];
@@ -270,18 +273,25 @@ set_offset()
     button_to_facil_channel = 11500 + scenario_offset;   
     backdoor_channel = 20001 + scenario_offset;    
     local_dialog_channel = 11001 + scenario_offset;
+    facil_scribe_channel = 17888 + scenario_offset;
 }
 
 send_response_to_facil(string trainee_response)
 {
     if(facilitator != NULL_KEY)
+    {
         llInstantMessage(facilitator,"Trainee response: " + trainee_response); 
+        llSay(facil_scribe_channel, "scribe~*~" + facil_scribe_string + "::" + trainee_response);
+    }
 }
 
 send_promt_to_facil(string trainee_prompt)
 {
     if(facilitator != NULL_KEY)
+    {
         llInstantMessage(facilitator,"Text Box Prompt: " + trainee_prompt); 
+        facil_scribe_string = trainee_prompt;
+    }
 }
 
 //reset the changeable variables to the original mode
@@ -486,15 +496,23 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
             state D23W;    
         } else if (msg == "-nc1"){   
             llSetTimerEvent(0); 
-            llGiveInventory(trainee, "temp_nc"); 
+            llGiveInventory(trainee, "probl_solving _analysis _aid"); 
             state Idle; 
         } else if (msg == "-nc2"){   
             llSetTimerEvent(0); 
-            llGiveInventory(trainee, "temp_nc"); 
+            llGiveInventory(trainee, "problem_solving_aid"); 
             state Idle; 
         } else if (msg == "-nc3"){   
             llSetTimerEvent(0); 
-            llGiveInventory(trainee, "temp_nc"); 
+            llGiveInventory(trainee, "problem_solving_aid_2"); 
+            state Idle; 
+        } else if (msg == "-nc4"){   
+            llSetTimerEvent(0); 
+            llGiveInventory(trainee, "socaratic_questions"); 
+            state Idle; 
+        } else if (msg == "-nc5"){   
+            llSetTimerEvent(0); 
+            llGiveInventory(trainee, "schema_construction_aid"); 
             state Idle; 
         } else if (msg == "-fhub") {
             llSetTimerEvent(0);

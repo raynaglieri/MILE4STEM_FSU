@@ -1,0 +1,42 @@
+//COMMAND CHANNEL: 1020001
+//NPC 1 CONTROL CHANNEL: 1033000
+//NPC 2 CONTROL CHANNEL: 1033001
+//NPC 3 CONTROL CHANNEL: 1033002
+//NPC 4 CONTROL CHANNEL: 1033003
+//NPC 5 CONTROL CHANNEL: 1033004
+//NPC 6 CONTROL CHANNEL: 1033005
+//NPC 7 CONTROL CHANNEL: 1033006
+//NPC 8 CONTROL CHANNEL: 1033007 
+//SAMPLE NPC COMMAND:  /1033003@Speak-hello
+
+//SCENARIO COMMANDS:
+3G: -d_teach 
+
+4G: -ad_cog
+4H: -ad_cog!
+
+5G: -a_why
+5H: -a_why!
+
+6G: -ad_helpful
+
+7G: -dnc_promt
+
+8G: -a_socratic
+8H: -a_socratic!
+
+9G: -a_motive 
+9H: -a_motive!
+
+10G: -a_explain
+10H: -a_explain!
+
+11G: -ad_prepare
+11H: -ad_prepare!
+
+12G: -a_aid
+12H: -a_aid!
+
+13G: -a_ok
+
+

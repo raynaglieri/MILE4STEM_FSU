@@ -1,0 +1,54 @@
+/*
+ * npc_ask2 - add comment 17F
+ *
+ */
+ 
+NPC PhysicsLab3 begin
+	state default begin
+    	channel -1 "-npc_ask0":
+			askaction(say "I'm trying to set up Capstone and I see a sensor ID on a screen but i am not sure how to link it to a sensor.", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask1":
+			askaction(say "I am not sure how to properly set the graph in Capstone. I set up y-axis as Force, N, is it all?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask2":
+			askaction(say "When I hang mass1 back on force sensor the force value is showing as negative. And yes, I clicked on 'Zero Sensor Now' button before hagning it back. What's wrong?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask3":
+			askaction(say "I have completed my measurments and my mean value of the force is 9.67. Is it correct?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask5":
+			askaction(say  "I am comparing tension or T1 and T2 and I can't get a reading on T2. What's wrong?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask6":
+			askaction(say "I am comparing T1 and T2 using one sensor and using two sensors and results are not the same. What's wrong?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask7":
+			askaction(say "We are still working on our report. Could you give us some extra time?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+
+		channel -1  "npc_ask0_resp0":
+			action (say "Yes, I failed to click on it.");
+		channel -1  "npc_ask0_resp1":
+			action(random say ["Yes", "Yes, I've done it."]);
+		channel -1  "npc_ask1_resp0":
+			action (say "Yes, I didn't set up a sample rate.");
+		channel -1  "npc_ask7_resp0":
+			action (say  "Alright, we'll finish as much as we can.");
+		channel -1  "npc_ask7_resp1":
+			action (say "Great! Thank you so much.");
+
+		channel -1  "npc_cust_ask5_comment0":
+			action (userdefine question_comment);
+
+			channel -1  "npc_empty":
+			action (animation anim_hold);
+  	end
+end

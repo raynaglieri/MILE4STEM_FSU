@@ -194,6 +194,9 @@ list I_default_A28 = [1, 3, 14,
 list I_default_A29 = [1, 3, 14,
 0, 1, "", 0, 1, "", 1, "", 1, "", "animation_cycle", 
 0];
+list I_default_A30 = [1, 3, 14,
+0, 1, "We understand everything. Will you give us a good grade?", 0, 1, "", 1, "", 1, "", "", 
+0];
 list I_default_T = [1, 3, 15, 0, 1, "", 0, 1, "", 1, "", 1, "", ""];
 
 //helper functions
@@ -924,6 +927,13 @@ process_state_specific_msg_default(integer c, string n, key ID, string msg)
     }
     else if (msg == "npccustanim") {
       current_interaction = I_default_A29;
+      curr_int_index = do_ask_action(3);
+      ii = llList2Integer(current_interaction, curr_int_index);
+      if (ii == 0) state Idle_default;
+      else state Respond_default;
+    }
+    else if (msg == "npcsay18") {
+      current_interaction = I_default_A30;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;

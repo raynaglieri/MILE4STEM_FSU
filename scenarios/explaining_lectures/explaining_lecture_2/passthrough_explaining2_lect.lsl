@@ -12,6 +12,8 @@ integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
 integer facil_capture_channel = -33156;
 integer board_control_channel = 36000;
+integer facil_scribe_channel = 17888; // scribe channel captures 
+
 
 set_offset()
 {
@@ -22,6 +24,8 @@ set_offset()
     facil_control_channel = 10101 + scenario_offset;
     facil_capture_channel = -33156 + scenario_offset;
     board_control_channel = 36000 + scenario_offset;  
+    facil_scribe_channel = 17888 + scenario_offset; 
+
 }
 
 string delayed_command = "NULL";
@@ -47,6 +51,7 @@ reset_to_start()
        llSay(base_npc_control_channel+i, "-reset");
     llSay(facil_control_channel, "-reset");  
     llSay(facil_capture_channel, "-reset");  
+    llSay(facil_scribe_channel, "reset~*~");
 
 } 
 

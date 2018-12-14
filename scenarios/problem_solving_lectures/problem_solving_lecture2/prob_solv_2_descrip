@@ -3,7 +3,7 @@
  *  
  */
 
-NPC  ProblemSolvingLecture3 begin
+NPC  ProblemSolvingLecture2 begin
 	state default begin
 		channel -1  "npcask0":
 			askaction(say "I didn’t understand where are the restrictions");
@@ -53,5 +53,9 @@ NPC  ProblemSolvingLecture3 begin
 			action (say "Yes, now I know what they are.");
 		channel -1  "npcsay11":
 			action (say "Thanks for the lecture.");	
+		channel -1  "npcsay12":
+			action (say "All the problems with pointers are difficult");
+		channel -1  "npcsay13":
+			action (say  "No, I think all the problems with arrays are difficult!");	
 	end
 end

@@ -1,6 +1,6 @@
 //  CREATED BY: Raymond Naglieri on 08/31/18
 // DESCRIPTION: Store and send user responses to the faciltator. 
-//       NOTES: Sample call:- /17888 scribe-Question::Response
+//       NOTES: Sample call:- /17888 scribe~*~Question::Response
 //  CHANGE LOG:
 //
 
@@ -23,6 +23,8 @@ set_offset(){
 scribe(string passed_content){
 	++entry_count;
 	list scribe_package = llParseString2List(passed_content, ["::"], []);
+	if(debug)
+		llSay(0, passed_content);
 	list format_content = ["**_Begin Data Entry " + entry_count + "_**"];
 	format_content += [llList2String(scribe_package, 0) + ""];
 	format_content += [llList2String(scribe_package, 1) + ""];
@@ -35,7 +37,7 @@ write_out(){
 }
 
 command_interface(string command){
-	list command_package = llParseString2List(command, ["-"], []);
+	list command_package = llParseString2List(command, ["~*~"], []);
 	if(llList2String(command_package, 0)=="key")
 		facilitator = llList2String(command_package, 1);
 	else if(llList2String(command_package, 0) == "scribe")	

@@ -1,0 +1,69 @@
+/*
+ * npc_ask2 - add comment 17F
+ *
+ */
+ 
+NPC PhysicsLab2 begin
+	state default begin
+    	channel -1 "-npc_ask0":
+		    askaction (say "Hi, I think I need your help. This digital multimeter is broken", sound sound_hold);
+		    rbegin channel 0 1 ["$%&", "wire", "connect", "wires", "connected"] : action (say "Yes, I misconnected the wires.");
+			rend
+			rbegin allothers : action (say "I've tried that!") repeat 
+		    rend
+		channel -1 "npc_ask1":
+			askaction(say "I have a question about measuring 60mA current from the lab manual. I have two knobs here - for 20mA and 200mA ranges. Which one should I choose?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask2":
+			askaction(say "I don't think my digital multimeter works. Can you help me?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask3":
+			askaction(say "I don't think my digital multimeter works. Can you help me?", sound sound_hold);
+			rbegin allothers : action(say "");
+			rend
+		channel -1 "npc_ask5":
+			askaction(say "I have disconnected the wire on top of the resistor but I am not sure how to connect multimeter.", sound sound_hold);
+		channel -1 "npc_ask6":
+			askaction(say "I have measured the current and it's 0.05 A. Is it correct?", sound sound_hold);
+		channel -1 "npc_ask7":
+			askaction(say "I am not sure what rheostat does. I see the slide but I don't know what I'm supposed to do with it.", sound sound_hold);
+		channel -1 "npc_ask8":
+			askaction(say "What do I use to plot the data?", sound sound_hold);
+		channel -1 "npc_ask9":
+			askaction(say "I have measured the voltage and current, here are my measurements. Are they correct?", sound sound_hold);
+    	channel -1 "npc_ask10":
+		    askaction (say  "I have plotted everything but it is not a straight line. How do I know whether it verifies the Ohm's law or not?", sound sound_hold);
+		    rbegin channel 0 1 ["$%&", "observe", "observed", "interpret", "interpreted"] : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+    	channel -1 "-npc_ask11":
+		    askaction (say  "I have plotted everything but it is not a straight line. How do I know whether it verifies the Ohm's law or not?", sound sound_hold);
+		channel -1  "npc_ask4_resp0":
+			action (say "Yes, I'll take a look at the circuit.");
+		channel -1  "npc_ask4_resp1":
+			action (say  "Yes, I used **COM** port for + side of the resistor.");
+		channel -1  "npc_cust_ask2_comment0":
+			action (userdefine question_comment);
+		channel -1  "npc_cust_ask5_comment0":
+			action (userdefine question_comment);
+		channel -1  "npc_cust_ask8_comment0":
+			action (userdefine question_comment);
+		channel -1  "npcsay0":
+			action (say  "Alright, we'll finish as much as we can.");	
+		channel -1  "npcsay1":
+			action (say  "Great! Thank you so much.");	
+   	channel -1 "-npcresp":
+		    action (say "Hi, I think I need your help. This digital multimeter is broken", sound sound_hold);
+		    rbegin channel 0 1 ["$%&", "wire", "connect", "wires", "connected"] : action (say "Yes, I misconnected the wires.");
+			rend
+			rbegin allothers : action (say "") repeat 
+		    rend	
+   	channel -1 "-npcresp1":
+		    action (say " ", sound sound_hold);
+		    rbegin channel 0 5 ["I", "don't", "think", "my", "digital", "multimeter", "works.", "Can", "you", "help", "me?"] : action (say "Sure it doesn't - I can see from here that you are using the wrong port.");
+			rend
+			rbegin allothers : action (say "") repeat 
+		    rend	
+  	end
+end

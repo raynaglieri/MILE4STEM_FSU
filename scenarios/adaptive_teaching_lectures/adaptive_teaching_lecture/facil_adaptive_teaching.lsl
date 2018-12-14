@@ -31,8 +31,16 @@ integer facil_action_control_channel = 10103;
 integer button_to_facil_channel = 11500;   // chat channel from green button to facil
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
+integer facil_scribe_channel = 17888; // scribe channel captures 
+
+string facil_scribe_string;
 
 // Message for the dialog and textboxes in the conversation
+string d0_msg1 = "You are delivering a lecture on a topic of your choice - something hat you have covered as a learner during the past 6 months and that was interesting and challenging for you. You have 2 minutes to prepare";
+list   d0_button1 = ["Okay"];
+string d0_msg2 = "null";
+list   d0_button2 = ["Okay"];
+
 string d1_msg1 = "Are students engaged during your lecture? You may want to check their situational interest by asking how interested they are in the details of the topic or the task.";
 list   d1_button1 = ["Okay"];
 string d1_msg2 = "Check for your learners situational interest!";
@@ -220,6 +228,9 @@ process_common_listen_port_msg(integer c, string n, key ID, string msg)
             reset_glob();
             llSetTimerEvent(0);
             state default;        
+        } else if (msg == "-d0"){     
+            llSetTimerEvent(0);  
+            state D0;    
         } else if (msg == "-d1"){     
             llSetTimerEvent(0);  
             state D1;    
@@ -526,6 +537,40 @@ state Idle {
 } 
 
 //////Intro//////
+state D0
+{
+    state_entry()
+    {
+        common_state_entry("d0", d0_msg1, d0_button1, dialog_box_interact_interval);
+    }  
+
+    touch_start(integer num_detected) 
+    {
+        dialog_dialog_with_timer(d0_msg1, d0_button1,
+                                 d0_msg2, d0_button2, dialog_box_interact_interval); 
+    }
+  
+    timer()
+    {
+        //internal_state = 1;
+        dialog_dialog_with_timer(d0_msg1, d0_button1,
+                                 d0_msg2, d0_button2, dialog_box_interact_interval);
+    }
+    
+    listen(integer c, string n, key ID, string msg)
+    {
+        llSetTimerEvent(dialog_box_interact_interval);
+        if (c == local_dialog_channel)
+        {
+            if (msg == "Okay") 
+            {
+                llSetTimerEvent(0);
+                state Idle;
+            }    
+        } else process_common_listen_port_msg (c, n, ID, msg);         
+    }    
+}
+
 state D1
 {
     state_entry()

@@ -119,8 +119,7 @@ list I_default_A1 = [1, 3, 35,
 0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A2 = [1, 3, 35,
-0, 1, "I think I understood an example but why do we mention 
- several times?.", 0, 1, "", 1, "", 1, "", "",
+0, 1, "I think I understood an example but why do we mention \\n several times?.", 0, 1, "", 1, "", 1, "", "",
 1, 17, 35,
 0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
 0];

@@ -199,7 +199,7 @@ list I_default_A29 = [1, 3, 14,
 0, 1, "Do we get additional points for the questions we have answered in previous lecture?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A30 = [1, 3, 14,
-0, 1, "Yes, questions about learning styles, do we get points for answering them?", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "Yes, questions about Euclidean distance, do we get points for answering them?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A31 = [1, 3, 14,
 0, 1, "we don’t understand anything", 0, 1, "", 1, "", 1, "", "", 

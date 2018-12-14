@@ -1,0 +1,77 @@
+An NPC has one or more "state". Its behavior depends on the state.
+
+At each state, three ways to trigger NPC to perform action/interaction
+
+  - triggered by time (fixed or random)
+  - triggered by text message on a public or private channel
+
+Each action/interaction is defined by an action_response_tree
+
+Each action_response_trees consists of a list of basic or random actions
+followed by a list of responses
+
+There are two basic actions: play annimation, play a sound, and say 
+
+Each response is a text message trigger follows by an action_response_trees.
+
+-----------------------------------------------------------------------------
+
+NPC description language definition:
+
+<NPC> ::= NPCtoken IDtoken Begintoken <state_list> Endtoken
+<state_list> ::= <NPC_state> <state_list> |  <NPC_state>
+<NPC_state> ::= Statetoken IDtoken Begintoken <triggerred_interact_list> Endtoken
+<triggerred_interact_list> ::= <triggerred_interact> <triggerred_interact_list> | <triggerred_interact>
+<trigger_interact> ::= <time_trigger> Colontoken <action_response_tree>
+                    | <channel_trigger> Colontoken <action_response_tree>
+                    | <channel_trigger> Colontoken <askaction_response_tree>
+		    | <channel_trigger> Colontoken <simpleaction>
+<time_trigger> ::= Timetoken Numtoken | Randomtimetoken Numtoken Numtoken
+<channel_trigger> ::= Channeltoken Numtoken Numtoken <string_list> |
+                      Channeltoken Numtoken Stringtoken
+<string_list> ::= Lbrackettoken <slist> Rbrackettoken
+<slist> ::= Stringtoken Commatoken <slist> | Stringtoken
+<action_response_tree> ::= Actiontoken <action> Semitoken <response_list>
+<askaction_response_tree> ::= Askactiontoken <action> Semitoken <response_list>
+<simpleaction> ::= Simpleactiontoken <action> Semitoken
+<action> ::= <actions>
+<actions> ::= Lparentoken basic_action_list Rparentoken
+<basic_action_list> ::= <basic_action> Commatoken <basic_action_list>
+                     | <basic_action>
+<basic_action> ::= Animationtoken IDtoken
+                 | Soundtoken IDtoken
+		 | Saytoken Stringtoken
+		 | Saytoken Numtoken Stringtoken
+		 | Userdefinetoken IDnumber
+		 | <random_actions>
+<random_actions> ::= Randomtoken Saytoken <string_list>
+                   | Randomtoken Saytoken Numtoken <string_list>
+		   | Randomtoken Soundtoken <string_list>
+		   | Randomtoken Animationtoken <stringlist>
+		   
+<response_list> ::=
+                  | <allothersresponse>
+		  | <response> <response_list>
+		  
+<response> ::= Rbegintoken Channeltoken Numtoken Numtoken <string_list> Colontoken <action_response_tree> Rendtoken
+
+<allothersresponse> ::=
+  Rbegintoken Allotherstoken Colontoken Actiontoken <action> Idletoken Rendtoken
+| Rbegintoken Allotherstoken Colontoken Idletoken Rendtoken
+| Rbegintoken Allotherstoken Colontoken Actiontoken <action> Repeattoken Rendtoken
+| Rbegintoken Allotherstoken Colontoken Repeattoken Rendtoken
+| Rbegintoken Allotherstoken Colontoken <action_response_tree> Rendtoken
+
+-------------------------
+
+tokens:
+
+NPCtoken, IDtoken, Begintoken, Endtoken,
+Statetoken, Semitoken, Colontoken, Timetoken,
+Randomtimetoken, Numtoken, Channeltoken, Stringtoken
+Commatoken, Lbrackettoken, Rbrackettoken, Actiontoken Askactiontoken,
+Simpleactiontoken, Lparentoken, Rparentoken, Animationtoken,
+Soundtoken, Saytoken, Userdefinetoken, Randomtoken, Rbegintoken, Rendtoken,
+Idletoken, Repeattoken, Allotherstoken
+
+-----------------------

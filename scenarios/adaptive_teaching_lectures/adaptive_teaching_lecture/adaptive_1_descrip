@@ -1,0 +1,118 @@
+/*
+ * 
+ *  
+ */
+
+NPC  AdaptiveLecture1 begin
+	state default begin
+		channel -1 "npcask0":
+			askaction(say "you are talking too fast", sound sound_hold);
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask1":
+			askaction(say "I don’t understand your example");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask2":
+			askaction(say "I don't understand. Where are the givens?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask3":
+			askaction(say "I thought Problem 2 was just like Problem 1");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask4":
+			askaction(say "I thought the solution for Problem 1 was similar to the solution for Problem 2");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask5":
+			askaction(say "We have questions!");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcask6":
+			askaction(say "Thanks for the lecture");
+			rbegin allothers : action( say " ");
+			rend
+		channel -1  "npcaction0":
+			action (animation anim_hold, say "we have already had the point TA is covering now two weeks ago");
+		channel -1  "npcaction1":
+			action (animation anim_hold, say "had it");
+		channel -1  "npcaction2":
+			action (animation anim_hold, say "you are talking too fast", sound sound_hold);
+		channel -1  "npcaction3":
+			action (animation anim_hold, say "I don’t understand your example.");
+		channel -1  "npcaction4":
+			action (animation anim_hold, say "TA said this goes after that");
+		channel -1  "npcaction5":
+			action (animation anim_hold, say "no, that goes after that");
+		channel -1  "npcaction6":
+			action (animation anim_hold, say "why are we doing this?");
+		channel -1  "npcaction7":
+			action (animation anim_hold, say  "Oh, my....I knew. I did so bad");
+
+
+		channel -1  "npcanim0":
+			action (animation anim_hold);
+		channel -1  "npcanim1":
+			action (animation anim_hold);
+		channel -1  "npcanim2":
+			action (animation anim_hold);
+		channel -1  "npcanim3":
+			action (animation anim_hold);
+		channel -1  "npcanim4":
+			action (animation anim_hold);
+
+		channel -1  "npcrndsay0":
+			action (random say ["Alright", "Gotcha"]);
+		channel -1  "npcrandsay1":
+			action (random say ["Cool. Now I'll be able to do it", "Alright, it's eaiser than I thought", "Great"]);
+
+		channel -1  "npccustanim_0":
+			action (userdefine animation_loop_0);
+		channel -1  "npccustanim_1":
+			action (userdefine animation_loop_1);
+		channel -1  "npccustanim_2":
+			action (userdefine animation_loop_2);
+		channel -1  "npccustanim_3":
+			action (userdefine animation_loop_3);
+		channel -1  "npccustanim_4":
+			action (userdefine animation_loop_4);
+		channel -1  "npccustanim_5":
+			action (userdefine animation_loop_5);
+
+		channel -1  "npcsay0":
+			action (say "I thought I got lost for a second, ok now");
+		channel -1  "npcsay1":
+			action (say "Did we get the handouts?");
+		channel -1  "npcsay2":
+			action (say  "Why do you need them?");
+		channel -1  "npcsay3":
+			action (say "I understand better when I read the handouts");
+		channel -1  "npcsay4":
+			action (say "Oh. I'm awake now!");
+		channel -1  "npcsay5":
+			action (say "I don't understand. I need to see this on paper.");
+		channel -1  "npcsay6":
+			action (say "But you have your laptop.");
+		channel -1  "npcsay7":
+			action (say "I understand better when I work with a piece of paper");
+		channel -1  "npcsay8":
+			action (say "Do we get additional points for the questions we have answered in previous lecture?");
+		channel -1  "npcsay9":
+			action (say "They were not about our subject matter – chill out!");
+		channel -1  "npcsay10":
+			action (say "It’s quite boring");
+		channel -1  "npcsay11":
+			action (say "and not well-structured");
+		channel -1  "npcsay12":
+			action (say "we do it differently in mathematics");
+		channel -1  "npcsay13":
+			action (say  "no");
+		channel -1  "npcsay14":
+			action (say "We got lost about what you have said in a previous part");
+		channel -1  "npcsay15":
+			action (say "we don’t understand anything");
+		channel -1  "npcsay16":
+			action (say "we are visual learners");			
+	end
+end

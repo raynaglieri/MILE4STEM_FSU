@@ -107,12 +107,12 @@ list I_default_A1 = [1, 3, 35,
 0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A2 = [1, 3, 35,
-0, 1, "I thought use of pointers with print function and scan functions is similar but it seems to be different in problems on white board.", 0, 1, "", 1, "", 1, "", "",
+0, 1, "I thought use of pointers with print function and scan functions is similar but it seems to be different in problems on white board. \\n", 0, 1, "", 1, "", 1, "", "",
 1, 17, 35,
 0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A3 = [1, 3, 14,
-0, 1, "I think difficult points are where we need to scan either %s or %s.", 0, 1, "", 1, "", 1, "raisingahand", "", 
+0, 1, "I think difficult points are where we need to scan either %s or %s\\n.", 0, 1, "", 1, "", 1, "raisingahand", "", 
 0];
 list I_default_A4 = [1, 3, 14,
 0, 1, "Ok, I think a correct number of spaces in char command is quite difficult to figure out.", 0, 1, "", 1, "", 1, "raisingahand", "", 
@@ -130,8 +130,7 @@ list I_default_A8 = [1, 3, 14,
 0, 1, "", 0, 1, "", 1, "", 1, "raisingahand", "", 
 0];
 list I_default_A9 = [1, 3, 14,
-0, 1, "but we are discussing pointers. So did you mean you forgot to include 
- and print it?", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "but we are discussing pointers. So did you mean you forgot to include \\n and print it?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A10 = [1, 3, 14,
 0, 1, "But how do we know what is difficult if we didn't solve the problem yet?", 0, 1, "", 1, "", 1, "", "", 
@@ -165,6 +164,17 @@ list I_default_A19 = [1, 3, 14,
 0];
 list I_default_A20 = [1, 3, 14,
 0, 1, "Thanks for the lecture.", 0, 1, "", 1, "", 1, "", "", 
+0];
+list I_default_A21 = [1, 3, 35,
+0, 1, "Are there any other ways to get to the problem solution?", 0, 1, "", 1, "", 1, "", "",
+1, 17, 35,
+0, 0, 0, 0, 5, "okay", "fine", "sounds good", "alright", "thanks", 0, 1, "", 1, "", 1, "", "", 
+0];
+list I_default_A22 = [1, 3, 14,
+0, 1, "All the problems with pointers are difficult", 0, 1, "", 1, "", 1, "", "", 
+0];
+list I_default_A23 = [1, 3, 14,
+0, 1, "No, I think all the problems with arrays are difficult!", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_T = [1, 3, 15, 0, 1, "", 0, 1, "", 1, "", 1, "", ""];
 
@@ -715,6 +725,10 @@ process_state_specific_msg_default(integer c, string n, key ID, string msg)
       current_interaction = I_default_A2;
       state Ask_default;
     }
+    else if (msg == "npcask3") {
+      current_interaction = I_default_A21;
+      state Ask_default;
+    }
     else if (msg == "npcaction0") {
       current_interaction = I_default_A3;
       curr_int_index = do_ask_action(3);
@@ -836,6 +850,20 @@ process_state_specific_msg_default(integer c, string n, key ID, string msg)
     }
     else if (msg == "npcsay11") {
       current_interaction = I_default_A20;
+      curr_int_index = do_ask_action(3);
+      ii = llList2Integer(current_interaction, curr_int_index);
+      if (ii == 0) state Idle_default;
+      else state Respond_default;
+    }
+    else if (msg == "npcsay12") {
+      current_interaction = I_default_A22;
+      curr_int_index = do_ask_action(3);
+      ii = llList2Integer(current_interaction, curr_int_index);
+      if (ii == 0) state Idle_default;
+      else state Respond_default;
+    }
+    else if (msg == "npcsay13") {
+      current_interaction = I_default_A24;
       curr_int_index = do_ask_action(3);
       ii = llList2Integer(current_interaction, curr_int_index);
       if (ii == 0) state Idle_default;

@@ -1,3 +1,5 @@
+//Changes in commands marked with *
+
 3G: -d_discuss
 
 4G: -d_difficult
@@ -11,10 +13,10 @@
 7G: -a_discussion
 7H: -a_discussion!
 
-8G: -anc_analysis
+*8G: -a_analysis
 
-9G: -d_whiteboard
-9H: -d_whiteboard!
+*9G: -dnc_whiteboard
+*9H: -dnc_whiteboard!
 
 10G: -a_restrict
 10H: -a_restrict!
@@ -31,20 +33,19 @@
 14G: -d_strat
 14H: -d_strat!
 
-15G: -d_steps
-15H: -d_steps!
+*15G: -ad_steps
+*15H: -ad_steps!
 
 16G: -a_demonstrate
 16H: -a_demonstrate!
 
-17G: -adnc_approach
-17H: -adnc_approach!
+*17G: -a_approach
 
-18G: -d_socratic
-18H: -d_socratic!
+*18G: -dnc_socratic
+*18H: -dnc_socratic!
 
-19G: -adnc_constitute
-19H: -adnc_constitute!
+*19G: -ad_constitute
+*19H: -ad_constitute!
 
 20G: -a_lectfin
 

@@ -73,7 +73,7 @@ integer npc_action_control_channel; // action control chaneel = base_channel + m
 integer scenario_to_npc;
 
 integer alert_message_channel = 0;
-integer green_button_channel = -35145;   // chat channel from green button to npc, to start the lab
+integer green_button_channel = 11500;   // chat channel from green button to npc, to start the lab
 integer fire_alarm_channel = 101;
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer relay_msg_channel = 29000;
@@ -183,7 +183,7 @@ set_offset()
     scenario_to_npc = 42000 + myid + scenario_offset;
 
     alert_message_channel = 0 + scenario_offset;
-    green_button_channel = -35145 + scenario_offset;
+    green_button_channel = 11500 + scenario_offset;
     fire_alarm_channel = 101 + scenario_offset;
     backdoor_channel = 20001 + scenario_offset;
     relay_msg_channel = 29000 + scenario_offset;

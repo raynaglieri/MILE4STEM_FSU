@@ -226,9 +226,9 @@ default
             interrupt();
             llSleep(2.0);
             llSay(facil_control_channel, "-d5");
-            llSleep(wait);
-            llSay(0, "Instructional break");
-            llSleep(wait);
+            // llSleep(wait);
+            // llSay(0, "Instructional break");
+            // llSleep(wait);
             llSay(npc_action_control_base_channel+4, "@Speak-Do we get additional points for the questions we have answered in previous lecture?");
             llSay(npc_para_control_base_channel, "@Setwait_talk 2");
             llSay(npc_action_control_base_channel, "@Speak-They were not about our subject matter – chill out!");
@@ -249,9 +249,9 @@ default
             interrupt();
             llSleep(2.0);
             llSay(facil_control_channel, "-d6!");
-            npc_stop_animation();
         } else if (message == "-facilemot"){
             interrupt();
+            npc_stop_animation();
             llSleep(2.0);
             llSay(facil_control_channel, "-d7");
             llSleep(wait);
@@ -262,7 +262,7 @@ default
             interrupt();
             llSleep(2.0);
             llSay(facil_control_channel, "-d7!");
-        } else if (message == "-facildiscip"){ //*****************************************************************************
+        } else if (message == "-facildiscip"){ //ERROR!!
             interrupt();
             llSleep(2.0);
             llSay(facil_control_channel, "-d8");
@@ -273,7 +273,7 @@ default
             llSay(base_npc_control_channel+6, "-npcmove6");
             llSay(base_npc_control_channel+5, "-npcmove7");
             //npc_bored_animation();
-        } else if (message == "-facildiscip!"){
+        } else if (message == "-facildiscip!"){ //ERROR!!
             interrupt();
             llSleep(2.0);
             llSay(facil_control_channel, "-d8!");

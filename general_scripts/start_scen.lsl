@@ -20,8 +20,8 @@ integer facil_capture_control_channel = -33156;
 integer facil_key_channel = -33157;  // input from this channel contains the faciltators key
 integer button_to_facil_channel = 11501; // chat channel from green button to facil
 integer button_to_npc_channel = -35145;  // button to npc_channel
-integer local_dialog_channel = 11003;    // this number should be different for 
-                                         // different scripts 
+integer local_dialog_channel = 11003;    // this number should be different for different scripts 
+integer facil_scribe_channel = 17888;
 
 set_offset(){
     facil_beg_guide_channel = 10104 + scenario_offset;
@@ -30,6 +30,7 @@ set_offset(){
     button_to_facil_channel = 11501 + scenario_offset; 
     button_to_npc_channel = -35145 + scenario_offset;  
     local_dialog_channel = 11003 + scenario_offset;
+    facil_scribe_channel = 17888 + scenario_offset;
 }
 
 display_floating_message(){
@@ -65,6 +66,7 @@ default{
                 trainee = ID;
                 string key_package = trainee + ":" + facilitator; 
                 llSay(0, key_package);
+                llSay(facil_scribe_channel, "key~*~" + facilitator);
                 llSay(button_to_facil_channel, key_package);
                 llShout(green_button_channel, key_package);
                 display_floating_message();

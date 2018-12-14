@@ -12,6 +12,7 @@ integer backdoor_channel=20001;
 integer facil_control_channel = 10101;
 integer facil_capture_channel = -33156;
 integer board_control_channel = 36000;
+integer facil_scribe_channel = 17888; // scribe channel captures 
 
 set_offset()
 {
@@ -21,7 +22,8 @@ set_offset()
     backdoor_channel= 20001 + scenario_offset;
     facil_control_channel = 10101 + scenario_offset;
     facil_capture_channel = -33156 + scenario_offset;
-    board_control_channel = 36000 + scenario_offset;  
+    board_control_channel = 36000 + scenario_offset; 
+    facil_scribe_channel = 17888 + scenario_offset;    
 }
 
 string delayed_command = "NULL";
@@ -47,6 +49,7 @@ reset_to_start()
        llSay(base_npc_control_channel+i, "-reset");
     llSay(facil_control_channel, "-reset");  
     llSay(facil_capture_channel, "-reset");  
+    llSay(facil_scribe_channel, "reset~*~");
 
 } 
 
@@ -120,6 +123,7 @@ default
         {
             interrupt();
             llSay(facil_control_channel, "-d1");
+            llSay(board_control_channel, "0");
         }
         else if(message == "-d_discuss!")
         {
@@ -136,10 +140,17 @@ default
             interrupt();
             llSay(facil_control_channel, "-d2!");
         }
-        else if(message == "-d_surface")
+        else if(message == "-ad_surface")
         {
             interrupt();
+            llSay(base_npc_control_channel+2, "npcsay12"); 
+            llSay(base_npc_control_channel+4, "npcsay13"); 
             llSay(facil_control_channel, "-d3");
+        }
+        else if(message == "-d_surface!")
+        {
+            interrupt();
+            llSay(facil_control_channel, "-d3!");
         }
         else if(message == "-a_topic")
         {
@@ -163,21 +174,20 @@ default
             interrupt();
             llSay(facil_control_channel, "-d5");
         }
-        else if(message == "-anc_analysis")
+        else if(message == "-a_analysis")
         {
             interrupt();
             multi_command("npcsay1", [0,1,2,3,4,5,6,7]);
-            llSleep(1.0);
-            llSay(facil_control_channel, "-nc1");
-
         }
-        else if(message == "-d_whiteboard")
+        else if(message == "-dnc_whiteboard")
         {
             interrupt();
+            llSay(facil_control_channel, "-nc1");
+            llSleep(3.0);
             llSay(facil_control_channel, "-d5!");
 
         }
-        else if(message == "-d_whiteboard!")
+        else if(message == "-dnc_whiteboard!")
         {
             interrupt();
             llSay(facil_control_channel, "-d5!");
@@ -207,7 +217,7 @@ default
         else if(message == "-dnc_schema")
         {
             interrupt();
-            llSay(facil_control_channel, "-nc2"); 
+            llSay(facil_control_channel, "-nc5"); 
             llSleep(1.0);
             llSay(facil_control_channel, "-d8"); 
         }
@@ -236,12 +246,15 @@ default
             interrupt();
             llSay(facil_control_channel, "-d10!");            
         }
-        else if(message == "-d_steps")
+        else if(message == "-ad_steps")
         {
             interrupt();
+            llSay(board_control_channel, "1");
+            llSleep(2.0);
+            llSay(base_npc_control_channel+4, "npcask3");
             llSay(facil_control_channel, "-d11");
         }
-        else if(message == "-d_steps!")
+        else if(message == "-ad_steps!")
         {
             interrupt();
             llSay(facil_control_channel, "-d11!");            
@@ -258,32 +271,31 @@ default
             interrupt(); 
             llSay(facil_control_channel, "-d12!"); 
         }
-       else if(message == "-adnc_approach")
+       else if(message == "-a_approach")
         {
             interrupt();
             llSay(base_npc_control_channel+6, "npcsay4"); 
             llSleep(1.0);
             llSay(base_npc_control_channel+3, "npcsay5"); 
-            llSay(facil_control_channel, "-nc3"); 
-            llSleep(2.0); 
-            llSay(facil_control_channel, "-d13"); 
+            // llSay(facil_control_channel, "-nc2"); 
+            // llSleep(2.0); 
+            // llSay(facil_control_channel, "-nc3"); 
+            // llSleep(2.0);
+            // llSay(facil_control_channel, "-d13"); 
         }
-        else if(message == "-adnc_approach!")
-        {
-            interrupt(); 
-            llSay(facil_control_channel, "-d13!"); 
-        }
-        else if(message == "-d_socratic")
+        else if(message == "-dnc_socratic")
         {
             interrupt(); 
             llSay(facil_control_channel, "-d14"); 
+            llSleep(3.0);
+            llSay(facil_control_channel, "-nc4");
         }
-        else if(message == "-d_socratic!")
+        else if(message == "-dnc_socratic!")
         {
             interrupt(); 
             llSay(facil_control_channel, "-d14!"); 
         }
-        else if(message == "-adnc_constitute")
+        else if(message == "-ad_constitute")
         {
             interrupt();
             llSay(base_npc_control_channel+0, "npcsay6"); 
@@ -291,11 +303,10 @@ default
             llSay(base_npc_control_channel+4, "npcsay7"); 
             llSleep(1.0);
             llSay(base_npc_control_channel+5, "npcsay8"); 
-            llSay(facil_control_channel, "-nc3");
             llSleep(2.0); 
             llSay(facil_control_channel, "-d15"); 
         }
-        else if(message == "-adnc_constitute!")
+        else if(message == "-ad_constitute!")
         {
             interrupt(); 
             llSay(facil_control_channel, "-d15!"); 

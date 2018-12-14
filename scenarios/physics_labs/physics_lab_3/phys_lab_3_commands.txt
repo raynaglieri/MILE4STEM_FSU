@@ -1,0 +1,49 @@
+channel: 1220001
+
+5F: -d_teach
+
+6F: -d_start
+6G: -d_start.r1
+
+7G: -d_board.r1
+
+9G, 9G: -d_continue
+
+11G: -a_capstone
+12G: -a_capstone.r1
+	 -a_capstone.r2
+
+13G: -ad_setup
+14G: -ad_setup.r1
+	 -ad_setup.r2
+
+15F: -d_tension
+15G: -d_tension.r2
+
+16G: -ad_sign
+17G: -ad_sign.r2
+
+18G: -adnc_mean
+19G: -adnc_mean.r1
+	 -adnc_mean.r2
+	 -adnc_mean.nc
+
+20G: -ad_sensors
+21G: -ad_sensors.r2
+
+22G: -ad_results
+23G: -ad_results.r2
+
+25F: d_over
+
+26G: -ad_time
+27G: -ad_time.r1
+	 -ad_time.r2
+
+28F: -d_feedback1
+
+29F: -d_feedback2
+
+31F: -d_completed
+
+

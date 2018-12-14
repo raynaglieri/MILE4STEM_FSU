@@ -1,0 +1,39 @@
+/*
+ * 
+ *  
+ */
+
+NPC  ProblemSolvingLecture3 begin
+	state default begin
+		channel -1  "npcask0":
+			askaction(say "Can you say it again? Why did you do that at the beginning?");
+			rbegin allothers : action(random say ["okay", "fine", "sounds good", "alright", "thanks"]);
+			rend
+		channel -1  "npcaction0":
+			action (animation raisingahand, say "Could you show me how to do this problem?");
+		channel -1  "npcaction1":
+			action (animation raisingahand, say "When I did this, I didn't include line 3. Why do you need that?"); 
+		channel -1  "npcaction2":
+			action (animation raisingahand, say "Is there anything we can refer to when solving this type of problems?"); 
+		channel -1  "npcanim0":
+			action (animation avatar_express_bored);
+		channel -1  "npcanim1":
+			action (animation avatar_stretch);
+		channel -1  "npcanim2":
+			action (animation anim_hold);
+		channel -1  "npcanim3":
+			action (animation raisingahand);
+		channel -1  "npcsay0":
+			action (say "Now I see how to solve this problem. This is really helpful! Thank you.");
+		channel -1  "npcsay1":
+			action (say "I don't know.");
+		channel -1  "npcsay2":
+			action (say "I don't understand how strings works.");
+		channel -1  "npcsay3":
+			action (say "That looks great! Thanks!");
+		channel -1  "npcsay4": 
+			action (say "Wait, I don't think I understand how to use the job aid. Can you explain again?");
+		channel -1  "npcsay5":
+			action (say "Ok, great");
+	end
+end

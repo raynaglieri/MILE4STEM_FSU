@@ -27,9 +27,12 @@ integer facil_state_control_channel = 10101;  // chat channel for human control 
 integer facil_para_control_channel = 10102;
 integer facil_action_control_channel = 10103;
 
-integer button_to_facil_channel = 11500;   // chat channel from green button to facil
+integer button_to_facil_channel = 11501;   // chat channel from green button to facil
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
+integer facil_scribe_channel = 17888; // scribe channel captures
+
+string facil_scribe_string;
 
 // Message for the dialog and textboxes in the conversation
 string d1_msg1 = "Announce a group game in text chat: students have to categorize 6 problems on whiteboard into groups.";
@@ -180,19 +183,27 @@ set_offset()
     button_to_facil_channel = 11500 + scenario_offset;   
     backdoor_channel = 20001 + scenario_offset;    
     local_dialog_channel = 11001 + scenario_offset;
+    facil_scribe_channel = 17888 + scenario_offset;
 }
 
 send_response_to_facil(string trainee_response)
 {
     if(facilitator != NULL_KEY)
+    {
         llInstantMessage(facilitator,"Trainee response: " + trainee_response); 
+        llSay(facil_scribe_channel, "scribe~*~" + facil_scribe_string + "::" + trainee_response);
+    }
 }
 
 send_promt_to_facil(string trainee_prompt)
 {
     if(facilitator != NULL_KEY)
+    {
         llInstantMessage(facilitator,"Text Box Prompt: " + trainee_prompt); 
+        facil_scribe_string = trainee_prompt;
+    }
 }
+
 
 //reset the changeable variables to the original mode
 reset_glob()

@@ -30,6 +30,9 @@ integer facil_action_control_channel = 10103;
 integer button_to_facil_channel = 11500;   // chat channel from green button to facil
 integer backdoor_channel = 20001;    // channel to talk to backdoor script
 integer local_dialog_channel = 11001; // chat channel for feedbacks from the dialog box
+integer facil_scribe_channel = 17888; // scribe channel captures 
+
+string facil_scribe_string;
 
 // Message for the dialog and textboxes in the conversation
 string d1_msg1 = "You are to deliver a lecture on concept of top-down processing of information. If it comes first - like a formula, it happens first. The user needs to ensure certain operations, like an input, happen first.You have 2 minutes to prepare";
@@ -72,7 +75,7 @@ list   dw4_button1 = ["Okay"];
 string dw4_msg2 = "null";
 list   dw4_button2 = ["Okay"];
 
-string d5_msg1 = "As students have different goals in this course, you might want to ask them what are these goals.";
+string d5_msg1 = "Students typically have different goals in the course, some just care about the grades. You might want to ask students what are these goals to have a better idea about your learners.";
 list   d5_button1 = ["Okay"];
 string d5_msg2 = "Empty";
 list   d5_button2 = ["Okay"];
@@ -262,26 +265,22 @@ list   dw23_button1 = ["Okay"];
 string dw23_msg2 = "null";
 list   dw23_button2 = ["Okay"];
 
-set_offset()
-{
-    facil_state_control_channel = 10101 + scenario_offset; 
-    facil_para_control_channel = 10102 + scenario_offset;
-    facil_action_control_channel = 10103 + scenario_offset;
-    button_to_facil_channel = 11500 + scenario_offset;   
-    backdoor_channel = 20001 + scenario_offset;    
-    local_dialog_channel = 11001 + scenario_offset;
-}
-
 send_response_to_facil(string trainee_response)
 {
     if(facilitator != NULL_KEY)
+    {
         llInstantMessage(facilitator,"Trainee response: " + trainee_response); 
+        llSay(facil_scribe_channel, "scribe~*~" + facil_scribe_string + "::" + trainee_response);
+    }
 }
 
 send_promt_to_facil(string trainee_prompt)
 {
     if(facilitator != NULL_KEY)
+    {
         llInstantMessage(facilitator,"Text Box Prompt: " + trainee_prompt); 
+        facil_scribe_string = trainee_prompt;
+    }
 }
 
 //reset the changeable variables to the original mode

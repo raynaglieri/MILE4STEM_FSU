@@ -1434,7 +1434,7 @@ state AnimationHandle
         {
             osNpcStopAnimation(npc, currentanimation);
             state FollowUp;        
-        }
+        } 
     }
 
     listen(integer c, string n, key ID, string msg)

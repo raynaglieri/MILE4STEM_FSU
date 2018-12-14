@@ -44,7 +44,7 @@
 19G: -a_discip
 19H: -a_discip!
 
-20G: -ad_confid
+20G: -ad_confid,-ad_confid!
 
 21G: -ann_finish
 21H: -ann_finish!
