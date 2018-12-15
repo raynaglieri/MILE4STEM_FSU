@@ -1,0 +1,99 @@
+/*
+ * this tests an NPC with three moods, depending on the mood
+ * the npc may react to the same command in different ways
+ * each may have its own timed activities
+ * use '/31000 -goto:statename' to go to state 'statename'
+ * for example '/31000 -goto:badmood'.
+ * 
+ * you will have to read this to know how to test it.
+ */
+
+NPC mood begin
+  state default begin
+    channel -1 "-three1":  action (animation Okay_nodding, say "Hello world", sound is_it_correct_male);
+    channel -1 "-s1":  action (animation Okay_nodding, say "I feel normal today", sound is_it_correct_male);
+    channel -1 "-s2" : askaction (say "msg_for_s1"); 
+                           rbegin channel 0 1 ["l1", "ll1", "lll1"]: 
+                             action (say "msg1_for_response 1");  
+                               rbegin channel 0 1 ["l2", "ll2", "lll2"]: 
+                                 action (say "msg1_for_LLLL2");  
+                                   rbegin channel 0 1 ["l3", "ll3", "lll3"]: 
+                                     action (say "msg1_for_LLLL3");  
+                                   rend
+                                   rbegin channel 0 1 ["a3", "aa3", "aaa3"]: 
+                                     action (say "msg1_for_XXXX3");  
+                                   rend
+			           rbegin allothers:
+			             action (say "CCC")
+			             repeat
+                                   rend
+                               rend
+                               rbegin channel 0 1 ["a2", "aa2", "aaa2"]: 
+                                  action (say "msg1_for_AAAA2");  
+                               rend
+			       rbegin allothers:
+			         action (say "BBB")
+			         repeat
+                               rend
+                           rend
+                           rbegin channel 0 2 ["111", "222", "333"]: 
+                             action (say "msg1_for_response 2");  
+                           rend
+			   rbegin allothers:
+			     action (say "AAA", animation exp_anim)
+			     repeat
+                           rend
+    time 20 : action (random say ["normal 1", "normal 2", "normal 3", "normal 4"]);
+  end
+
+state badmood begin
+    channel -1 "-three1":  action (random say ["I am bored.", "Get lost.", "Go away"]);
+    channel -1 "-s1":  askaction (say "I am in a bad mood", sound is_it_correct_male);
+    randomtime 30 40 : action (random say ["I am bored", "Get lost", "Go away"]);
+  end
+  
+  state goodmood begin
+    channel -1 "-three1":  askaction (say "What a beautiful day.");
+    channel -1 "-s1":  action (say "i am in a good mood", sound is_it_correct_male);
+    time 10 : action (random say ["Hello, Sunshine.", "I love you", "What is wonderful day."]);  end
+
+  state others begin
+    channel -1 "-s1": action (animation avatar_express_wink, say "express wink");
+    channel -1 "-s2": askaction (say "s2 msg"); 
+                           rbegin channel 0 1 ["rs2", "rrs2", "rrrs2"]: 
+                             action (say "correct react to s2 msg 1",
+			     sound am_i_doing_wrong_female); 
+                           rend
+			   rbegin channel 0 2 ["111", "222", "333"]: 
+                             action (say "correct react to s2 msg 2");  
+                           rend
+			   rbegin allothers:
+			     action (say "I have tried that", animation avatar_express_wink)
+			     repeat
+                           rend
+    channel -1 "-s3":   action (say "s3 msg"); 
+                           rbegin channel 0 1 ["rs3", "rrs3", "rrrs3"]: 
+                             action (say "correct react to msg s3");
+                           rend
+			   rbegin allothers:
+			     action (say "I have tried that")
+			     repeat
+                           rend
+     channel -1 "-s4": askaction (say "s4 msg"); 
+                           rbegin channel 0 1 ["rs4", "rrs4", "rrrs4"]: 
+                             action (say "correct react to msg s4"); 
+                           rend
+			   rbegin allothers:
+			     action (say "whatever, I move on", sound extra_time_male)
+			     idle
+                           rend
+     channel -1 "-s5": askaction (say "s5 msg"); 
+                           rbegin channel 0 1 ["rs5", "rrs5", "rrrs5"]: 
+                             action (say "correct react to msg s5"); 
+                           rend
+			   rbegin allothers:
+			     action (say "Can i have more time?", sound extra_time_male)
+			     repeat
+                           rend			   
+  end
+end

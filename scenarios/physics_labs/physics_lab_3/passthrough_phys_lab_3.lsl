@@ -202,7 +202,7 @@ default
             llSay(base_npc_control_channel+2, "npc_empty"); 
             llSay(facil_control_channel, "-d6!");
         }
-        else if(message == "-adnc_mean")
+        else if(message == "-ad_mean")
         {
             interrupt();
             llSay(base_npc_control_channel+7, "npc_ask3"); 
@@ -212,8 +212,6 @@ default
             interrupt();
             llSay(base_npc_control_channel+7, "npc_empty"); 
             llSay(facil_control_channel, "-d7!");
-            llSleep(4.0);
-            llSay(facil_control_channel, "-nc1");
         }
         else if(message == "-ad_mean.r2")
         {
@@ -225,7 +223,7 @@ default
         {
             interrupt();
             llSay(base_npc_control_channel+7, "npc_empty"); 
-            llSay(facil_control_channel, "-d7!");
+            llSay(facil_control_channel, "-nc1");
     
         }
         else if(message == "-ad_sensors")

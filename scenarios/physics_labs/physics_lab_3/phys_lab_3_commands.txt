@@ -23,10 +23,10 @@ channel: 1220001
 16G: -ad_sign
 17G: -ad_sign.r2
 
-18G: -adnc_mean
-19G: -adnc_mean.r1
-	 -adnc_mean.r2
-	 -adnc_mean.nc
+18G: -ad_mean
+19G: -ad_mean.r1
+	 -ad_mean.r2
+     -ad_mean.nc
 
 20G: -ad_sensors
 21G: -ad_sensors.r2
