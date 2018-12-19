@@ -217,10 +217,10 @@ list I_default_A35 = [1, 3, 14,
 0, 1, "Do we get additional points for the questions we have answered in previous lecture?", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A36 = [1, 3, 14,
-0, 1, "They were not about our subject matter â€“ chill out!", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "They were not about our subject matter - chill out!", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A37 = [1, 3, 14,
-0, 1, "Itâ€™s quite boring", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "It's quite boring", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A38 = [1, 3, 14,
 0, 1, "and not well-structured", 0, 1, "", 1, "", 1, "", "", 
@@ -235,7 +235,7 @@ list I_default_A41 = [1, 3, 14,
 0, 1, "We got lost about what you have said in a previous part", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A42 = [1, 3, 14,
-0, 1, "we donâ€™t understand anything", 0, 1, "", 1, "", 1, "", "", 
+0, 1, "we don't understand anything", 0, 1, "", 1, "", 1, "", "", 
 0];
 list I_default_A43 = [1, 3, 14,
 0, 1, "we are visual learners", 0, 1, "", 1, "", 1, "", "", 
@@ -766,7 +766,7 @@ do_response_action(string msg)
 // Slightly modified from the NPCDL Template to better handle routine request
 run_routine(string s)
 {
-   list routine_info = llParseString2List(s, "_", "");
+  list routine_info = llParseString2List(s, "_", "");
   if (s=="reset_all") reset_all();
   else if (llList2String(routine_info, 0) == "question")
   {
@@ -795,7 +795,9 @@ run_routine(string s)
   }
   else if (llList2String(routine_info, 0) == "animation")
   {
-    osNpcStopAnimation(currentanimation);
+    if(debug_level)
+        llSay(PUBLIC_CHANNEL, "DEBUG~Question request");
+    osNpcStopAnimation(npc, currentanimation);
     if(llList2String(routine_info, 1) == "loop0")
     {
        currentanimation = "avatar_express_wink";
@@ -819,7 +821,9 @@ run_routine(string s)
     else if(llList2String(routine_info, 1) == "loop5")
     {
       currentanimation = "avatar_express_wink";  
-    }    
+    } else state Idle_default;
+    
+    state Animation_cycle;   
   }
   else osNpcSay(npc, "routine "+ s + " is not supported.");
 }
@@ -842,305 +846,306 @@ response_exit_state()
 
 process_state_specific_msg_default(integer c, string n, key ID, string msg)
 {
-  integer ii;
-  if (c == npc_state_control_channel) {
-      if (c == npc_state_control_channel) {
-    if (msg == "npcask0") {
-      current_interaction = I_default_A0;
-      state Ask_default;
+    integer ii;
+    if (c == npc_state_control_channel) {
+        if (c == npc_state_control_channel) {
+            if (msg == "npcask0") {
+              current_interaction = I_default_A0;
+              state Ask_default;
+            }
+            else if (msg == "npcask1") {
+              current_interaction = I_default_A1;
+              state Ask_default;
+            }
+            else if (msg == "npcask2") {
+              current_interaction = I_default_A2;
+              state Ask_default;
+            }
+            else if (msg == "npcask3") {
+              current_interaction = I_default_A3;
+              state Ask_default;
+            }
+            else if (msg == "npcask4") {
+              current_interaction = I_default_A4;
+              state Ask_default;
+            }
+            else if (msg == "npcask5") {
+              current_interaction = I_default_A5;
+              state Ask_default;
+            }
+            else if (msg == "npcask6") {
+              current_interaction = I_default_A44;
+              state Ask_default;
+            }
+            else if (msg == "npcaction0") {
+              current_interaction = I_default_A6;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcaction1") {
+              current_interaction = I_default_A7;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcaction2") {
+              current_interaction = I_default_A8;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcaction3") {
+              current_interaction = I_default_A9;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcaction4") {
+              current_interaction = I_default_A10;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcaction5") {
+              current_interaction = I_default_A11;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcaction6") {
+              current_interaction = I_default_A12;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcaction7") {
+              current_interaction = I_default_A13;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcanim0") {
+              current_interaction = I_default_A14;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcanim1") {
+              current_interaction = I_default_A15;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcanim2") {
+              current_interaction = I_default_A16;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcanim3") {
+              current_interaction = I_default_A17;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcanim4") {
+              current_interaction = I_default_A18;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcrndsay0") {
+              current_interaction = I_default_A19;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcrandsay1") {
+              current_interaction = I_default_A20;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npccustanim_0") {
+              current_interaction = I_default_A21;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npccustanim_1") {
+              current_interaction = I_default_A22;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npccustanim_2") {
+              current_interaction = I_default_A23;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npccustanim_3") {
+              current_interaction = I_default_A24;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npccustanim_4") {
+              current_interaction = I_default_A25;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npccustanim_5") {
+              current_interaction = I_default_A26;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay0") {
+              current_interaction = I_default_A27;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay1") {
+              current_interaction = I_default_A28;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay2") {
+              current_interaction = I_default_A29;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay3") {
+              current_interaction = I_default_A30;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay4") {
+              current_interaction = I_default_A31;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay5") {
+              current_interaction = I_default_A32;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay6") {
+              current_interaction = I_default_A33;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay7") {
+              current_interaction = I_default_A34;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay8") {
+              current_interaction = I_default_A35;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay9") {
+              current_interaction = I_default_A36;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay10") {
+              current_interaction = I_default_A37;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay11") {
+              current_interaction = I_default_A38;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay12") {
+              current_interaction = I_default_A39;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay13") {
+              current_interaction = I_default_A40;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay14") {
+              current_interaction = I_default_A41;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay15") {
+              current_interaction = I_default_A42;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else if (msg == "npcsay16") {
+              current_interaction = I_default_A43;
+              curr_int_index = do_ask_action(3);
+              ii = llList2Integer(current_interaction, curr_int_index);
+              if (ii == 0) state Idle_default;
+              else state Respond_default;
+            }
+            else osNpcSay(npc, "Unknown command in state control channel.");
+        }
     }
-    else if (msg == "npcask1") {
-      current_interaction = I_default_A1;
-      state Ask_default;
-    }
-    else if (msg == "npcask2") {
-      current_interaction = I_default_A2;
-      state Ask_default;
-    }
-    else if (msg == "npcask3") {
-      current_interaction = I_default_A3;
-      state Ask_default;
-    }
-    else if (msg == "npcask4") {
-      current_interaction = I_default_A4;
-      state Ask_default;
-    }
-    else if (msg == "npcask5") {
-      current_interaction = I_default_A5;
-      state Ask_default;
-    }
-    else if (msg == "npcask6") {
-      current_interaction = I_default_A44;
-      state Ask_default;
-    }
-    else if (msg == "npcaction0") {
-      current_interaction = I_default_A6;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcaction1") {
-      current_interaction = I_default_A7;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcaction2") {
-      current_interaction = I_default_A8;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcaction3") {
-      current_interaction = I_default_A9;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcaction4") {
-      current_interaction = I_default_A10;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcaction5") {
-      current_interaction = I_default_A11;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcaction6") {
-      current_interaction = I_default_A12;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcaction7") {
-      current_interaction = I_default_A13;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcanim0") {
-      current_interaction = I_default_A14;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcanim1") {
-      current_interaction = I_default_A15;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcanim2") {
-      current_interaction = I_default_A16;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcanim3") {
-      current_interaction = I_default_A17;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcanim4") {
-      current_interaction = I_default_A18;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcrndsay0") {
-      current_interaction = I_default_A19;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcrandsay1") {
-      current_interaction = I_default_A20;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npccustanim_0") {
-      current_interaction = I_default_A21;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npccustanim_1") {
-      current_interaction = I_default_A22;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npccustanim_2") {
-      current_interaction = I_default_A23;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npccustanim_3") {
-      current_interaction = I_default_A24;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npccustanim_4") {
-      current_interaction = I_default_A25;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npccustanim_5") {
-      current_interaction = I_default_A26;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay0") {
-      current_interaction = I_default_A27;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay1") {
-      current_interaction = I_default_A28;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay2") {
-      current_interaction = I_default_A29;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay3") {
-      current_interaction = I_default_A30;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay4") {
-      current_interaction = I_default_A31;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay5") {
-      current_interaction = I_default_A32;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay6") {
-      current_interaction = I_default_A33;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay7") {
-      current_interaction = I_default_A34;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay8") {
-      current_interaction = I_default_A35;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay9") {
-      current_interaction = I_default_A36;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay10") {
-      current_interaction = I_default_A37;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay11") {
-      current_interaction = I_default_A38;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay12") {
-      current_interaction = I_default_A39;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay13") {
-      current_interaction = I_default_A40;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay14") {
-      current_interaction = I_default_A41;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay15") {
-      current_interaction = I_default_A42;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else if (msg == "npcsay16") {
-      current_interaction = I_default_A43;
-      curr_int_index = do_ask_action(3);
-      ii = llList2Integer(current_interaction, curr_int_index);
-      if (ii == 0) state Idle_default;
-      else state Respond_default;
-    }
-    else osNpcSay(npc, "Unknown command in state control channel.");
-  }
 }
 
 process_state_specific_control_msg(integer c, string n, key ID, string msg)

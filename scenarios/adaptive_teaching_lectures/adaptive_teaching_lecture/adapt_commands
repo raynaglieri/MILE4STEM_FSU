@@ -1,0 +1,70 @@
+channel: 220001
+
+3G: d_teach
+
+4G: -ad_engage
+4H: -ad_engage.r1
+
+5G: -d_interest
+5H: -d_interest.r1
+
+6G: -ad_states
+6H: -ad_states.r1
+
+7G: -a_lost
+7H: -a_lost.r1
+
+8G: -ad_handout
+8H: -ad_handout.r2
+
+
+9G: -ad_points
+	-ad_points.nc
+
+11G: -ad_motivate
+11H: -ad_motivate.r1
+
+12G: -ad_cues
+12H: -ad_cues.r2
+
+13G: -ad_differ 
+13H: -ad_differ.r1 
+ 	 -ad_differ.r2
+
+14G: -ad_covered
+14H: -ad_covered.r2
+
+15G: -ad_alternate
+15H: -ad_alternate.r2
+
+16G: -ad_speed
+16H: -ad_speed.r2
+
+17G: -annd_present
+17H: -annd_present.r2
+
+18G: -ad_understand
+18H: -ad_understand.r2
+
+19G: -ad_chat
+19H: -ad_chat.r2
+
+20G: -ad_sequence
+20H: -ad_sequence.r2
+
+21G: -ad_visual
+21H: -ad_visual.r2
+
+22G: -ad_relate
+22H: -ad_relate.r2
+
+23G: -ad_build
+
+24G: -ann_finish
+24H: -ann_finish.r2
+
+25G: -d_reluctant
+25H: -d_reluctant
+
+26G: -ad_add
+ 
